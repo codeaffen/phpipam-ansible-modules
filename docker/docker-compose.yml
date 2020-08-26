@@ -1,0 +1,8 @@
+version: '3'
+services:
+  phpIPAM-www:
+    image: phpipam/phpipam-www
+    ports:
+      - "8080:80"
+  phpIPAM-DB:
+    image: "mysql"
