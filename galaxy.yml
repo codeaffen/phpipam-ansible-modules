@@ -1,0 +1,14 @@
+namespace: "cmeissner"
+name: "phpipam"
+description: Ansible Modules to manage phpIPAM installations
+authors:
+  - "Christian Meißner <cme+ansible@meissner.sh>"
+version: "0.0.1"
+license:
+  - "GPL-3.0-or-later"
+tags:
+  - phpipam
+readme: "README.md"
+homepage: "https://phpipam.org/"
+repository: "https://github.com/cmeissner/phpipam-ansible-modules"
+issues: "https://github.com/cmeissner/phpipam-ansible-modules/issues"
