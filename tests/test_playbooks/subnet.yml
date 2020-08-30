@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/subnet.yml
+  tasks:
+    - name: create subnet
+      include: tasks/subnet.yml
+
+    - name: create subnet again, no change
+      include: tasks/subnet.yml
+    
+    - name: delete subnet
+      include: tasks/subnet.yml
+      vars:
+        subnet_state: absent

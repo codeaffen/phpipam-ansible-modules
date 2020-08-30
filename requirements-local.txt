@@ -6,3 +6,7 @@ cryptography
 packaging
 requests
 phpipam-client
+pytest
+pytest-xdist
+flake8
+

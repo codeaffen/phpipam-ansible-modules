@@ -61,21 +61,24 @@ entity:
 
 from ansible_collections.codeaffen.phpipam.plugins.module_utils.phpipam_helper import PhpipamAnsibleModule
 
+
 class PhpipamSubnetModule(PhpipamAnsibleModule):
     pass
 
+
 def main():
     module = PhpipamAnsibleModule(
-        argument_spec = dict (
-            server_url = dict(type='str', required=True),
-            app_id = dict(type='str', required=True),
-            username = dict(type='str', required=True),
-            password = dict(type='str', required=True),
+        argument_spec=dict(
+            server_url=dict(type='str', required=True),
+            app_id=dict(type='str', required=True),
+            username=dict(type='str', required=True),
+            password=dict(type='str', required=True),
             cidr=dict(type='str', required=True)
         )
     )
 
     module.connect()
+
 
 if __name__ == "__main__":
     main()
