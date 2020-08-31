@@ -14,7 +14,7 @@ try:
     HAS_PHPIPAM = True
 except ImportError:
     HAS_PHPIPAM = False
-    PHPIPAM_IMP_ERR = traceback.format.exc()
+    PHPIPAM_IMP_ERR = traceback.format_exc()
 
 from collections import defaultdict
 
@@ -54,8 +54,8 @@ class PhpipamAnsibleModule(AnsibleModule):
         self._phpipamapi_app_id = self.phpipam_params.get('app_id')
         self._phpipamapi_username = self.phpipam_params.get('username')
         self._phpipamapi_password = self.phpipam_params.get('password')
-        self._phpipamapi_path = self.kwargs.get('phpipam_path')
-        self._phpipamapi_params = self.kwargs.get('phpipam_params')
+        self._phpipamapi_path = kwargs.get('phpipam_path')
+        self._phpipamapi_params = kwargs.get('phpipam_params')
 
     def connect(self):
         self.phpipamapi = PhpIpamClient(
