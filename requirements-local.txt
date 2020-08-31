@@ -1,0 +1,8 @@
+ansible >= 2.9, < 2.10
+wheel
+jinja2
+PyYAML
+cryptography
+packaging
+requests
+phpipam-client

@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# for local testing
+ansible_collections
+*.tar.gz

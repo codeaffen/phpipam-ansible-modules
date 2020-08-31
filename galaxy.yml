@@ -1,4 +1,4 @@
-namespace: "cmeissner"
+namespace: "codeaffen"
 name: "phpipam"
 description: Ansible Modules to manage phpIPAM installations
 authors:
@@ -9,6 +9,6 @@ license:
 tags:
   - phpipam
 readme: "README.md"
-homepage: "https://phpipam.org/"
-repository: "https://github.com/cmeissner/phpipam-ansible-modules"
-issues: "https://github.com/cmeissner/phpipam-ansible-modules/issues"
+homepage: "https://phpipam.codeaffen.org/"
+repository: "https://github.com/codeaffen/phpipam-ansible-modules"
+issues: "https://github.com/codeaffen/phpipam-ansible-modules/issues"
