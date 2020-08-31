@@ -1,4 +1,5 @@
 {
     "python.pythonPath": "venv/bin/python",
+    "python.autoComplete.extraPaths": ["./tests/scripts"],
     "python.envFile": "${workspaceFolder}/.env"
 }
