@@ -23,12 +23,12 @@ class PhpipamEnvironment(PhpipamBaseContainer):
         self.container_specs = self.container_specs + kwargs.pop('container_specs', [])
         self.docker_client = docker.from_env()
 
-        for idx, container in enumerate(self.container_specs):
+        for container in self.container_specs:
             self._pull_image(image=container['image'])
 
     def deploy_phpipam(self):
         self._create_network()
-        for idx, container in enumerate(self.container_specs):
+        for container in self.container_specs:
             self._spawn_container()
 
     def _pull_image(self, **kwargs):
