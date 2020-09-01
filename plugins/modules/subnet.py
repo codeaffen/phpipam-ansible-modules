@@ -34,7 +34,7 @@ options:
     required: true
     type: str
 extends_documentation_fragment:
-  - cmeissner.phpipam.phpipam
+  - codeaffen.phpipam.phpipam
 '''
 
 EXAMPLES = '''
