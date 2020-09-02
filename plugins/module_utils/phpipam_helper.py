@@ -110,6 +110,7 @@ class PhpipamAnsibleModule(AnsibleModule):
 class PhpipamEntityAnsibleModule(ForemanAnsibleModule):
 
     def __init__(self, **kwargs):
+        self.entity_name = kwargs.pop('entity_name', self.entity_name_from_class)
 
         argument_spec = dict(
             state=dict(choices=['present', 'absent'], default='present'),
