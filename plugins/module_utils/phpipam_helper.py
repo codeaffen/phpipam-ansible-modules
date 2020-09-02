@@ -9,6 +9,8 @@ __metaclass__ = type
 
 import traceback
 
+from contextlib import contextmanager
+
 try:
     from phpipam_client import PhpIpamClient, GET  # not yet needed, commented to prevent linting errors # , PATCH
     HAS_PHPIPAM = True
@@ -57,6 +59,22 @@ class PhpipamAnsibleModule(AnsibleModule):
         self._phpipamapi_path = kwargs.get('phpipam_path')
         self._phpipamapi_params = kwargs.get('phpipam_params')
 
+        self.task_timeout = 60
+        self.task_poll = 4
+
+        self._thin_default = False
+        self.state = 'undefined'
+
+    @contextmanager
+    def api_connection(self):
+        self.connect()
+        yield
+        self.exit_json()
+
+    @property
+    def changed(self):
+        return self._changed
+
     def connect(self):
         self.phpipamapi = PhpIpamClient(
             url=self._phpipamapi_server_url,
@@ -84,3 +102,34 @@ class PhpipamAnsibleModule(AnsibleModule):
 
     def _delete_entity(self):
         pass
+
+    def exit_json(self, changed=False, **kwargs):
+        kwargs['changed'] = changed or self.changed
+        super(ForemanAnsibleModule, self).exit_json(**kwargs)
+
+class PhpipamEntityAnsibleModule(ForemanAnsibleModule):
+
+    def __init__(self, **kwargs):
+
+        argument_spec = dict(
+            state=dict(choices=['present', 'absent'], default='present'),
+        )
+        argument_spec.update(kwargs.pop('argument_spec', {}))
+        super(PhpipamEntitiyAnsibleModule, self).__init__(argument_spec=argument_spec, **kwargs)
+
+    @property
+    def entity_name_from_class(self):
+        """ Convert class name to entity name. The class name must follow folowing name convention:
+            * Starts with Phpipam
+            * Ends with Module
+
+            This will concert PhpipamMyEntityModule class name to my_entity entity name.
+            eg:
+            * PhpipamSubnetModule => subnet
+            * PhpipamSectionModule => section
+            * ...
+        """
+        # Convert current class name from CamelCase to snake_case
+        class_name = re.sub(r'(?<=[a-z])[A-Z]|[A-Z](?=[^A-Z])', r'_\g<0>', self.__class__.__name__).lower().strip('_')
+        # Get entity name from snake case class name
+        return '_'.join(class_name.split('_')[1:-1])
