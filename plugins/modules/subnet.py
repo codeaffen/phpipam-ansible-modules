@@ -68,7 +68,7 @@ class PhpipamSubnetModule(PhpipamEntityAnsibleModule):
 
 
 def main():
-    module = PhpipamSubnetAnsibleModule(
+    module = PhpipamSubnetModule(
         argument_spec=dict(
             server_url=dict(type='str', required=True),
             app_id=dict(type='str', required=True),

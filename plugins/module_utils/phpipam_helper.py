@@ -7,6 +7,7 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
+import re
 import traceback
 
 from contextlib import contextmanager
@@ -105,7 +106,7 @@ class PhpipamAnsibleModule(AnsibleModule):
 
     def exit_json(self, changed=False, **kwargs):
         kwargs['changed'] = changed or self.changed
-        super(ForemanAnsibleModule, self).exit_json(**kwargs)
+        super(PhpipamAnsibleModule, self).exit_json(**kwargs)
 
 class PhpipamEntityAnsibleModule(ForemanAnsibleModule):
 
@@ -116,7 +117,7 @@ class PhpipamEntityAnsibleModule(ForemanAnsibleModule):
             state=dict(choices=['present', 'absent'], default='present'),
         )
         argument_spec.update(kwargs.pop('argument_spec', {}))
-        super(PhpipamEntitiyAnsibleModule, self).__init__(argument_spec=argument_spec, **kwargs)
+        super(PhpipamEntityAnsibleModule, self).__init__(argument_spec=argument_spec, **kwargs)
 
     @property
     def entity_name_from_class(self):
