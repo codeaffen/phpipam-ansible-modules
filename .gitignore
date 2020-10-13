@@ -131,3 +131,4 @@ dmypy.json
 # for local testing
 ansible_collections
 *.tar.gz
+tests/test_playbooks/vars/server.yml

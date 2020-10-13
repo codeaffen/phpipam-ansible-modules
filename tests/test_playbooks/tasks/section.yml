@@ -1,0 +1,9 @@
+---
+- name: "Ensure state of section"
+  section:
+    server_url: "{{ phpipam_server_url }}"
+    app_id: "{{ phpipam_app_id }}"
+    username: "{{ phpipam_username }}"
+    password: "{{ phpipam_password }}"
+    name: "{{ section.name }}"
+    state: "{{ section_state | default('present') }}"

@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/section.yml
+  tasks:
+    - name: create section
+      include: tasks/section.yml
+
+    - name: create section again, no change
+      include: tasks/section.yml
+
+    - name: delete section
+      include: tasks/section.yml
+      vars:
+        subnet_state: absent
