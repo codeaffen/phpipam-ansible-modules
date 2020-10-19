@@ -44,6 +44,47 @@ options:
         type: str
         required: false
         default: None
+        aliases:
+            - master
+            - master_section
+    permissions:
+        description: JSON object that represent the permissions for each user
+        type: json
+        required: false
+        default: None
+    strict_mode:
+        description: If set to true, consistency of subnets and IP addresses will be checked
+        type: bool
+        required: false
+        default: no
+    subnet_ordering:
+        description: How to order subnets within this section
+        type: str
+        required: false
+        default: "subnet,asc"
+    list_order:
+        description: Order in sections list view
+        type: int
+        required: false
+    show_vlan:
+        description: Show/hide VLANs in subnet list view
+        type: bool
+        required: false
+        default: no
+    show_vrf:
+        description: Show/hide VRFs in subnet list view
+        type: bool
+        required: false
+        default: no
+    show_supernets_only:
+        description: Show only supernets in sebnet list view
+        type: bool
+        required: false
+        default: no
+    dns_resolver:
+        description: The NS resolver to be used for this section
+        type: str
+        required: false
 extends_documentation_fragment:
     - codeaffen.phpipam.phpipam
     - codeaffen.phpipam.phpipam.entity_state
@@ -79,10 +120,18 @@ class PhpipamSectionModule(PhpipamEntityAnsibleModule):
 
 def main():
     module = PhpipamSectionModule(
-        argument_spec=dict(
+        phpipam_spec=dict(
             name=dict(type='str', required=True),
             description=dict(type='str', required=False),
-            parent=dict(type='str', required=False, defautl=None),
+            parent=dict(type='entity', controller='sections', required=False, defautl=None, phpipam_name='masterSection'),
+            permissions=dict(type='json', required=False, default=None),
+            strict_mode=dict(type='bool', required=False),
+            subnet_ordering=dict(type='bool', required=False, phpipam_name='subnetOrdering'),
+            list_order=dict(type='bool', required=False, phpipam_name='order'),
+            show_vlan=dict(type='bool', required=False, phpipam_name='showVLAN'),
+            show_vrf=dict(type='bool', required=False, phpipam_name='showVRF'),
+            show_supernets_only=dict(type='bool', required=False),
+            dns_resolver=dict(type='entity', controller='nameservers', required=False, phpipam_name='DNS'),
         )
     )
 

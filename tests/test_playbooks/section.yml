@@ -9,11 +9,22 @@
   tasks:
     - name: create section
       include: tasks/section.yml
+      vars:
+        name: create section
 
     - name: create section again, no change
       include: tasks/section.yml
+      vars:
+        name: create section again, no change
+
+    - name: update section
+      include: tasks/section.yml
+      vars:
+        name: update section
+        section_description: section updated
 
     - name: delete section
       include: tasks/section.yml
       vars:
-        subnet_state: absent
+        name: delete section
+        section_state: absent
