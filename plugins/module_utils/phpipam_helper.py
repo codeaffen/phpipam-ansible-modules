@@ -175,19 +175,18 @@ class PhpipamAnsibleModule(AnsibleModule):
             On that way we also convert boolean into int as the api needed this type.
             """
 
-            if key not in self.phpipam_spec:
-                continue
+            if key in self.phpipam_params:
+                pass
+                desired_entity = {}
+                updated_key = spec.get('phpipam_name', key)
 
-            desired_entity = {}
-            updated_key = self.phpipam_spec[key].get('phpipam_name', key)
-
-            if self.phpipam_spec[key]['type'] == 'entity' and 'resolve' not in self.phpipam_spec[key]:
-                desired_entity[updated_key] = self._resolve_entity(key)['id']
-            else:
-                if self.argument_spec[key]['type'] == 'bool':
-                    desired_entity[updated_key] = int(self.phpipam_params[key])
+                if spec['type'] == 'entitiy' and 'resolv' not in spec:
+                    desired_entity[updated_key] = self._resolve_entity(key)['id']
                 else:
-                    desired_entity[updated_key] = self.phpipam_params[key]
+                    if spec['type'] == 'bool':
+                        desired_entity[updated_key] = int(self.phpipam_params[key])
+                    else:
+                        desired_entity[updated_key] = self.phpipam_params[key]
 
         return desired_entity
 
