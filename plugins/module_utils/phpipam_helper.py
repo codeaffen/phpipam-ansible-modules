@@ -134,7 +134,6 @@ class PhpipamAnsibleModule(AnsibleModule):
         return self.find_entity(controller='tools/' + controller, params=lookup_params)
 
     def set_entity(self, key, entity):
-        self.updated_entity[key] = entity
         self.phpipam_spec[key]['resolve'] = True
 
     def _resolve_entity(self, key):
