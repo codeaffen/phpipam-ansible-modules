@@ -91,6 +91,9 @@ class PhpipamAnsibleModule(AnsibleModule):
     def changed(self):
         return self._changed
 
+    def set_changed(self):
+        self._changed = True
+
     def connect(self):
         self.phpipamapi = phpypam.api(
             url=self._phpipamapi_server_url,
@@ -245,6 +248,7 @@ class PhpipamAnsibleModule(AnsibleModule):
     def _create_entity(self, desired_entity):
         try:
             self.phpipamapi.create_entity(self.controller_uri, desired_entity)
+            self.set_changed()
             if self.controller_uri == 'subnet':
                 entity = self.find_subnet(self.entity['name'])
             elif self.controller_uri in self._TOOLS_CONTROLLERS:
@@ -270,6 +274,7 @@ class PhpipamAnsibleModule(AnsibleModule):
                 entity = self.find_tools('tools/' + self.controller_uri, value=self.entity['name'])
             else:
                 entity = self.find_entity(self.controller_uri, '/' + current_entity['name'])
+            self.set_changed()
         except PHPyPAMEntityNotFoundException:
             entity = None
 
@@ -278,6 +283,7 @@ class PhpipamAnsibleModule(AnsibleModule):
     def _delete_entity(self, current_entity):
         try:
             self.phpipamapi.delete_entity(self.controller_uri, current_entity['id'])
+            self.set_changed()
         except PHPyPAMEntityNotFoundException:
             raise PhpipamAnsibleException("Entity '{0}' of type '{1}' can't be ensured absentd:\n{2}".format(current_entity['name'], self.controller_uri, traceback.format_exc()))
 
@@ -290,6 +296,11 @@ class PhpipamAnsibleModule(AnsibleModule):
 
     def exit_json(self, changed=False, **kwargs):
         kwargs['changed'] = changed or self.changed
+        if 'diff' not in kwargs and (self._before or self._after):
+            kwargs['diff'] = {'before': self._before,
+                              'after': self._after}
+        if 'entity' not in kwargs and self._after_full:
+            kwargs['entity'] = self._after_full
         super(PhpipamAnsibleModule, self).exit_json(**kwargs)
 
 
@@ -368,6 +379,15 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
         except KeyError:
             raise PhpipamAnsibleException
 
+    def record_before(self, controller, entity):
+        self._before[controller].append(entity)
+
+    def record_after(self, controller, entity):
+        self._after[controller].append(entity)
+
+    def reccord_after_full(self, controller, entity):
+        self._after_full[controller].append(entity)
+
     def ensure_entity(self, desired_entity):
 
         state = self.state
@@ -379,7 +399,9 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
         else:
             current_entity = self.find_entity(controller=self.controller_uri, path='/' + self.phpipam_params['name'])
 
-        updated_entity = {}
+        updated_entity = None
+
+        self.record_before(self.controller_uri, current_entity)
 
         if state == 'present':
             pass
@@ -389,10 +411,14 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
             else:
                 pass  # update existing entity
                 updated_entity = self._update_entity(desired_entity, current_entity)
-        if state == 'absent':
+        elif state == 'absent':
             if current_entity is not None:
                 pass  # remove existing entity
                 updated_entity = self._delete_entity(current_entity)
+        else:
+            self.fail_json(msg="'{0}' is not a valid state.".format(state))
+
+        self.record_after(self.controller_uri, updated_entity)
 
         return updated_entity
 
