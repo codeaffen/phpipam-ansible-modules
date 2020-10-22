@@ -125,14 +125,30 @@ class PhpipamSubnetModule(PhpipamEntityAnsibleModule):
 
 def main():
     module = PhpipamSubnetModule(
-        argument_spec=dict(
-            cidr=dict(type='str', required=False),
-            subnet=dict(type='str', required=False),
-            mask=dict(type='str', required=False),
-            section=dict(type='str', required=True),
-            description=dict(type='str', required=False),
-            master_subnet_cidr=dict(type='str', required=False),
-            show_as_name=dict(type='bool', required=False, default=False),
+        phpipam_spec=dict(
+            cidr=dict(type='str'),
+            subnet=dict(type='str'),
+            mask=dict(type='str'),
+            description=dict(type='str'),
+            section=dict(type='entity', required=True, controller='sections', phpipam_name='sectionId'),
+            linked_subnet=dict(type='entity', phpipam_name='linked_subnet'),
+            vlan_id=dict(type='entity', controller='vlans', phpipam_name='vlanId'),
+            vrf_id=dict(type='entity', controller='vrfs', phpipam_name='vrfId'),
+            master_subnet_cidr=dict(type='entity', phpipam_name='masterSubnetId'),
+            nameserver=dict(type='entity', controller='nameservers', phpipam_name='nameserverId'),
+            show_as_name=dict(type='bool', phpipam_name='showName'),
+            permissions=dict(type='json'),
+            dns_recursive=dict(type='bool', phpipam_name='DNSrecursive'),
+            dns_records=dict(type='bool', phpipam_name='DNSrecords'),
+            allow_requests=dict(type='bool'),
+            scan_agent=dict(type='bool'),
+            ping_subnet=dict(type='bool'),
+            discover_subnet=dict(type='bool'),
+            is_folder=dict(type='bool'),
+            is_full=dict(type='bool'),
+            # subnet_state=dict(type='int', choices=[1], phpipam_name='state'),
+            threshold=dict(type='int'),
+            location=dict(type='entity', controller='locations'),
         ),
         mutually_exclusive=['cidr', 'subnet'],
         required_together=['subnet', 'mask'],
@@ -141,22 +157,21 @@ def main():
     if not HAS_IPADDRESS:
         module.fail_json(msg=missing_required_lib("ipaddress"), exception=IPADDRESS_IMP_ERR)
 
-    module_params = module.params
+    module_params = module.phpipam_params
 
-    if not module.desired_absent:
-        if '/' not in module_params['cidr']:
-            module.fail_json(msg='missing prefix lenght in "cidr". Need <ipaddr>/<prefix_lenght>.')
+    if '/' not in module_params['cidr']:
+        module.fail_json(msg='missing prefix lenght in "cidr". Need <ipaddr>/<prefix_lenght>.')
+    else:
+        if '.' in module_params['cidr'] and ':' not in module_params['cidr']:
+            IPNetwork = ipaddress.IPv4Network
+            module_params['mask'] = str(IPNetwork(u'%s' % (module_params['cidr'])).prefixlen)
+        elif ':' in module_params['cidr'] and '.' not in module_params['cidr']:
+            IPNetwork = ipaddress.IPv6Network
+            module_params['mask'] = str(IPNetwork(u'%s' % (module_params['cidr'])).prefixlen)
         else:
-            if '.' in module_params['cidr'] and ':' not in module_params['cidr']:
-                IPNetwork = ipaddress.IPv4Network
-                module_params['mask'] = str(IPNetwork(u'%s' % (module_params['cidr'])).netmask)
-            elif ':' in module_params['cidr'] and '.' not in module_params['cidr']:
-                IPNetwork = ipaddress.IPv6Network
-                module_params['mask'] = str(IPNetwork(u'%s' % (module_params['cidr'])).prefixlen)
-            else:
-                module.fail_json(msg='wrong formated "cidr". Need <ipaddr>/<prefix_lenght>.')
-            module_params['subnet'] = str(IPNetwork(u'%s' % (module_params['cidr'])).network_address)
-            del module_params['cidr']
+            module.fail_json(msg='wrong formated "cidr". Need <ipaddr>/<prefix_lenght>.')
+        module_params['subnet'] = str(IPNetwork(u'%s' % (module_params['cidr'])).network_address)
+    del module_params['cidr']
 
     with module.api_connection():
         module.run()
