@@ -49,28 +49,103 @@ options:
             - 2001:DB8::
     mask:
         description:
-            - Subnet mask in octets for ipv4 subnets.
-            - Prefix length (bits) for ipv6 subnets.
+            - Prefix length (bits) for ipv4 and ipv6 subnets.
             - Mutually exclusive with I(cidr).
             - If set. I(subnet) is required.
-    section:
-        description: Name of the section under which the subnet is located
-        type: int
-        required: true
     description:
         description: Text which is shown in side bar if 'show as name' is selected
         type: str
         required: false
-    master_subnet_cidr:
+    section:
+        description: Name of the section under which the subnet is located
+        type: int
+        required: true
+    linked_subnet:
+        description: Linked ipv6 subnet in CIDR format
+        type: str
+        required: false
+    vlan:
+        description: VLAN which the subnet should belongs to
+        type: str
+        required: false
+    vrf:
+        description: VRF which the sunet should belongs to
+        type: str
+        required: false
+    parent:
         description: CIDR of parent subnet
         type: str
         required: false
         example: 192.0.2.0/24
+        aliases:
+            - master_subnet_cidr
+    nameserver:
+        description: Name of the DNS server which should attach to subnet
+        type: str
+        required: false
     show_as_name:
         description: If this is set to 'true' description is show in side bar instead of cidr
         type: bool
         required: false
         default: false
+    permissions:
+        description: JSON object that represent the permissions for each user
+        type: json
+        required: false
+        default: None
+    dns_recursive:
+        description: Controls if PTR records should be created for subnet
+        type: bool
+        required: false
+        default: no
+    dns_records:
+        description: Controls weather hostname DNS records are displayed
+        type: bool
+        required: false
+        default: no
+    allow_requests:
+        description: Controls if IP requests are allowed for subnet
+        type: bool
+        required: false
+        default: no
+    scan_agent:
+        description: Name of scanagent which should be used for subnet
+        type: string
+        required: false
+    ping_subnet:
+        description: Controls if subnet should be included in status checks
+        type: bool
+        required: false
+        default: no
+    discover_subnet:
+        description: Controls if new hosts should be discovered for new host scans
+        type: bool
+        required: false
+        default: no
+    is_folder:
+        description:
+            - Controls if we are adding subnet or folder
+            - can't be changed after subnet was created
+        type: bool
+        required: false
+        default: no
+    is_full:
+        description: Marks subnet as used
+        type: bool
+        required: false
+        default: no
+    subnet_state:
+        description: Assigned tag of the subnet.
+        type: string
+        required: false
+    threshold:
+        description: Subnet threshold
+        type: int
+        required: false
+    location:
+        description: Subnet location
+        type: str
+        required: false
 extends_documentation_fragment:
     - codeaffen.phpipam.phpipam
     - codeaffen.phpipam.phpipam.entity_state
@@ -125,14 +200,30 @@ class PhpipamSubnetModule(PhpipamEntityAnsibleModule):
 
 def main():
     module = PhpipamSubnetModule(
-        argument_spec=dict(
-            cidr=dict(type='str', required=False),
-            subnet=dict(type='str', required=False),
-            mask=dict(type='str', required=False),
-            section=dict(type='str', required=True),
-            description=dict(type='str', required=False),
-            master_subnet_cidr=dict(type='str', required=False),
-            show_as_name=dict(type='bool', required=False, default=False),
+        phpipam_spec=dict(
+            cidr=dict(type='str'),
+            subnet=dict(type='str'),
+            mask=dict(type='str'),
+            description=dict(type='str'),
+            section=dict(type='entity', required=True, controller='sections', phpipam_name='sectionId'),
+            linked_subnet=dict(type='entity', phpipam_name='linked_subnet'),
+            vlan=dict(type='entity', controller='vlans', phpipam_name='vlanId'),
+            vrf=dict(type='entity', controller='vrfs', phpipam_name='vrfId'),
+            parent=dict(type='entity', phpipam_name='masterSubnetId'),
+            nameserver=dict(type='entity', controller='nameservers', phpipam_name='nameserverId'),
+            show_as_name=dict(type='bool', phpipam_name='showName'),
+            permissions=dict(type='json'),
+            dns_recursive=dict(type='bool', phpipam_name='DNSrecursive'),
+            dns_records=dict(type='bool', phpipam_name='DNSrecords'),
+            allow_requests=dict(type='bool'),
+            scan_agent=dict(type='entity', controller='scanagents'),
+            ping_subnet=dict(type='bool'),
+            discover_subnet=dict(type='bool'),
+            is_folder=dict(type='bool'),
+            is_full=dict(type='bool'),
+            subnet_state=dict(type='entity', phpipam_name='state'),
+            threshold=dict(type='int'),
+            location=dict(type='entity', controller='locations'),
         ),
         mutually_exclusive=['cidr', 'subnet'],
         required_together=['subnet', 'mask'],
@@ -141,22 +232,22 @@ def main():
     if not HAS_IPADDRESS:
         module.fail_json(msg=missing_required_lib("ipaddress"), exception=IPADDRESS_IMP_ERR)
 
-    module_params = module.params
+    module_params = module.phpipam_params
 
-    if not module.desired_absent:
+    if 'cidr' in module_params:
         if '/' not in module_params['cidr']:
             module.fail_json(msg='missing prefix lenght in "cidr". Need <ipaddr>/<prefix_lenght>.')
         else:
             if '.' in module_params['cidr'] and ':' not in module_params['cidr']:
                 IPNetwork = ipaddress.IPv4Network
-                module_params['mask'] = str(IPNetwork(u'%s' % (module_params['cidr'])).netmask)
+                module_params['mask'] = str(IPNetwork(u'%s' % (module_params['cidr'])).prefixlen)
             elif ':' in module_params['cidr'] and '.' not in module_params['cidr']:
                 IPNetwork = ipaddress.IPv6Network
                 module_params['mask'] = str(IPNetwork(u'%s' % (module_params['cidr'])).prefixlen)
             else:
                 module.fail_json(msg='wrong formated "cidr". Need <ipaddr>/<prefix_lenght>.')
             module_params['subnet'] = str(IPNetwork(u'%s' % (module_params['cidr'])).network_address)
-            del module_params['cidr']
+        del module_params['cidr']
 
     with module.api_connection():
         module.run()

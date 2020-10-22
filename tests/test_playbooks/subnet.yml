@@ -9,11 +9,16 @@
   tasks:
     - name: create subnet
       include: tasks/subnet.yml
+      vars:
+        name: create subnet
 
     - name: create subnet again, no change
       include: tasks/subnet.yml
-    
+      vars:
+        name: create subnet again, no change
+
     - name: delete subnet
       include: tasks/subnet.yml
       vars:
+        name: delete subnet
         subnet_state: absent
