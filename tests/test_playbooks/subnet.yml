@@ -11,9 +11,6 @@
       include: tasks/subnet.yml
       vars:
         name: create subnet
-        subnet:
-          cidr: 10.0.0.0/24
-          section: Customers
 
     - name: create subnet again, no change
       include: tasks/subnet.yml

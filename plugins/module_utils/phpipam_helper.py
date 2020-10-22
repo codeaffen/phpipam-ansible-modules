@@ -176,7 +176,6 @@ class PhpipamAnsibleModule(AnsibleModule):
             need to be resolved and the id of a resolved entity.
             On that way we also convert boolean into int as the api needed this type.
             """
-
             if key in self.phpipam_params:
 
                 updated_key = spec.get('phpipam_name', key)
@@ -210,8 +209,9 @@ class PhpipamAnsibleModule(AnsibleModule):
             'resolved',
         }
         _VALUE_SPEC_KEYS = {
-            'type',
             'controller',
+            'phpipam_name',
+            'type',
         }
 
         for key, value in spec.items():
@@ -220,10 +220,9 @@ class PhpipamAnsibleModule(AnsibleModule):
 
             phpipam_type = value.get('type')
             ansible_invisible = value.get('invisible', False)
-            phpipam_name = value.get('phpipam_name')
 
-            if not phpipam_name and '_' in key:
-                phpipam_name = inflection.camelize(key)
+            if 'phpipam_name' not in phpipam_value and '_' in key:
+                phpipam_value['phpipam_name'] = inflection.camelize(key)
 
             if phpipam_type == 'entity':
                 argument_value['type'] = 'str'
@@ -231,12 +230,6 @@ class PhpipamAnsibleModule(AnsibleModule):
                     phpipam_value['controller'] = self.controller_uri
             elif phpipam_type:
                 argument_value['type'] = phpipam_type
-
-            if phpipam_name:
-                phpipam_value['phpipam_name'] = phpipam_name
-                phpipam_spec[phpipam_name] = {}
-                if argument_value.get('type') is not None:
-                    phpipam_spec[phpipam_name]['type'] = argument_value['type']
 
             phpipam_spec[key] = phpipam_value
 
@@ -404,16 +397,12 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
         self.record_before(self.controller_uri, current_entity)
 
         if state == 'present':
-            pass
             if current_entity is None:
-                pass  # create new entity
                 updated_entity = self._create_entity(desired_entity)
             else:
-                pass  # update existing entity
                 updated_entity = self._update_entity(desired_entity, current_entity)
         elif state == 'absent':
             if current_entity is not None:
-                pass  # remove existing entity
                 updated_entity = self._delete_entity(current_entity)
         else:
             self.fail_json(msg="'{0}' is not a valid state.".format(state))
