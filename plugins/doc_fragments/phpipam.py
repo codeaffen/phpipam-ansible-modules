@@ -22,10 +22,9 @@ class ModuleDocFragment(object):
     # phpIPAM documentation fragment
     DOCUMENTATION = '''
 requirements:
-    - phpipam-client
-    - json
     - inflection
-    - PyYAML
+    - ipaddress
+    - phpypam
 options:
     server_url:
         description: URL of the phpIPAM server
