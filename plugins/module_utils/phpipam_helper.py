@@ -137,7 +137,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         return self.find_entity(controller='tools/' + controller, params=lookup_params)
 
     def set_entity(self, key, entity):
-        self.phpipam_spec[key]['resolve'] = True
+        self.phpipam_spec[key]['resolved'] = True
 
     def _resolve_entity(self, key):
         if key not in self.phpipam_params:
@@ -167,7 +167,8 @@ class PhpipamAnsibleModule(AnsibleModule):
         all params and resolved params
         """
 
-        for key, value in self.phpipam_params.items():
+        desired_entity = {}
+        for key, spec in self.phpipam_spec.items():
             """
             iterate over all params check wether it value has to be resolved.
             Create a new dictionary `updated_entity` with all key value pairs bare if they don't
@@ -176,11 +177,10 @@ class PhpipamAnsibleModule(AnsibleModule):
             """
 
             if key in self.phpipam_params:
-                pass
-                desired_entity = {}
+
                 updated_key = spec.get('phpipam_name', key)
 
-                if spec['type'] == 'entitiy' and 'resolv' not in spec:
+                if spec['type'] == 'entity' and 'resolved' not in spec:
                     desired_entity[updated_key] = self._resolve_entity(key)['id']
                 else:
                     if spec['type'] == 'bool':
