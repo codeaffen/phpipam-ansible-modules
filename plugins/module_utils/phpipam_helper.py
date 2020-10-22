@@ -122,11 +122,12 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         return result
 
-    def find_subnet(self, cidr):
+    def find_subnet(self, subnet, mask):
         # lookups for subnets need a separate find method
         # We only support cidr format to simplify the task.
         # CIDR is valid for ipv4 and ipv6 too.
-        return self.find_entity(controller='subnet', controller_path='cidr/' + cidr)
+        path = 'cidr/{0}/{1}'.format(subnet, mask)
+        return self.find_entity('subnets', path)
 
     def find_tools(self, controller, value, key='name'):
         # tools controllers are special controllers that uses subcontrollers to work on specific objects.
@@ -248,8 +249,8 @@ class PhpipamAnsibleModule(AnsibleModule):
         try:
             self.phpipamapi.create_entity(self.controller_uri, desired_entity)
             self.set_changed()
-            if self.controller_uri == 'subnet':
-                entity = self.find_subnet(self.entity['name'])
+            if self.controller_uri == 'subnets':
+                entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
             elif self.controller_uri in self._TOOLS_CONTROLLERS:
                 entity = self.find_tools('tools/' + self.controller_uri, value=self.desired_entity['name'])
             else:
@@ -267,8 +268,8 @@ class PhpipamAnsibleModule(AnsibleModule):
             return current_entity
         self.phpipamapi.update_entity(controller=self.controller_uri, controller_path='/', data=updated_entity)
         try:
-            if self.controller_uri == 'subnet':
-                entity = self.find_subnet(self.entity['name'])
+            if self.controller_uri == 'subnets':
+                entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
             elif self.controller_uri in self._TOOLS_CONTROLLERS:
                 entity = self.find_tools('tools/' + self.controller_uri, value=self.entity['name'])
             else:
@@ -391,8 +392,8 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
 
         state = self.state
 
-        if self.controller_uri == 'subnet':
-            current_entity = self.find_subnet(self.phpipam_params['cidr'])
+        if self.controller_uri == 'subnets':
+            current_entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
         elif self.controller_uri in self._TOOLS_CONTROLLERS:
             current_entity = self.find_tools(controller=self.controller_uri, value=self.phpipam_params['name'])
         else:
