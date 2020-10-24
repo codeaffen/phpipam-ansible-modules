@@ -132,3 +132,4 @@ dmypy.json
 ansible_collections
 *.tar.gz
 tests/test_playbooks/vars/server.yml
+changelogs/.plugin-cache.yaml

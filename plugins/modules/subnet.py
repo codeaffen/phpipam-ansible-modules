@@ -87,7 +87,7 @@ options:
         description: If this is set to 'true' description is show in side bar instead of cidr
         type: bool
         required: false
-        default: false
+        default: no
     permissions:
         description: JSON object that represent the permissions for each user
         type: json
