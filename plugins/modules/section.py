@@ -33,7 +33,6 @@ options:
         description: Name of the section
         type: str
         required: true
-        example: "customer_1"
     description:
         description: Short describtive text
         type: str

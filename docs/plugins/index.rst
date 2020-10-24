@@ -14,8 +14,8 @@ These are the plugins in the codeaffen.phpipam collection
 Module Plugins
 --------------
 
-* :ref:`section <ansible_collections.codeaffen.phpipam.section_module>` -- 
-* :ref:`subnet <ansible_collections.codeaffen.phpipam.subnet_module>` -- 
+* :ref:`section <ansible_collections.codeaffen.phpipam.section_module>` -- Manage sections
+* :ref:`subnet <ansible_collections.codeaffen.phpipam.subnet_module>` -- Manage subnets
 
 
 .. seealso::

@@ -34,9 +34,6 @@ options:
             - Mutually exclusive with I(subnet) and I(mask).
         type: str
         required: false
-        example:
-            - 192.0.2.128/25
-            - 2001:DB8::/32
     subnet:
         description:
             - Network address
@@ -44,9 +41,6 @@ options:
             - If set, I(mask) is required.
         type: str
         required: false
-        example:
-            - 192.0.2.128
-            - 2001:DB8::
     mask:
         description:
             - Prefix length (bits) for ipv4 and ipv6 subnets.
@@ -76,7 +70,6 @@ options:
         description: CIDR of parent subnet
         type: str
         required: false
-        example: 192.0.2.0/24
         aliases:
             - master_subnet_cidr
     nameserver:
@@ -181,7 +174,7 @@ entity:
         subnets:
             description: List of subnets.
             type: list
-            elements: dicts
+            elements: dict
 '''
 
 import traceback
