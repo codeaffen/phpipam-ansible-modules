@@ -8,13 +8,14 @@ Welcome to phpipam-ansible-modules's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: User documentation
 
-
+   README
+   Changelog <CHANGELOG>
+   plugins/index
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
