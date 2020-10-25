@@ -4,7 +4,7 @@
 
 **This modules are still in development and not for production purpose. If we think you can use is in a more productive manner we will inform you.**
 
-This collections provides modules to manage entities in a [phpIPAM](https://phpipam.net/). This is neighter a collection of roles nor playbooks. It provides modules to wrote your own roles and/or playbooks.
+This collection provides modules to manage entities in a [phpIPAM](https://phpipam.net/). This is neighter a collection of roles nor playbooks. It provides modules to wrote your own roles and/or playbooks.
 
 We get a lot of inspiration from [foreman-ansible-modules](https://galaxy.ansible.com/theforeman/foreman) for our modules.
 
