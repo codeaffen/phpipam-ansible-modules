@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/address.yml
+  tasks:
+    - name: create address
+      include: tasks/address.yml
+      vars:
+        name: create address
+        address: "{{ base_address_data }}"
+
+    - name: create address again, no change
+      include: tasks/address.yml
+      vars:
+        name: create address again, no change
+        address: "{{ base_address_data }}"
+
+    - name: update address
+      include: tasks/address.yml
+      vars:
+        name: update address
+        override:
+          description: address updated
+        address: "{{ base_address_data | combine(override) }}"
+
+    - name: delete address
+      include: tasks/address.yml
+      vars:
+        name: delete address
+        override:
+          state: absent
+        address: "{{ base_address_data | combine(override) }}"
