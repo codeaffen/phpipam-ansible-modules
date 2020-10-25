@@ -129,6 +129,10 @@ class PhpipamAnsibleModule(AnsibleModule):
         path = 'cidr/{0}/{1}'.format(subnet, mask)
         return self.find_entity('subnets', path)
 
+    def find_address(self, address):
+        path = 'search/{0}'.format(address)
+        return self.find_entity('addresses', path)
+
     def find_tools(self, controller, value, key='name'):
         # tools controllers are special controllers that uses subcontrollers to work on specific objects.
         lookup_params = {
@@ -137,7 +141,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         }
         return self.find_entity(controller='tools/' + controller, params=lookup_params)
 
-    def set_entity(self, key, entity):
+    def set_entity(self, key):
         self.phpipam_spec[key]['resolved'] = True
 
     def _resolve_entity(self, key):
@@ -148,9 +152,10 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         controller = entity_spec['controller'] or self.controller_uri
 
-        if controller == 'subnet':
-            result = self.find_subnet(self.phpipam_params[key])
-        if controller in ['nameserver', 'vlans', 'vrfs']:
+        if controller == 'subnets':
+            subnet, mask = self.phpipam_params[key].split('/')
+            result = self.find_subnet(subnet, mask)
+        elif controller in ['nameserver', 'vlans', 'vrfs']:
             result = self.find_tools(controller=controller, value=self.phpipam_params[key])
         else:
             if entity_spec.get('type') == 'entity':
@@ -158,7 +163,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             else:
                 result = [self.find_entity(controller=controller, path='/' + value) for value in self.phpipam_params[key]]
 
-        self.set_entity(key, result)
+        self.set_entity(key)
 
         return result
 
@@ -184,7 +189,7 @@ class PhpipamAnsibleModule(AnsibleModule):
                     desired_entity[updated_key] = self._resolve_entity(key)['id']
                 else:
                     if spec['type'] == 'bool':
-                        desired_entity[updated_key] = int(self.phpipam_params[key])
+                        desired_entity[updated_key] = str(int(self.phpipam_params[key]))
                     else:
                         desired_entity[updated_key] = self.phpipam_params[key]
 
@@ -244,6 +249,8 @@ class PhpipamAnsibleModule(AnsibleModule):
             self.set_changed()
             if self.controller_uri == 'subnets':
                 entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
+            elif self.controller_uri == 'addresses':
+                entity = self.find_address(self.phpipam_params['ipaddress'])
             elif self.controller_uri in self._TOOLS_CONTROLLERS:
                 entity = self.find_tools('tools/' + self.controller_uri, value=self.desired_entity['name'])
             else:
@@ -263,6 +270,8 @@ class PhpipamAnsibleModule(AnsibleModule):
         try:
             if self.controller_uri == 'subnets':
                 entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
+            elif self.controller_uri == 'addresses':
+                entity = self.find_address(self.phpipam_params['ipaddress'])
             elif self.controller_uri in self._TOOLS_CONTROLLERS:
                 entity = self.find_tools('tools/' + self.controller_uri, value=self.entity['name'])
             else:
@@ -387,6 +396,8 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
 
         if self.controller_uri == 'subnets':
             current_entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
+        elif self.controller_uri == 'addresses':
+            current_entity = self.find_address(self.phpipam_params['ipaddress'])
         elif self.controller_uri in self._TOOLS_CONTROLLERS:
             current_entity = self.find_tools(controller=self.controller_uri, value=self.phpipam_params['name'])
         else:
