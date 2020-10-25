@@ -2,3 +2,9 @@ ancestor: null
 releases:
   0.1.0:
     release_date: '2020-10-24'
+  0.2.0:
+    modules:
+    - description: Manage addresses
+      name: address
+      namespace: ''
+    release_date: '2020-10-25'
