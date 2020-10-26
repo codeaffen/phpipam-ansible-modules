@@ -36,6 +36,19 @@ class PhpipamAnsibleModule(AnsibleModule):
         Here we handle connection parameters.
     """
 
+    _TOOLS_CONTROLLERS = (
+        'tag',
+        'device',
+        'device_type',
+        'vlan',
+        'vrf',
+        'nameserver',
+        'scanagent',
+        'location',
+        'nat',
+        'rack',
+    )
+
     def __init__(self, **kwargs):
         # State recording for changed and diff reporting
         self._changed = False
@@ -155,7 +168,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         if controller == 'subnets':
             subnet, mask = self.phpipam_params[key].split('/')
             result = self.find_subnet(subnet, mask)
-        elif controller in ['nameserver', 'vlans', 'vrfs']:
+        elif controller in self._TOOLS_CONTROLLERS:
             result = self.find_tools(controller=controller, value=self.phpipam_params[key])
         else:
             if entity_spec.get('type') == 'entity':
@@ -307,19 +320,6 @@ class PhpipamAnsibleModule(AnsibleModule):
 
 
 class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
-
-    _TOOLS_CONTROLLERS = (
-        'tag',
-        'device',
-        'device_type',
-        'vlan',
-        'vrf',
-        'nameserver',
-        'scanagent',
-        'location',
-        'nat',
-        'rack',
-    )
 
     def __init__(self, **kwargs):
         self.controller_name = kwargs.pop('controller_name', self.controller_name_from_class)
