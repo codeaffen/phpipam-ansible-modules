@@ -25,7 +25,7 @@ module: address
 version_added: 0.2.0
 short_description: Manage addresses
 description:
-    - create, update and delete sections
+    - create, update and delete addresses
 author:
     - "Christian Meißner (@cmeissner)"
 options:
