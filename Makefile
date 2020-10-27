@@ -52,6 +52,7 @@ clean:
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -rf {} +
+	find . -name '*.tar.gz' -delete
 
 doc-setup:
 	pip install -r docs/requirements.txt
