@@ -26,6 +26,9 @@ from collections import defaultdict
 
 from ansible.module_utils.basic import AnsibleModule, missing_required_lib
 
+from ansible.utils.display import Display
+display = Display()
+
 
 class PhpipamAnsibleException(Exception):
     pass
@@ -37,16 +40,16 @@ class PhpipamAnsibleModule(AnsibleModule):
     """
 
     _TOOLS_CONTROLLERS = (
-        'tag',
-        'device',
-        'device_type',
-        'vlan',
+        'tags',
+        'devices',
+        'device_types',
+        'vlans',
         'vrf',
-        'nameserver',
-        'scanagent',
-        'location',
+        'nameservers',
+        'scanagents',
+        'locations',
         'nat',
-        'rack',
+        'racks',
     )
 
     def __init__(self, **kwargs):
@@ -152,7 +155,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             'filter_by': key,
             'filter_value': value,
         }
-        return self.find_entity(controller='tools/' + controller, params=lookup_params)
+        return self.find_entity('tools/' + controller, '/', params=lookup_params)
 
     def set_entity(self, key):
         self.phpipam_spec[key]['resolved'] = True
@@ -173,6 +176,11 @@ class PhpipamAnsibleModule(AnsibleModule):
         else:
             if entity_spec.get('type') == 'entity':
                 result = self.find_entity(controller=controller, path='/' + self.phpipam_params[key])
+            elif entity_spec.get('type') == 'entity_list':
+                flatten = entity_spec.get('flatten', False)
+                if flatten:
+                    flatten_result = [self.find_entity(controller=controller, path='/' + e)['id'] for e in self.phpipam_params[key]]
+                    result = entity_spec.get('separator', ';').join(flatten_result)
             else:
                 result = [self.find_entity(controller=controller, path='/' + value) for value in self.phpipam_params[key]]
 
@@ -200,6 +208,8 @@ class PhpipamAnsibleModule(AnsibleModule):
 
                 if spec['type'] == 'entity' and 'resolved' not in spec:
                     desired_entity[updated_key] = self._resolve_entity(key)['id']
+                elif spec['type'] == 'entity_list' and 'resolved' not in spec:
+                    desired_entity[updated_key] = self._resolve_entity(key)
                 else:
                     if spec['type'] == 'bool':
                         desired_entity[updated_key] = str(int(self.phpipam_params[key]))
@@ -222,13 +232,17 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         _PHPIPAM_SPEC_KEYS = {
             'controller',
+            'flatten',
             'phpipam_name',
             'phpipam_spec',
             'resolved',
+            'separator',
         }
         _VALUE_SPEC_KEYS = {
             'controller',
+            'flatten',
             'phpipam_name',
+            'separator',
             'type',
         }
 
@@ -246,6 +260,9 @@ class PhpipamAnsibleModule(AnsibleModule):
                 argument_value['type'] = 'str'
                 if key == 'parent':
                     phpipam_value['controller'] = self.controller_uri
+            elif phpipam_type == 'entity_list':
+                argument_value['type'] = 'list'
+                argument_value['elements'] = value.get('elements', 'str')
             elif phpipam_type:
                 argument_value['type'] = phpipam_type
 
@@ -257,15 +274,19 @@ class PhpipamAnsibleModule(AnsibleModule):
         return phpipam_spec, argument_spec
 
     def _create_entity(self, desired_entity):
+
         try:
-            self.phpipamapi.create_entity(self.controller_uri, desired_entity)
+
+            create_controller = self.controller_uri in self._TOOLS_CONTROLLERS and 'tools/' + self.controller_uri or self.controller_uri
+            self.phpipamapi.create_entity(create_controller, desired_entity)
             self.set_changed()
+
             if self.controller_uri == 'subnets':
                 entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
             elif self.controller_uri == 'addresses':
                 entity = self.find_address(self.phpipam_params['ipaddress'])
             elif self.controller_uri in self._TOOLS_CONTROLLERS:
-                entity = self.find_tools('tools/' + self.controller_uri, value=self.desired_entity['name'])
+                entity = self.find_tools(self.controller_uri, value=desired_entity['name'])
             else:
                 entity = self.find_entity(self.controller_uri, '/' + desired_entity['name'])
         except PHPyPAMEntityNotFoundException:
@@ -274,19 +295,31 @@ class PhpipamAnsibleModule(AnsibleModule):
         return entity
 
     def _update_entity(self, desired_entity, current_entity):
+
         updated_entity = {k: v for k, v in desired_entity.items() if v != current_entity[k] and k != 'parent'}
+
         if updated_entity:
-            updated_entity['id'] = current_entity['id']
+            if self.controller_uri not in self._TOOLS_CONTROLLERS:
+                updated_entity['id'] = current_entity['id']
         else:
             return current_entity
-        self.phpipamapi.update_entity(controller=self.controller_uri, controller_path='/', data=updated_entity)
+
+        if self.controller_uri in self._TOOLS_CONTROLLERS:
+            update_controller = 'tools/' + self.controller_uri
+            update_path = current_entity['id']
+        else:
+            update_controller = self.controller_uri
+            update_path = '/'
+
+        self.phpipamapi.update_entity(controller=update_controller, controller_path=update_path, data=updated_entity)
+
         try:
             if self.controller_uri == 'subnets':
                 entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
             elif self.controller_uri == 'addresses':
                 entity = self.find_address(self.phpipam_params['ipaddress'])
             elif self.controller_uri in self._TOOLS_CONTROLLERS:
-                entity = self.find_tools('tools/' + self.controller_uri, value=self.entity['name'])
+                entity = self.find_tools(self.controller_uri, value=desired_entity['name'])
             else:
                 entity = self.find_entity(self.controller_uri, '/' + current_entity['name'])
             self.set_changed()
@@ -296,8 +329,14 @@ class PhpipamAnsibleModule(AnsibleModule):
         return entity
 
     def _delete_entity(self, current_entity):
+
+        if self.controller_uri in self._TOOLS_CONTROLLERS:
+            delete_controller = 'tools/' + self.controller_uri
+        else:
+            delete_controller = self.controller_uri
+
         try:
-            self.phpipamapi.delete_entity(self.controller_uri, current_entity['id'])
+            self.phpipamapi.delete_entity(delete_controller, current_entity['id'])
             self.set_changed()
         except PHPyPAMEntityNotFoundException:
             raise PhpipamAnsibleException("Entity '{0}' of type '{1}' can't be ensured absentd:\n{2}".format(current_entity['name'], self.controller_uri, traceback.format_exc()))
@@ -358,13 +397,8 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
             'prefix',
         )
 
-        if controller not in _PLURAL_EXCEPTIONS and controller not in self._TOOLS_CONTROLLERS:
+        if controller not in _PLURAL_EXCEPTIONS:
             return inflection.pluralize(controller)
-        elif controller in self._TOOLS_CONTROLLERS:
-            if controller not in _PLURAL_EXCEPTIONS:
-                return 'tools/' + inflection.pluralize(controller)
-            else:
-                return 'tools/' + controller
         else:
             return controller
 
@@ -399,9 +433,9 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
         elif self.controller_uri == 'addresses':
             current_entity = self.find_address(self.phpipam_params['ipaddress'])
         elif self.controller_uri in self._TOOLS_CONTROLLERS:
-            current_entity = self.find_tools(controller=self.controller_uri, value=self.phpipam_params['name'])
+            current_entity = self.find_tools(self.controller_uri, self.phpipam_params['name'])
         else:
-            current_entity = self.find_entity(controller=self.controller_uri, path='/' + self.phpipam_params['name'])
+            current_entity = self.find_entity(self.controller_uri, '/' + self.phpipam_params['name'])
 
         updated_entity = None
 

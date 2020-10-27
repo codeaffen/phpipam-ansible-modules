@@ -1,0 +1,9 @@
+---
+base_nameserver_data:
+  name: cloudflare
+  description: cloudflare dns servers
+  addresses:
+    - 1.1.1.1
+    - 1.0.0.1
+  sections:
+    - Customers

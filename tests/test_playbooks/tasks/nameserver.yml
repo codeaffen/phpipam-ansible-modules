@@ -1,0 +1,12 @@
+---
+- name: "Ensure state of nameserver: {{ name }}"
+  nameserver:
+    server_url: "{{ phpipam_server_url }}"
+    app_id: "{{ phpipam_app_id }}"
+    username: "{{ phpipam_username }}"
+    password: "{{ phpipam_password }}"
+    name: "{{ nameserver.name }}"
+    description: "{{ nameserver.description | default(omit) }}"
+    addresses: "{{ nameserver.addresses | list | default(omit) }}"
+    sections: "{{ nameserver.sections | list | default(omit) }}"
+    state: "{{ nameserver.state | default('present') }}"
