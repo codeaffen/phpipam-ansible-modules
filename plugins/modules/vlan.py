@@ -34,15 +34,15 @@ options:
         type: str
         required: true
     description:
-        descripiton: A descriptive text for that entity
+        description: A descriptive text for that entity
         type: str
-        required false
+        required: false
     vlan_id:
         description:
             - The VLAN-ID. Must be a number.
-            - Due to implementation of api the value has to be I(string) here but is a I(int) in phpIPAM
+            - Due to implementation of api the value has to be I(string) here but is I(int) in phpIPAM
         type: str
-        required: false
+        required: true
     routing_domain:
         description: Name of the L2 routing domain of that VLAN
         type: string
@@ -58,19 +58,16 @@ EXAMPLES = '''
     username: "admin"
     password: "s3cr3t"
     server_url: "https://ipam.example.com"
-    name: "cloudflare dns"
-    addresses:
-      - 1.1.1.1
-      - 1.0.0.1
-    permissions: 1;2
+    name: "my vlan"
+    vlan_id: 1337
     state: present
 
-- name: "Remove vlan
+- name: "Remove vlan"
   codeaffen.phpipam.vlan:
     username: "admin"
     password: "s3cr3t"
     server_url: "https://ipam.example.com"
-    name: "cloudflare dns"
+    name: "my vlan"
     state: absent
 '''
 
@@ -85,7 +82,7 @@ def main():
     module = PhpipamVlanModule(
         phpipam_spec=dict(
             id=dict(type='int', invisible=True, phpipam_name='vlanId'),
-            name=dict(type='str', required=False),
+            name=dict(type='str', required=True),
             description=dict(type='str'),
             vlan_id=dict(type='str', required=True, phpipam_name='number'),
             routing_domain=dict(type='entity', controller='l2domains', phpipam_name='domainId', default='default')

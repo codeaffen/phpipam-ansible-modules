@@ -34,9 +34,9 @@ options:
         type: str
         required: true
     description:
-        descripiton: A descriptive text for that entity
+        description: A descriptive text for that entity
         type: str
-        required false
+        required: false
     addresses:
         description: List of IP addresses the namerserver can be reached on
         type: list

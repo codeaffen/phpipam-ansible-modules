@@ -42,7 +42,7 @@ Synopsis
 
 .. Description
 
-- create, update and delete sections
+- create, update and delete addresses
 
 .. Aliases
 
