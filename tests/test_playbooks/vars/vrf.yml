@@ -1,0 +1,5 @@
+---
+base_vrf_data:
+  name: my vrf
+  sections:
+    - Customers

@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/vrf.yml
+  tasks:
+    - name: create vrf
+      include: tasks/vrf.yml
+      vars:
+        name: create vrf
+        vrf: "{{ base_vrf_data }}"
+
+    - name: create vrf again, no change
+      include: tasks/vrf.yml
+      vars:
+        name: create vrf again, no change
+        vrf: "{{ base_vrf_data }}"
+
+    - name: update vrf
+      include: tasks/vrf.yml
+      vars:
+        name: update vrf
+        override:
+          description: vrf updated
+        vrf: "{{ base_vrf_data | combine(override) }}"
+
+    - name: delete vrf
+      include: tasks/vrf.yml
+      vars:
+        name: delete vrf
+        override:
+          state: absent
+        vrf: "{{ base_vrf_data | combine(override) }}"

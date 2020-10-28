@@ -5,6 +5,14 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v0.4.0
+======
+
+New Modules
+-----------
+
+- codeaffen.phpipam.vrf - Manage virtual routers and forwarders
+
 v0.3.0
 ======
 

@@ -182,7 +182,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         if controller == 'subnets':
             subnet, mask = self.phpipam_params[key].split('/')
             result = self.find_subnet(subnet, mask)
-        elif 'tools' in controller or controller in ['vlan', 'l2domains']:
+        elif 'tools' in controller or controller in ['vlan', 'l2domains', 'vrf']:
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key])
         else:
             if entity_spec.get('type') == 'entity':
@@ -293,7 +293,7 @@ class PhpipamAnsibleModule(AnsibleModule):
                 entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
             elif self.controller_name == 'address':
                 entity = self.find_address(self.phpipam_params['ipaddress'])
-            elif 'tools' in self.controller_name or self.controller_name in ['vlan', 'l2domain']:
+            elif 'tools' in self.controller_name or self.controller_name in ['vlan', 'l2domain', 'vrf']:
                 entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
             else:
                 entity = self.find_entity(self.controller_uri, '/' + desired_entity['name'])
@@ -325,7 +325,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         else:
             return current_entity
 
-        if 'tools' in self.controller_uri or self.controller_uri == 'vlan':
+        if 'tools' in self.controller_uri or self.controller_uri in ['vlan', 'vrf']:
             update_path = current_entity[entity_id]
         else:
             update_path = '/'
@@ -337,7 +337,7 @@ class PhpipamAnsibleModule(AnsibleModule):
                 entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
             elif self.controller_name == 'address':
                 entity = self.find_address(self.phpipam_params['ipaddress'])
-            elif 'tools' in self.controller_uri or self.controller_name in ['vlan', 'l2domain']:
+            elif 'tools' in self.controller_uri or self.controller_name in ['vlan', 'l2domain', 'vrf']:
                 entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
             else:
                 entity = self.find_entity(self.controller_uri, '/' + current_entity['name'])
@@ -421,6 +421,7 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
             'nat',
             'prefix',
             'vlan',
+            'vrf',
         )
 
         if controller not in _PLURAL_EXCEPTIONS:
@@ -458,7 +459,7 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
             current_entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
         elif self.controller_name == 'address':
             current_entity = self.find_address(self.phpipam_params['ipaddress'])
-        elif 'tools' in self.controller_name or self.controller_name in ['vlan', 'l2domain']:
+        elif 'tools' in self.controller_name or self.controller_name in ['vlan', 'l2domain', 'vrf']:
             current_entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
         else:
             current_entity = self.find_entity(self.controller_uri, '/' + self.phpipam_params['name'])
