@@ -1,0 +1,12 @@
+---
+- name: "Ensure state of vlan: {{ name }}"
+  vlan:
+    server_url: "{{ phpipam_server_url }}"
+    app_id: "{{ phpipam_app_id }}"
+    username: "{{ phpipam_username }}"
+    password: "{{ phpipam_password }}"
+    name: "{{ vlan.name }}"
+    description: "{{ vlan.description | default(omit) }}"
+    vlan_id: "{{ vlan.vlan_id }}"
+    routing_domain: "{{ vlan.routing_domain | default(omit) }}"
+    state: "{{ vlan.state | default('present') }}"

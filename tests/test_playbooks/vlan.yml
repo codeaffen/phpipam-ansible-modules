@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/vlan.yml
+  tasks:
+    - name: create vlan
+      include: tasks/vlan.yml
+      vars:
+        name: create vlan
+        vlan: "{{ base_vlan_data }}"
+
+    - name: create vlan again, no change
+      include: tasks/vlan.yml
+      vars:
+        name: create vlan again, no change
+        vlan: "{{ base_vlan_data }}"
+
+    - name: update vlan
+      include: tasks/vlan.yml
+      vars:
+        name: update vlan
+        override:
+          description: vlan updated
+        vlan: "{{ base_vlan_data | combine(override) }}"
+
+    - name: delete vlan
+      include: tasks/vlan.yml
+      vars:
+        name: delete vlan
+        override:
+          state: absent
+        vlan: "{{ base_vlan_data | combine(override) }}"
