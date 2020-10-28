@@ -25,7 +25,7 @@ module: address
 version_added: 0.2.0
 short_description: Manage addresses
 description:
-    - create, update and delete sections
+    - create, update and delete addresses
 author:
     - "Christian Meißner (@cmeissner)"
 options:
@@ -136,10 +136,10 @@ def main():
             hostname=dict(type='str'),
             mac_address=dict(type='str', aliases=['mac'], phpipam_name='mac'),
             owner=dict(type='str'),
-            tag=dict(type='entity', controller='tags'),
+            tag=dict(type='entity', controller='tools/tags'),
             ignore_ptr=dict(type='bool'),
             ptr=dict(type='str'),
-            device=dict(type='entity', controller='devices', phpipam_name='deviceId'),
+            device=dict(type='entity', controller='tools/devices', phpipam_name='deviceId'),
             port=dict(type='str'),
             note=dict(type='str'),
             exclude_ping=dict(type='bool'),

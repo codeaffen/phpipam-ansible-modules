@@ -1,0 +1,11 @@
+---
+- name: "Ensure state of domain: {{ name }}"
+  domain:
+    server_url: "{{ phpipam_server_url }}"
+    app_id: "{{ phpipam_app_id }}"
+    username: "{{ phpipam_username }}"
+    password: "{{ phpipam_password }}"
+    name: "{{ domain.name }}"
+    description: "{{ domain.description | default(omit) }}"
+    sections: "{{ domain.sections | list | default(omit) }}"
+    state: "{{ domain.state | default('present') }}"

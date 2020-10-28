@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/nameserver.yml
+  tasks:
+    - name: create nameserver
+      include: tasks/nameserver.yml
+      vars:
+        name: create nameserver
+        nameserver: "{{ base_nameserver_data }}"
+
+    - name: create nameserver again, no change
+      include: tasks/nameserver.yml
+      vars:
+        name: create nameserver again, no change
+        nameserver: "{{ base_nameserver_data }}"
+
+    - name: update nameserver
+      include: tasks/nameserver.yml
+      vars:
+        name: update nameserver
+        override:
+          description: nameserver updated
+        nameserver: "{{ base_nameserver_data | combine(override) }}"
+
+    - name: delete nameserver
+      include: tasks/nameserver.yml
+      vars:
+        name: delete nameserver
+        override:
+          state: absent
+        nameserver: "{{ base_nameserver_data | combine(override) }}"

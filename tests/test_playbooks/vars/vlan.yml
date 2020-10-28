@@ -1,0 +1,5 @@
+---
+base_vlan_data:
+  name: ansible_test
+  description: test vlan
+  vlan_id: 1337

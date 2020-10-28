@@ -8,3 +8,15 @@ releases:
       name: address
       namespace: ''
     release_date: '2020-10-25'
+  0.3.0:
+    modules:
+    - description: Manage L2 routing domains
+      name: domain
+      namespace: ''
+    - description: Manage nameservers
+      name: nameserver
+      namespace: ''
+    - description: Manage vlans
+      name: vlan
+      namespace: ''
+    release_date: '2020-10-28'

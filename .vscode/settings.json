@@ -3,5 +3,6 @@
     "python.autoComplete.extraPaths": ["./tests/scripts"],
     "python.envFile": "${workspaceFolder}/.env",
     "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "restructuredtext.confPath": "${workspaceFolder}/docs"
 }

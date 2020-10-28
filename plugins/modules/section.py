@@ -130,7 +130,7 @@ def main():
             show_vlan=dict(type='bool', required=False, phpipam_name='showVLAN'),
             show_vrf=dict(type='bool', required=False, phpipam_name='showVRF'),
             show_supernets_only=dict(type='bool', required=False),
-            dns_resolver=dict(type='entity', controller='nameservers', required=False, phpipam_name='DNS'),
+            dns_resolver=dict(type='entity', controller='tools/nameservers', required=False, phpipam_name='DNS'),
         )
     )
 

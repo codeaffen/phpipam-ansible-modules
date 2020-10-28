@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/domain.yml
+  tasks:
+    - name: create domain
+      include: tasks/domain.yml
+      vars:
+        name: create domain
+        domain: "{{ base_domain_data }}"
+
+    - name: create domain again, no change
+      include: tasks/domain.yml
+      vars:
+        name: create domain again, no change
+        domain: "{{ base_domain_data }}"
+
+    - name: update domain
+      include: tasks/domain.yml
+      vars:
+        name: update domain
+        override:
+          description: domain updated
+        domain: "{{ base_domain_data | combine(override) }}"
+
+    - name: delete domain
+      include: tasks/domain.yml
+      vars:
+        name: delete domain
+        override:
+          state: absent
+        domain: "{{ base_domain_data | combine(override) }}"
