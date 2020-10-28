@@ -75,12 +75,12 @@ EXAMPLES = '''
 from ansible_collections.codeaffen.phpipam.plugins.module_utils.phpipam_helper import PhpipamEntityAnsibleModule
 
 
-class PhpipamNameserverModule(PhpipamEntityAnsibleModule):
+class PhpipamToolsNameserverModule(PhpipamEntityAnsibleModule):
     pass
 
 
 def main():
-    module = PhpipamNameserverModule(
+    module = PhpipamToolsNameserverModule(
         phpipam_spec=dict(
             name=dict(type='str', required=True),
             description=dict(type='str'),
