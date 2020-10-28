@@ -287,18 +287,14 @@ class PhpipamAnsibleModule(AnsibleModule):
     def _create_entity(self, desired_entity):
 
         try:
-
             self.phpipamapi.create_entity(self.controller_uri, desired_entity)
             self.set_changed()
-
-            if self.controller_uri == 'subnets':
+            if self.controller_name == 'subnet':
                 entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
-            elif self.controller_uri == 'addresses':
+            elif self.controller_name == 'address':
                 entity = self.find_address(self.phpipam_params['ipaddress'])
-            elif self.controller_uri == 'vlan':
-                entity = self.find_vlan(self.phpipam_params['name'])
-            elif 'tools' in self.controller_uri:
-                entity = self.find_by_key(self.controller_uri, value=desired_entity['name'])
+            elif 'tools' in self.controller_name or self.controller_name in ['vlan', 'l2domain']:
+                entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
             else:
                 entity = self.find_entity(self.controller_uri, '/' + desired_entity['name'])
         except PHPyPAMEntityNotFoundException:
@@ -307,6 +303,15 @@ class PhpipamAnsibleModule(AnsibleModule):
         return entity
 
     def _update_entity(self, desired_entity, current_entity):
+
+        """
+        There is a bug in l2domains controller. If we query a domain we get `sections`
+        but if we want to set sections the controller expects `permissions`.
+        This is not the best place to do it but we didn't expect a quick fix from phpIPAM developers.
+        https://github.com/phpipam/phpipam/issues/3190
+        """
+        if self.controller_name == 'l2domain' and 'permissions' in desired_entity:
+            current_entity['permissions'] = current_entity['sections']
 
         updated_entity = {k: v for k, v in desired_entity.items() if v != current_entity[k] and k != 'parent'}
 
@@ -332,7 +337,7 @@ class PhpipamAnsibleModule(AnsibleModule):
                 entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
             elif self.controller_name == 'address':
                 entity = self.find_address(self.phpipam_params['ipaddress'])
-            elif 'tools' in self.controller_uri or self.controller_name in ['vlan', 'l2domains']:
+            elif 'tools' in self.controller_uri or self.controller_name in ['vlan', 'l2domain']:
                 entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
             else:
                 entity = self.find_entity(self.controller_uri, '/' + current_entity['name'])
@@ -449,13 +454,11 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
 
         state = self.state
 
-        if self.controller_uri == 'subnets':
+        if self.controller_name == 'subnet':
             current_entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
-        elif self.controller_uri == 'addresses':
+        elif self.controller_name == 'address':
             current_entity = self.find_address(self.phpipam_params['ipaddress'])
-        elif self.controller_uri == 'vlan':
-            current_entity = self.find_vlan(self.phpipam_params['name'])
-        elif 'tools' in self.controller_uri:
+        elif 'tools' in self.controller_name or self.controller_name in ['vlan', 'l2domain']:
             current_entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
         else:
             current_entity = self.find_entity(self.controller_uri, '/' + self.phpipam_params['name'])
