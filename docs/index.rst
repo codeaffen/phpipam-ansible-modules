@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to phpipam-ansible-modules's documentation!
+Welcome to phpIPAM Ansible Module documentation!
 ===================================================
 
 .. toctree::
@@ -13,6 +13,12 @@ Welcome to phpipam-ansible-modules's documentation!
    README
    Changelog <CHANGELOG>
    plugins/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Developer documentation
+
+   Contributing <CONTRIBUTING>
 
 Indices and tables
 ==================
