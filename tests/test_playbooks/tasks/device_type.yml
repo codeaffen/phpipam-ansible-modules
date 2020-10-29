@@ -1,0 +1,10 @@
+---
+- name: "Ensure state of device_type: {{ name }}"
+  device_type:
+    server_url: "{{ phpipam_server_url }}"
+    app_id: "{{ phpipam_app_id }}"
+    username: "{{ phpipam_username }}"
+    password: "{{ phpipam_password }}"
+    name: "{{ device_type.name }}"
+    description: "{{ device_type.description | default(omit) }}"
+    state: "{{ device_type.state | default('present') }}"

@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/device_type.yml
+  tasks:
+    - name: create device_type
+      include: tasks/device_type.yml
+      vars:
+        name: create device_type
+        device_type: "{{ base_device_type_data }}"
+
+    - name: create device_type again, no change
+      include: tasks/device_type.yml
+      vars:
+        name: create device_type again, no change
+        device_type: "{{ base_device_type_data }}"
+
+    - name: update device_type
+      include: tasks/device_type.yml
+      vars:
+        name: update device_type
+        override:
+          description: device_type updated
+        device_type: "{{ base_device_type_data | combine(override) }}"
+
+    - name: delete device_type
+      include: tasks/device_type.yml
+      vars:
+        name: delete device_type
+        override:
+          state: absent
+        device_type: "{{ base_device_type_data | combine(override) }}"
