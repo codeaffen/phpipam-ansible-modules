@@ -26,3 +26,12 @@ releases:
       name: vrf
       namespace: ''
     release_date: '2020-10-28'
+  0.5.0:
+    modules:
+    - description: Manage devices
+      name: device
+      namespace: ''
+    - description: Manage device types
+      name: device_type
+      namespace: ''
+    release_date: '2020-10-29'

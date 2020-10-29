@@ -5,6 +5,15 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v0.5.0
+======
+
+New Modules
+-----------
+
+- codeaffen.phpipam.device - Manage devices
+- codeaffen.phpipam.device_type - Manage device types
+
 v0.4.0
 ======
 
