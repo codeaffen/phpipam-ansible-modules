@@ -1,0 +1,37 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/device.yml
+  tasks:
+    - name: create device
+      include: tasks/device.yml
+      vars:
+        name: create device
+        device: "{{ base_device_data }}"
+
+    - name: create device again, no change
+      include: tasks/device.yml
+      vars:
+        name: create device again, no change
+        device: "{{ base_device_data }}"
+
+    - name: update device
+      include: tasks/device.yml
+      vars:
+        name: update device
+        override:
+          description: device updated
+          snmp_community: 'my secret community'
+        device: "{{ base_device_data | combine(override) }}"
+
+    - name: delete device
+      include: tasks/device.yml
+      vars:
+        name: delete device
+        override:
+          state: absent
+        device: "{{ base_device_data | combine(override) }}"

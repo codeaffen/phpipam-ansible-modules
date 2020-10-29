@@ -1,0 +1,6 @@
+---
+base_device_data:
+  hostname: Test device
+  ipaddress: 192.2.0.222
+  sections:
+    - Customers

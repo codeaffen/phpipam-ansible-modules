@@ -15,6 +15,8 @@ Module Plugins
 --------------
 
 * :ref:`address <ansible_collections.codeaffen.phpipam.address_module>` -- Manage addresses
+* :ref:`device <ansible_collections.codeaffen.phpipam.device_module>` -- Manage devices
+* :ref:`device_type <ansible_collections.codeaffen.phpipam.device_type_module>` -- Manage device types
 * :ref:`domain <ansible_collections.codeaffen.phpipam.domain_module>` -- Manage L2 routing domains
 * :ref:`nameserver <ansible_collections.codeaffen.phpipam.nameserver_module>` -- Manage nameservers
 * :ref:`section <ansible_collections.codeaffen.phpipam.section_module>` -- Manage sections
