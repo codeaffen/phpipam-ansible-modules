@@ -1,8 +1,4 @@
-# phpipam-ansible-modules
-
-## work in progress
-
-**This modules are still in development and not for production purpose. If we think you can use is in a more productive manner we will inform you.**
+# phpIPAM Ansible Modules
 
 This collection provides modules to manage entities in a [phpIPAM](https://phpipam.net/). This is neighter a collection of roles nor playbooks. It provides modules to wrote your own roles and/or playbooks.
 
@@ -157,7 +153,7 @@ EXAMPLES:
 
 ### repository folder
 
-A last option to read the docs is the [docs](docs) folder in this repository.
+A last option to read the docs is the docs folder in this repository.
 
 ## Dependencies
 
