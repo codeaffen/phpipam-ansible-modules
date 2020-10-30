@@ -5,6 +5,16 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v1.0.0
+======
+
+Major Changes
+-------------
+
+- Adapt documentation to reflect the final requirements
+- Running tests against the new version and do some changes to work as expected
+- Switch to stable version of `phpypam` module
+
 v0.5.0
 ======
 
