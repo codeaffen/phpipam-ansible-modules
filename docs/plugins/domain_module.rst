@@ -55,7 +55,7 @@ The below requirements are needed on the host that executes this module.
 
 - inflection
 - ipaddress
-- phpypam
+- phpypam>=1.0.0
 
 
 .. Options

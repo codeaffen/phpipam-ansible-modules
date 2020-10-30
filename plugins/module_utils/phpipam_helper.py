@@ -323,7 +323,7 @@ class PhpipamAnsibleModule(AnsibleModule):
     def _create_entity(self, desired_entity):
 
         try:
-            self.phpipamapi.create_entity(self.controller_uri, desired_entity)
+            self.phpipamapi.create_entity(self.controller_uri, data=desired_entity)
             self.set_changed()
             entity = self.find_current_entity()
         except PHPyPAMEntityNotFoundException:
@@ -359,7 +359,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         else:
             update_path = '/'
 
-        self.phpipamapi.update_entity(self.controller_uri, updated_entity, controller_path=update_path)
+        self.phpipamapi.update_entity(self.controller_uri, update_path, updated_entity)
 
         try:
             entity = self.find_current_entity()

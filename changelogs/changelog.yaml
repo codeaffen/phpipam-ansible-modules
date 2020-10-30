@@ -35,3 +35,12 @@ releases:
       name: device_type
       namespace: ''
     release_date: '2020-10-29'
+  1.0.0:
+    changes:
+      major_changes:
+      - Adapt documentation to reflect the final requirements
+      - Running tests against the new version and do some changes to work as expected
+      - Switch to stable version of `phpypam` module
+    fragments:
+    - finally_go_stabel.yml
+    release_date: '2020-10-30'
