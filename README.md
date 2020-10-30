@@ -120,7 +120,7 @@ OPTIONS (= is mandatory):
         type: str
 
 
-REQUIREMENTS:  inflection, ipaddress, phpypam
+REQUIREMENTS:  inflection, ipaddress, phpypam>=1.0.0
 
 AUTHOR: Christian Meißner (@cmeissner)
         METADATA:
@@ -161,4 +161,4 @@ The following dependencies have to be fulfiled by the Ansible controller.
 
 * inflection
 * ipaddress
-* phpypam
+* phpypam>=1.0.0
