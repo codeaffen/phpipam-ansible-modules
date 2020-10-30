@@ -24,7 +24,7 @@ class ModuleDocFragment(object):
 requirements:
     - inflection
     - ipaddress
-    - phpypam
+    - phpypam>=1.0.0
 options:
     server_url:
         description: URL of the phpIPAM server
