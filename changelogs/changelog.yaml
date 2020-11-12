@@ -44,3 +44,10 @@ releases:
     fragments:
     - finally_go_stabel.yml
     release_date: '2020-10-30'
+  1.1.0:
+    changes:
+      bugfixes:
+      - Fixing `There is no `validate_certs` parameter in modules` bug (https://github.com/codeaffen/phpipam-ansible-modules/issues/25)
+    fragments:
+    - missing_validate_certs_parameter.yml
+    release_date: '2020-11-12'

@@ -21,6 +21,7 @@ Module Plugins
 * :ref:`nameserver <ansible_collections.codeaffen.phpipam.nameserver_module>` -- Manage nameservers
 * :ref:`section <ansible_collections.codeaffen.phpipam.section_module>` -- Manage sections
 * :ref:`subnet <ansible_collections.codeaffen.phpipam.subnet_module>` -- Manage subnets
+* :ref:`tag <ansible_collections.codeaffen.phpipam.tag_module>` -- 
 * :ref:`vlan <ansible_collections.codeaffen.phpipam.vlan_module>` -- Manage vlans
 * :ref:`vrf <ansible_collections.codeaffen.phpipam.vrf_module>` -- Manage virtual routers and forwarders
 

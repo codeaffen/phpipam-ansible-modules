@@ -64,6 +64,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             app_id=dict(required=True),
             username=dict(required=True),
             password=dict(required=True, no_log=True),
+            validate_certs=dict(type='bool', required=False, default=True),
         )
         argument_spec.update(gen_args)
         argument_spec.update(kwargs.pop('argument_spec', {}))
