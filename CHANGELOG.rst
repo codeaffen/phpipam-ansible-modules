@@ -5,6 +5,14 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v1.1.0
+======
+
+Bugfixes
+--------
+
+- Fixing `There is no `validate_certs` parameter in modules` bug (https://github.com/codeaffen/phpipam-ansible-modules/issues/25)
+
 v1.0.0
 ======
 

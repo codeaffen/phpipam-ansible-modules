@@ -43,6 +43,11 @@ options:
         description: Password of the user to access phpIPAM server
         required: true
         type: str
+    validate_certs:
+        description: Is the TLS certificate of the phpIPAM server verified or not.
+        required: false
+        type: bool
+        default: yes
 '''
 
     ENTITY_STATE = '''
