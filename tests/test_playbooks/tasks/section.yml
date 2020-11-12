@@ -16,5 +16,5 @@
     show_vrf: "{{ section_show_vrf | default(omit) }}"
     show_supernets_only: "{{ section_show_supernets_only | default(omit) }}"
     dns_resolver: "{{ section_dns_resolver | default(omit) }}"
-    validate_certs: "{{ section_validate_certs | default(omit) }}"
+    validate_certs: "{{ section_validate_certs | default('no') }}"
     state: "{{ section_state | default('present') }}"

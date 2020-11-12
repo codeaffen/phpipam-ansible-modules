@@ -51,3 +51,10 @@ releases:
     fragments:
     - missing_validate_certs_parameter.yml
     release_date: '2020-11-12'
+  1.1.1:
+    changes:
+      bugfixes:
+      - Fix `validate_certs` is not used for api connection (https://github.com/codeaffen/phpipam-ansible-modules/issues/27)
+    fragments:
+    - fix_validate_certs_not_used.yml
+    release_date: '2020-11-12'

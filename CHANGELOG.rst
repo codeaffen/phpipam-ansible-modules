@@ -5,6 +5,14 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v1.1.1
+======
+
+Bugfixes
+--------
+
+- Fix `validate_certs` is not used for api connection (https://github.com/codeaffen/phpipam-ansible-modules/issues/27)
+
 v1.1.0
 ======
 

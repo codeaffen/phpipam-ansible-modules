@@ -82,7 +82,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         self._phpipamapi_app_id = self.phpipam_params.get('app_id')
         self._phpipamapi_username = self.phpipam_params.get('username')
         self._phpipamapi_password = self.phpipam_params.get('password')
-        self._phpipamapi_ssl_verify = self.phpipam_params.get('ssl_verify', True)
+        self._phpipamapi_validate_certs = self.phpipam_params.get('validate_certs', True)
         self._phpipamapi_path = kwargs.get('phpipam_path')
         self._phpipamapi_params = kwargs.get('phpipam_params')
 
@@ -116,7 +116,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             app_id=self._phpipamapi_app_id,
             username=self._phpipamapi_username,
             password=self._phpipamapi_password,
-            ssl_verify=self._phpipamapi_ssl_verify,
+            ssl_verify=self._phpipamapi_validate_certs,
             user_agent="phpipam-ansible-modules",
         )
 
