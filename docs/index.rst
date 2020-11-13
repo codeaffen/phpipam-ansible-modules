@@ -13,6 +13,7 @@ Welcome to phpIPAM Ansible Module documentation!
    README
    Changelog <CHANGELOG>
    plugins/index
+   Filters <filters>
 
 .. toctree::
    :maxdepth: 2

@@ -1,8 +1,11 @@
 {
-    "python.pythonPath": "${workspaceFolder}/venv/bin/python3",
+    "python.pythonPath": "venv/bin/python",
     "python.autoComplete.extraPaths": ["./tests/scripts"],
     "python.envFile": "${workspaceFolder}/.env",
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
-    "restructuredtext.confPath": "${workspaceFolder}/docs"
+    "restructuredtext.confPath": "${workspaceFolder}/docs",
+    "python.analysis.extraPaths": [
+        "./tests/scripts"
+    ]
 }
