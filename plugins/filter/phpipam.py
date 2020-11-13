@@ -8,7 +8,8 @@ import ipaddress
 
 
 class FilterModule(object):
-    """Call to Define useful filter in collection."""
+    """Define useful filter in collection."""
+
     def filters(self):
         """Export filter for ansible.
 
@@ -21,8 +22,7 @@ class FilterModule(object):
 
 
 def is_subnet(children, parent):
-    """
-    Check if a subnet belongs to another.
+    """Check if a subnet belongs to another.
 
     First argument is a subnet  second another. If the first subnet belongs to second
 
