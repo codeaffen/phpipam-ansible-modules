@@ -58,3 +58,11 @@ releases:
     fragments:
     - fix_validate_certs_not_used.yml
     release_date: '2020-11-12'
+  1.2.0:
+    changes:
+      minor_changes:
+      - Add `is_subnet` filter
+      - Add filter documentation
+    fragments:
+    - feature_filters.yml
+    release_date: '2020-11-13'
