@@ -5,6 +5,15 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v1.2.0
+======
+
+Minor Changes
+-------------
+
+- Add `is_subnet` filter
+- Add filter documentation
+
 v1.1.1
 ======
 
