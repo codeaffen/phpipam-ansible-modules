@@ -206,6 +206,7 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         controller = entity_spec['controller'] or self.controller_uri
 
+        result = None
         if controller == 'subnets':
             subnet, mask = self.phpipam_params[key].split('/')
             result = self.find_subnet(subnet, mask)
