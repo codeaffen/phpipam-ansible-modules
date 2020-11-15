@@ -11,14 +11,18 @@
       include: tasks/subnet.yml
       vars:
         name: create subnet
+        subnet: "{{ base_subnet_data }}"
 
     - name: create subnet again, no change
       include: tasks/subnet.yml
       vars:
         name: create subnet again, no change
+        subnet: "{{ base_subnet_data }}"
 
     - name: delete subnet
       include: tasks/subnet.yml
       vars:
         name: delete subnet
-        subnet_state: absent
+        override:
+          state: absent
+        subnet: "{{ base_subnet_data | combine(override) }}"

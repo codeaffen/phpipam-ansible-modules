@@ -1,0 +1,53 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/section.yml
+    - vars/subnet.yml
+  tasks:
+    - name: setup data
+      block:
+      - name: create sections
+        include: tasks/section.yml
+        vars:
+          name: "{{ section.name }}"
+        loop: "{{ sections }}"
+        loop_control:
+          loop_var: section
+
+      - name: create subnets
+        include: tasks/subnet.yml
+        vars:
+          name: "{{ subnet.cidr }}"
+        loop: "{{ subnets }}"
+        loop_control:
+          loop_var: subnet
+      when: cleanup is not defined
+
+    - name: cleanup data
+      block:
+        - name: remove subnets
+          include: tasks/subnet.yml
+          vars:
+            name: "{{ subnet_loop.cidr }}"
+            override:
+              state: absent
+            subnet: "{{ subnet_loop | combine(override) }}"
+          loop: "{{ subnets | reverse | list }}"
+          loop_control:
+            loop_var: subnet_loop
+
+        - name: remove sections
+          include: tasks/section.yml
+          vars:
+            name: "{{ section_loop.name }}"
+            override:
+              state: absent
+            section: "{{ section_loop | combine(override) }}"
+          loop: "{{ sections | reverse | list }}"
+          loop_control:
+            loop_var: section_loop
+      when: cleanup is defined

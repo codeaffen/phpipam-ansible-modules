@@ -11,20 +11,26 @@
       include: tasks/section.yml
       vars:
         name: create section
+        section: "{{ base_section_data }}"
 
     - name: create section again, no change
       include: tasks/section.yml
       vars:
         name: create section again, no change
+        section: "{{ base_section_data }}"
 
     - name: update section
       include: tasks/section.yml
       vars:
         name: update section
-        section_description: section updated
+        override:
+          description: section updated
+        section: "{{ base_section_data | combine(override) }}"
 
     - name: delete section
       include: tasks/section.yml
       vars:
         name: delete section
-        section_state: absent
+        override:
+          state: absent
+        section: "{{ base_section_data | combine(override) }}"

@@ -1,4 +1,12 @@
 ---
-subnet:
+base_subnet_data:
   cidr: 10.0.0.0/24
   section: "Customers"
+
+subnets:
+  - cidr: 192.0.2.0/24
+    section: "ACME Inc."
+  - cidr: 192.0.2.0/25
+    section: "DevOps Department"
+  - cidr: 192.0.2.0/25
+    section: "Infrastructure Department"
