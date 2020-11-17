@@ -20,8 +20,8 @@ A clear and concise description of what you expected to happen.
 **Versions:**
 
 - Ansible:
-- phpipam-ansible-modules
-- phpypam
+- phpipam-ansible-modules:
+- phpypam:
 
 **Additional context**
 Add any other context about the problem here.

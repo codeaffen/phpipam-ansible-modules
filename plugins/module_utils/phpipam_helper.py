@@ -8,7 +8,6 @@ from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
 import re
-import json
 import traceback
 import inflection
 
@@ -16,7 +15,6 @@ from contextlib import contextmanager
 
 try:
     import phpypam
-    from phpypam.core.exceptions import PHPyPAMInvalidSyntax
     from phpypam import PHPyPAMEntityNotFoundException
     HAS_PHPIPAM = True
 except ImportError:
@@ -37,6 +35,7 @@ class PhpipamAnsibleException(Exception):
 
 class PhpipamAnsibleModule(AnsibleModule):
     """ Baseclass for all phpIPAM related ansible modules.
+
         Here we handle connection parameters.
     """
 
@@ -52,6 +51,7 @@ class PhpipamAnsibleModule(AnsibleModule):
     )
 
     def __init__(self, **kwargs):
+        """Generate PhpipamAnsibleModule."""
         # State recording for changed and diff reporting
         self._changed = False
         self._before = defaultdict(list)
@@ -94,9 +94,9 @@ class PhpipamAnsibleModule(AnsibleModule):
 
     @contextmanager
     def api_connection(self):
-        """
-        Context manager. Run a given code block after successful api connect.
+        """Context manager.
 
+        Run a given code block after successful api connect.
         If the execution is done call `exit_json` to report the module has finished.
         """
         self.connect()
@@ -126,7 +126,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         except PHPyPAMEntityNotFoundException:
             return None
 
-        if type(result) == list:
+        if isinstance(result, list):
             if len(result) == 1:
                 result = result[0]
             else:
@@ -229,7 +229,8 @@ class PhpipamAnsibleModule(AnsibleModule):
         return result
 
     def _auto_resolve_entities(self):
-        """
+        """Resolve entities to the needed id.
+
         Here we resolve each parameter of type entity and create a updated_entity dict with
         all params and resolved params
         """
@@ -415,7 +416,9 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
 
     @property
     def controller_name_from_class(self):
-        """ Convert class name to controller name. The class name must follow folowing name convention:
+        """ Convert class name to controller name.
+
+        The class name must follow folowing name convention:
             * Starts with Phpipam
             * Ends with Module
 
@@ -456,19 +459,6 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
             controller = inflection.pluralize(controller)
 
         return controller
-
-    def entity_name_to_id(self, entity_name):
-        try:
-            result = self.find_entity(controller=self.controller_uri, controller_path='/' + entity_name)
-        except PHPyPAMEntityNotFoundException:
-            raise PhpipamAnsibleException
-
-        entity = json.load(result)
-
-        try:
-            return entity['id']
-        except KeyError:
-            raise PhpipamAnsibleException
 
     def record_before(self, controller, entity):
         self._before[controller].append(entity)
