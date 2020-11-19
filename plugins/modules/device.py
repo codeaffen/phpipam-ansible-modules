@@ -50,7 +50,7 @@ options:
         type: str
         required: false
     sections:
-        description: List of sections where the nameserver appears
+        description: List of sections where the device belongs to
         type: list
         required: false
     rack:
