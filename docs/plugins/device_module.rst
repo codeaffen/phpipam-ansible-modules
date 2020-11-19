@@ -44,6 +44,7 @@ Synopsis
 
 - create, update and delete devices
 
+
 .. Aliases
 
 
@@ -191,7 +192,7 @@ Parameters
                                 <td>
                                                                                                                                                             </td>
                                                                 <td>
-                                            <div>List of sections where the nameserver appears</div>
+                                            <div>List of sections where the device belongs to</div>
                                                         </td>
             </tr>
                                 <tr>
