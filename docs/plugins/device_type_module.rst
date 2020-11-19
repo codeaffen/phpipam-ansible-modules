@@ -44,6 +44,7 @@ Synopsis
 
 - create, update and delete device types
 
+
 .. Aliases
 
 
