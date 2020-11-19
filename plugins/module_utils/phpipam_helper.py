@@ -130,20 +130,22 @@ class PhpipamAnsibleModule(AnsibleModule):
             if len(result) == 1:
                 result = result[0]
             else:
-                if len(result) > 1:
-                    error_msg = "too many ({0})".format(len(result))
-                else:
-                    error_msg = "no"
-                self.fail_json(msg="Found {0} results while searching for {1} at {2}".format(error_msg, controller, path))
+                self.fail_json(msg="Found no results while searching for {0} at {1}".format(controller, path))
 
         return result
 
-    def find_subnet(self, subnet, mask):
+    def find_subnet(self, subnet, mask, section):
         # lookups for subnets need a separate find method
         # We only support cidr format to simplify the task.
         # CIDR is valid for ipv4 and ipv6 too.
         path = 'cidr/{0}/{1}'.format(subnet, mask)
-        return self.find_entity('subnets', path)
+
+        lookup_params = {
+            'filter_by': 'sectionId',
+            'filter_value': self.find_entity('sections', section)['id'],
+        }
+
+        return self.find_entity('subnets', path, params=lookup_params)
 
     def find_address(self, address):
         path = 'search/{0}'.format(address)
@@ -181,7 +183,7 @@ class PhpipamAnsibleModule(AnsibleModule):
 
     def find_current_entity(self):
         if self.controller_name == 'subnet':
-            entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'])
+            entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'], self.phpipam_params['section'])
         elif self.controller_name == 'address':
             entity = self.find_address(self.phpipam_params['ipaddress'])
         elif self.controller_name == 'device':
@@ -206,9 +208,10 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         controller = entity_spec['controller'] or self.controller_uri
 
+        result = None
         if controller == 'subnets':
             subnet, mask = self.phpipam_params[key].split('/')
-            result = self.find_subnet(subnet, mask)
+            result = self.find_subnet(subnet, mask, self.phpipam_params['section'])
         elif controller == 'tools/device_types':
             result = self.find_device_type(self.phpipam_params[key])
         elif 'tools' in controller or controller in ['vlan', 'l2domains', 'vrf']:
@@ -496,7 +499,7 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
         Manage entities. Lookup, ensure, sanitize and manage parameters.
         """
         if ('parent' in self.phpipam_spec and self.phpipam_spec['parent'].get('type') == 'entity'
-                and self.desired_absent and 'parent' in self.phpipam_params and self.loopup_entity('parent') is None):
+                and self.desired_absent and 'parent' in self.phpipam_params and self._resolve_entity('parent') is None):
             return None
 
         desired_entity = self._auto_resolve_entities()

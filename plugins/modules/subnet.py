@@ -231,6 +231,7 @@ def main():
         if '/' not in module_params['cidr']:
             module.fail_json(msg='missing prefix lenght in "cidr". Need <ipaddr>/<prefix_lenght>.')
         else:
+            IPNetwork = None
             if '.' in module_params['cidr'] and ':' not in module_params['cidr']:
                 IPNetwork = ipaddress.IPv4Network
                 module_params['mask'] = str(IPNetwork(u'%s' % (module_params['cidr'])).prefixlen)

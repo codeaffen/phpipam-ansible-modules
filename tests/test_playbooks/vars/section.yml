@@ -1,3 +1,10 @@
 ---
-section:
+base_section_data:
   name: "Example Inc."
+
+sections:
+  - name: "ACME Inc."
+  - name: "DevOps Department"
+    parent: "ACME Inc."
+  - name: "Infrastructure Department"
+    parent: "ACME Inc."
