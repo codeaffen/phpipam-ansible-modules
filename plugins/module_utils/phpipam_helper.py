@@ -128,7 +128,7 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         if isinstance(result, list):
             if len(result) == 1:
-                result = result
+                result = result[0]
             else:
                 self.fail_json(msg="Found no results while searching for {0} at {1}".format(controller, path))
 
@@ -141,8 +141,8 @@ class PhpipamAnsibleModule(AnsibleModule):
         path = 'cidr/{0}/{1}'.format(subnet, mask)
 
         lookup_params = {
-            'filter_by': 'section',
-            'filter_value': section,
+            'filter_by': 'sectionId',
+            'filter_value': self.find_entity('sections', section)['id'],
         }
 
         return self.find_entity('subnets', path, params=lookup_params)
