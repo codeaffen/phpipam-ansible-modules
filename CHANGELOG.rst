@@ -5,6 +5,14 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v1.3.0
+======
+
+Bugfixes
+--------
+
+- Fixing `Creating same subnet in different sections isn't possible` bug (https://github.com/codeaffen/phpipam-ansible-modules/issues/33)
+
 v1.2.0
 ======
 
