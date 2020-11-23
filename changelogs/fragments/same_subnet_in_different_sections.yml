@@ -1,2 +1,0 @@
-bugfixes:
-  - Fixing `Creating same subnet in different sections isn't possible` bug (https://github.com/codeaffen/phpipam-ansible-modules/issues/33)
