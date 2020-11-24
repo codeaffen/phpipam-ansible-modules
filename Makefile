@@ -43,6 +43,11 @@ $(NAMESPACE)-$(NAME)-$(VERSION).tar.gz: $(addprefix build/src/,$(DEPENDENCIES))
 
 dist: $(NAMESPACE)-$(NAME)-$(VERSION).tar.gz
 
+release-%:
+	bumpversion $*
+	antsibull-changelog release
+	make doc
+
 publish: $(NAMESPACE)-$(NAME)-$(VERSION).tar.gz
 	ansible-galaxy collection publish --api-key $(GALAXY_API_KEY) $<
 
