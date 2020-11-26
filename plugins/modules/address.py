@@ -109,6 +109,7 @@ EXAMPLES = '''
     password: "s3cr3t"
     server_url: "https://ipam.example.com"
     address: "192.0.2.1"
+    section: "Customers"
     description: "Default router of sunet"
     subnet: "192.0.2.0/24"
     is_gateway: yes
@@ -121,6 +122,7 @@ EXAMPLES = '''
     server_url: "https://ipam.example.com"
     address: "192.0.2.1"
     subnet: "192.0.2.0/24"
+    section: "Customers"
     state: absent
 '''
 
