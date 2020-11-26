@@ -246,7 +246,8 @@ class PhpipamAnsibleModule(AnsibleModule):
             need to be resolved and the id of a resolved entity.
             On that way we also convert boolean into int as the api needed this type.
             """
-            if key in self.phpipam_params:
+
+            if key in self.phpipam_params and not spec.get('api_invisible', False):
 
                 updated_key = spec.get('phpipam_name', key)
 
@@ -275,6 +276,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         argument_spec = {}
 
         _PHPIPAM_SPEC_KEYS = {
+            'api_invisible',
             'controller',
             'flatten',
             'phpipam_name',
@@ -283,6 +285,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             'separator',
         }
         _VALUE_SPEC_KEYS = {
+            'api_invisible',
             'controller',
             'flatten',
             'phpipam_name',
