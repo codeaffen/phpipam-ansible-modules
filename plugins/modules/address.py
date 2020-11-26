@@ -36,7 +36,7 @@ options:
     section:
         description: name of the section the given subnet belongs to
         version_added: 1.4.0
-        typ: str
+        type: str
         required: true
     ipaddress:
         description: IP address to hanle

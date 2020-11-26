@@ -14,7 +14,7 @@ These are the plugins in the codeaffen.phpipam collection
 Modules
 -------
 
-* :ref:`address <ansible_collections.codeaffen.phpipam.address_module>` -- 
+* :ref:`address <ansible_collections.codeaffen.phpipam.address_module>` -- Manage addresses
 * :ref:`device <ansible_collections.codeaffen.phpipam.device_module>` -- Manage devices
 * :ref:`device_type <ansible_collections.codeaffen.phpipam.device_type_module>` -- Manage device types
 * :ref:`domain <ansible_collections.codeaffen.phpipam.domain_module>` -- Manage L2 routing domains
