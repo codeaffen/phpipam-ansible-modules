@@ -306,7 +306,7 @@ Parameters
                         <span style="color: purple">string</span>
                                                  / <span style="color: red">required</span>                    </div>
                                           <div style="font-style: italic; font-size: small; color: darkgreen">
-                        added in 1.4.0 of codeaffen.phpipam
+                        added in 1.3.1 of codeaffen.phpipam
                       </div>
                                                         </td>
                                 <td>
