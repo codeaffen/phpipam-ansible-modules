@@ -5,6 +5,14 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v1.3.1
+======
+
+Bugfixes
+--------
+
+- fix `KeyError 'section'` bug (https://github.com/codeaffen/phpipam-ansible-modules/issues/41)
+
 v1.3.0
 ======
 

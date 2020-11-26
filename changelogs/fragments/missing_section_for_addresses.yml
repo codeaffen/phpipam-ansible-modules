@@ -1,2 +1,0 @@
-bugfixes:
-  - fix `KeyError 'section'` bug (https://github.com/codeaffen/phpipam-ansible-modules/issues/41)
