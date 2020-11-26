@@ -33,6 +33,11 @@ options:
         description: subnet address belongs to
         type: str
         required: true
+    section:
+        description: name of the section the given subnet belongs to
+        version_added: 1.4.0
+        typ: str
+        required: true
     ipaddress:
         description: IP address to hanle
         type: str
@@ -130,6 +135,7 @@ def main():
     module = PhpipamAddressModule(
         phpipam_spec=dict(
             subnet=dict(type='entity', controller='subnets', required=True, phpipam_name='subnetId'),
+            section=dict(type='str', api_invisible=True, required=True),
             ipaddress=dict(type='str', required=True, aliases=['ip', 'address'], phpipam_name='ip'),
             is_gateway=dict(type='bool', phpipam_name='is_gateway'),
             description=dict(type='str'),

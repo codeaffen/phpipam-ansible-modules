@@ -6,6 +6,7 @@
     username: "{{ phpipam_username }}"
     password: "{{ phpipam_password }}"
     subnet: "{{ address.subnet }}"
+    section: "{{ address.section }}"
     ipaddress: "{{ address.ipaddress }}"
     is_gateway: "{{ address.is_gateway | default(omit) }}"
     description: "{{ address.description | default(omit) }}"
