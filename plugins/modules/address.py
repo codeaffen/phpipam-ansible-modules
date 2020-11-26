@@ -35,7 +35,7 @@ options:
         required: true
     section:
         description: name of the section the given subnet belongs to
-        version_added: 1.4.0
+        version_added: 1.3.1
         type: str
         required: true
     ipaddress:
