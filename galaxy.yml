@@ -9,6 +9,6 @@ license:
 tags:
   - phpipam
 readme: "README.md"
-homepage: "chttps://codeaffen.github.io/phpipam-ansible-modules"
+homepage: "https://codeaffen.org/projects/phpipam-ansible-modules"
 repository: "https://github.com/codeaffen/phpipam-ansible-modules"
 issues: "https://github.com/codeaffen/phpipam-ansible-modules/issues"
