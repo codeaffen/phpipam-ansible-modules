@@ -1,0 +1,10 @@
+---
+exclude_paths:
+  - '.github/**'
+  - '.pyyp.yml'
+  - '.vscode/**'
+  - '_config.yml'
+  - 'CONTRIBUTING.md'
+  - 'docker/**'
+  - 'docs/**'
+  - 'README.md'
