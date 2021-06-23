@@ -4,6 +4,7 @@ exclude_paths:
   - '.pyyp.yml'
   - '.vscode/**'
   - '_config.yml'
+  - 'CODE_OF_CONDUCT.md'
   - 'CONTRIBUTING.md'
   - 'docker/**'
   - 'docs/**'
