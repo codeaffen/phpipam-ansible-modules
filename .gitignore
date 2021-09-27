@@ -133,3 +133,6 @@ ansible_collections
 *.tar.gz
 tests/test_playbooks/vars/server.yml
 changelogs/.plugin-cache.yaml
+
+# IDE and editor files
+.vscode/
