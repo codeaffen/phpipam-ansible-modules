@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = u'phpIPAM Ansible Modules'
-copyright = u'2020, codeaffen'
+copyright = u'2021, codeaffen'
 author = u'codeaffen'
 
 # The short X.Y version

@@ -34,7 +34,7 @@ options:
         type: str
         required: true
     description:
-        description: Short describtive text
+        description: Short descriptive text
         type: str
         required: false
         default: None
@@ -47,7 +47,7 @@ options:
             - master
             - master_section
     permissions:
-        description: JSON object that represent the permissions for each user
+        description: JSON object that represents the permissions for each user
         type: json
         required: false
         default: None
@@ -76,7 +76,7 @@ options:
         required: false
         default: no
     show_supernets_only:
-        description: Show only supernets in sebnet list view
+        description: Show only supernets in subnet list view
         type: bool
         required: false
         default: no

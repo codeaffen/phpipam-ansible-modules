@@ -3,6 +3,7 @@ name: "phpipam"
 description: Ansible Modules to manage phpIPAM installations
 authors:
   - "Christian Meißner <cme+ansible@meissner.sh>"
+  - "Billy Longman <summacumwilly@github.com>"
 version: "1.3.1"
 license:
   - "GPL-3.0-or-later"

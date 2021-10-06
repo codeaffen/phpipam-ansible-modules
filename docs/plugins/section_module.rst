@@ -2,6 +2,16 @@
 
 :orphan:
 
+.. |antsibull-internal-nbsp| unicode:: 0xA0
+    :trim:
+
+.. role:: ansible-attribute-support-label
+.. role:: ansible-attribute-support-property
+.. role:: ansible-attribute-support-full
+.. role:: ansible-attribute-support-partial
+.. role:: ansible-attribute-support-none
+.. role:: ansible-attribute-support-na
+
 .. Anchors
 
 .. _ansible_collections.codeaffen.phpipam.section_module:
@@ -20,7 +30,7 @@ codeaffen.phpipam.section -- Manage sections
 .. Collection note
 
 .. note::
-    This plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_.
+    This plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_ (version 1.3.1).
 
     To install it use: :code:`ansible-galaxy collection install codeaffen.phpipam`.
 
@@ -101,7 +111,7 @@ Parameters
                                                                                                                                                                     <b>Default:</b><br/><div style="color: blue">"None"</div>
                                     </td>
                                                                 <td>
-                                            <div>Short describtive text</div>
+                                            <div>Short descriptive text</div>
                                                         </td>
             </tr>
                                 <tr>
@@ -194,7 +204,7 @@ Parameters
                                                                                                                                                                     <b>Default:</b><br/><div style="color: blue">"None"</div>
                                     </td>
                                                                 <td>
-                                            <div>JSON object that represent the permissions for each user</div>
+                                            <div>JSON object that represents the permissions for each user</div>
                                                         </td>
             </tr>
                                 <tr>
@@ -228,7 +238,7 @@ Parameters
                                                                                     </ul>
                                                                             </td>
                                                                 <td>
-                                            <div>Show only supernets in sebnet list view</div>
+                                            <div>Show only supernets in subnet list view</div>
                                                         </td>
             </tr>
                                 <tr>
@@ -359,6 +369,9 @@ Parameters
             </tr>
                         </table>
     <br/>
+
+.. Attributes
+
 
 .. Notes
 

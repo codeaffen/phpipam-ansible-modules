@@ -2,6 +2,16 @@
 
 :orphan:
 
+.. |antsibull-internal-nbsp| unicode:: 0xA0
+    :trim:
+
+.. role:: ansible-attribute-support-label
+.. role:: ansible-attribute-support-property
+.. role:: ansible-attribute-support-full
+.. role:: ansible-attribute-support-partial
+.. role:: ansible-attribute-support-none
+.. role:: ansible-attribute-support-na
+
 .. Anchors
 
 .. _ansible_collections.codeaffen.phpipam.device_module:
@@ -20,7 +30,7 @@ codeaffen.phpipam.device -- Manage devices
 .. Collection note
 
 .. note::
-    This plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_.
+    This plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_ (version 1.3.1).
 
     To install it use: :code:`ansible-galaxy collection install codeaffen.phpipam`.
 
@@ -438,9 +448,9 @@ Parameters
                                                                                                                                                             </td>
                                                                 <td>
                                             <div>Device type of this device.</div>
-                                            <div>The value have to reflect values from device types configured.</div>
+                                            <div>The value has to reflect values from device types configured.</div>
                                             <div>Default device types are <em>Switch</em>, <em>Router</em>, <em>Firewall</em>, <em>Hub</em>, <em>Wireless</em>, <em>Database</em>, <em>Workstation</em>, <em>Laptop</em> and <em>Other</em>.</div>
-                                            <div>User defined types can be created eigther via UI, API (e.g. <em>device_type</em> ansible module within this collection).</div>
+                                            <div>User defined types can be created either via UI, API (e.g. <em>device_type</em> ansible module within this collection).</div>
                                                         </td>
             </tr>
                                 <tr>
@@ -479,6 +489,9 @@ Parameters
             </tr>
                         </table>
     <br/>
+
+.. Attributes
+
 
 .. Notes
 
