@@ -4,7 +4,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0372c2bb95e845ce96fa5d4cf13ca1ca)](https://www.codacy.com/gh/codeaffen/phpipam-ansible-modules/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codeaffen/phpipam-ansible-modules&amp;utm_campaign=Badge_Grade)
 [![Documentation Status](https://readthedocs.org/projects/phpipam-ansible-modules/badge/?version=develop)](https://phpipam-ansible-modules.readthedocs.io/en/develop/?badge=develop)
 
-This collection provides modules to manage entities in a [phpIPAM](https://phpipam.net/). This is neighter a collection of roles nor playbooks. It provides modules to wrote your own roles and/or playbooks.
+This collection provides modules to manage entities in a [phpIPAM](https://phpipam.net/). This is neither a collection of roles nor playbooks. It provides modules to write your own roles and/or playbooks.
 
 We get a lot of inspiration from [foreman-ansible-modules](https://galaxy.ansible.com/theforeman/foreman) for our modules.
 

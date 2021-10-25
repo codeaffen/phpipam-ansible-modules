@@ -2,6 +2,16 @@
 
 :orphan:
 
+.. |antsibull-internal-nbsp| unicode:: 0xA0
+    :trim:
+
+.. role:: ansible-attribute-support-label
+.. role:: ansible-attribute-support-property
+.. role:: ansible-attribute-support-full
+.. role:: ansible-attribute-support-partial
+.. role:: ansible-attribute-support-none
+.. role:: ansible-attribute-support-na
+
 .. Anchors
 
 .. _ansible_collections.codeaffen.phpipam.subnet_module:
@@ -20,7 +30,7 @@ codeaffen.phpipam.subnet -- Manage subnets
 .. Collection note
 
 .. note::
-    This plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_.
+    This plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_ (version 1.3.1).
 
     To install it use: :code:`ansible-galaxy collection install codeaffen.phpipam`.
 
@@ -173,7 +183,7 @@ Parameters
                                                                                     </ul>
                                                                             </td>
                                                                 <td>
-                                            <div>Controls weather hostname DNS records are displayed</div>
+                                            <div>Controls whether hostname DNS records are displayed</div>
                                                         </td>
             </tr>
                                 <tr>
@@ -423,7 +433,7 @@ Parameters
                                                                                     </ul>
                                                                             </td>
                                                                 <td>
-                                            <div>If this is set to &#x27;true&#x27; description is show in side bar instead of cidr</div>
+                                            <div>If this is set to &#x27;true&#x27; description is shown in side bar instead of CIDR</div>
                                                         </td>
             </tr>
                                 <tr>
@@ -558,6 +568,9 @@ Parameters
             </tr>
                         </table>
     <br/>
+
+.. Attributes
+
 
 .. Notes
 

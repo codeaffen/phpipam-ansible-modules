@@ -40,9 +40,9 @@ options:
     type:
         description:
             - Device type of this device.
-            - The value have to reflect values from device types configured.
+            - The value has to reflect values from device types configured.
             - Default device types are I(Switch), I(Router), I(Firewall), I(Hub), I(Wireless), I(Database), I(Workstation), I(Laptop) and I(Other).
-            - User defined types can be created eigther via UI, API (e.g. I(device_type) ansible module within this collection).
+            - User defined types can be created either via UI, API (e.g. I(device_type) ansible module within this collection).
         type: str
         required: false
     description:

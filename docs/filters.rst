@@ -6,7 +6,7 @@ Filters are used to manipulate data if needed.
 is_subnet
 ---------
 
-This filter checks wether a given subnet belongs to the second one. It returns `true` if first subnet belongs to second and `false` if not or both subnets are the same.
+This filter checks whether a given subnet belongs to the second one. It returns `true` if first subnet belongs to the second and `false` if not, or if both subnets are the same.
 
 **since version:** 1.2.0
 

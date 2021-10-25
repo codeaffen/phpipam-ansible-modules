@@ -1,18 +1,23 @@
-:orphan:
 
 .. _plugins_in_codeaffen.phpipam:
 
-Plugin Index
-============
+Codeaffen.Phpipam
+=================
 
-These are the plugins in the codeaffen.phpipam collection
+Collection version 1.3.1
 
 .. toctree::
     :maxdepth: 1
 
 
+Plugin Index
+------------
+
+These are the plugins in the codeaffen.phpipam collection
+
+
 Modules
--------
+~~~~~~~
 
 * :ref:`address <ansible_collections.codeaffen.phpipam.address_module>` -- Manage addresses
 * :ref:`device <ansible_collections.codeaffen.phpipam.device_module>` -- Manage devices
@@ -25,6 +30,21 @@ Modules
 * :ref:`vrf <ansible_collections.codeaffen.phpipam.vrf_module>` -- Manage virtual routers and forwarders
 
 
+
 .. seealso::
 
     List of :ref:`collections <list_of_collections>` with docs hosted here.
+
+.. toctree::
+    :maxdepth: 1
+    :hidden:
+
+    address_module
+    device_module
+    device_type_module
+    domain_module
+    nameserver_module
+    section_module
+    subnet_module
+    vlan_module
+    vrf_module

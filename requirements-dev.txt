@@ -1,7 +1,7 @@
 ansible
 wheel
 jinja2
-PyYAML
+PyYAML~=5.3
 cryptography
 packaging
 requests

@@ -77,7 +77,7 @@ options:
         type: str
         required: false
     show_as_name:
-        description: If this is set to 'true' description is show in side bar instead of cidr
+        description: If this is set to 'true' description is shown in side bar instead of CIDR
         type: bool
         required: false
         default: no
@@ -92,7 +92,7 @@ options:
         required: false
         default: no
     dns_records:
-        description: Controls weather hostname DNS records are displayed
+        description: Controls whether hostname DNS records are displayed
         type: bool
         required: false
         default: no

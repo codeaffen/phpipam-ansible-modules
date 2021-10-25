@@ -103,7 +103,7 @@ extends_documentation_fragment:
 '''
 
 EXAMPLES = '''
-- name: "Reserve a IP address"
+- name: "Reserve an IP address"
   codeaffen.phpipam.section:
     username: "admin"
     password: "s3cr3t"

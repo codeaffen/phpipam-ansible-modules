@@ -2,6 +2,16 @@
 
 :orphan:
 
+.. |antsibull-internal-nbsp| unicode:: 0xA0
+    :trim:
+
+.. role:: ansible-attribute-support-label
+.. role:: ansible-attribute-support-property
+.. role:: ansible-attribute-support-full
+.. role:: ansible-attribute-support-partial
+.. role:: ansible-attribute-support-none
+.. role:: ansible-attribute-support-na
+
 .. Anchors
 
 .. _ansible_collections.codeaffen.phpipam.address_module:
@@ -20,7 +30,7 @@ codeaffen.phpipam.address -- Manage addresses
 .. Collection note
 
 .. note::
-    This plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_.
+    This plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_ (version 1.3.1).
 
     To install it use: :code:`ansible-galaxy collection install codeaffen.phpipam`.
 
@@ -416,6 +426,9 @@ Parameters
                         </table>
     <br/>
 
+.. Attributes
+
+
 .. Notes
 
 
@@ -430,12 +443,13 @@ Examples
 .. code-block:: yaml+jinja
 
     
-    - name: "Reserve a IP address"
+    - name: "Reserve an IP address"
       codeaffen.phpipam.section:
         username: "admin"
         password: "s3cr3t"
         server_url: "https://ipam.example.com"
         address: "192.0.2.1"
+        section: "Customers"
         description: "Default router of sunet"
         subnet: "192.0.2.0/24"
         is_gateway: yes
@@ -448,6 +462,7 @@ Examples
         server_url: "https://ipam.example.com"
         address: "192.0.2.1"
         subnet: "192.0.2.0/24"
+        section: "Customers"
         state: absent
 
 
