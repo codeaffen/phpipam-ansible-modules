@@ -1,6 +1,6 @@
 ansible
 wheel
-jinja2
+jinja2 # pyup: ignore
 PyYAML~=5.3
 cryptography
 packaging
