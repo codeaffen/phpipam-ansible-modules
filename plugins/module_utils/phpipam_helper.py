@@ -214,6 +214,8 @@ class PhpipamAnsibleModule(AnsibleModule):
             result = self.find_subnet(subnet, mask, self.phpipam_params['section'])
         elif controller == 'tools/device_types':
             result = self.find_device_type(self.phpipam_params[key])
+        elif controller == 'tools/tags':
+            result = self.find_by_key(controller=controller, value=self.phpipam_params[key], key='type')
         elif 'tools' in controller or controller in ['vlan', 'l2domains', 'vrf']:
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key])
         else:
