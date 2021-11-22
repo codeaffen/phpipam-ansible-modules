@@ -2,8 +2,12 @@ namespace: "codeaffen"
 name: "phpipam"
 description: Ansible Modules to manage phpIPAM installations
 authors:
-  - "Christian Meißner <cme+ansible@meissner.sh>"
-  - "Billy Longman <summacumwilly@github.com>"
+  - "Christian Meißner <cme@codeaffen.org>"
+  - "Andreas Klamke <andy@klamke.net>"
+  - "Billy Longman <bill.longman@summit-broadband.com>"
+  - "Mario Fritschen <github@fritschen.net>"
+  - "lush <porous@web.de>"
+  - "pyup-bot <github-bot@pyup.io>"
 version: "1.3.1"
 license:
   - "GPL-3.0-or-later"
