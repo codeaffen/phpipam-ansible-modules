@@ -19,7 +19,9 @@ Welcome to phpIPAM Ansible Module documentation!
    :maxdepth: 2
    :caption: Developer documentation
 
+   Code of conduct <CODE_OF_CONDUCT>
    Contributing <CONTRIBUTING>
+   Releasing <release>
 
 Indices and tables
 ==================
