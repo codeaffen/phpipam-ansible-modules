@@ -104,7 +104,7 @@ extends_documentation_fragment:
 
 EXAMPLES = '''
 - name: "Reserve an IP address"
-  codeaffen.phpipam.section:
+  codeaffen.phpipam.address:
     username: "admin"
     password: "s3cr3t"
     server_url: "https://ipam.example.com"
@@ -116,7 +116,7 @@ EXAMPLES = '''
     state: present
 
 - name: "Remove address reservation"
-  codeaffen.phpipam.section:
+  codeaffen.phpipam.address:
     username: "admin"
     password: "s3cr3t"
     server_url: "https://ipam.example.com"
