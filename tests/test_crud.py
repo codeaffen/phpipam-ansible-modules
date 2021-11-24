@@ -1,11 +1,9 @@
-import distutils.version
 import os
 import sys
-from ansible_runner.utils import isinventory
 
 import pytest
 
-from .conftest import TEST_PLAYBOOKS, run_playbook, run_playbook_vcr, get_ansible_version
+from .conftest import TEST_PLAYBOOKS, run_playbook, run_playbook_vcr
 
 IGNORED_WARNINGS = [
     "Activation Key 'Test Activation Key Copy' already exists.",
