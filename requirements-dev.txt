@@ -1,4 +1,5 @@
 ansible
+colour
 wheel
 jinja2 # pyup: ignore
 PyYAML~=5.3

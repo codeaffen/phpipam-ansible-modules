@@ -190,6 +190,8 @@ class PhpipamAnsibleModule(AnsibleModule):
             entity = self.find_device(self.phpipam_params['hostname'])
         elif self.controller_name == 'tools/device_type':
             entity = self.find_device_type(self.phpipam_params['name'])
+        elif self.controller_name == 'tools/tags':
+            entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'], key='type')
         elif 'tools' in self.controller_uri or self.controller_name in ['vlan', 'l2domain', 'vrf']:
             entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
         else:

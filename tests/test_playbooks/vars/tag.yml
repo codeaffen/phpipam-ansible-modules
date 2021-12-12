@@ -1,0 +1,6 @@
+---
+base_tag_data:
+  name: ansible_test_tag
+  description: test tag
+  bg_color: black
+  fg_color: white
