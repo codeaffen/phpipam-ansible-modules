@@ -44,7 +44,7 @@ extends_documentation_fragment:
 
 EXAMPLES = '''
 - name: "Create device type"
-  codeaffen.phpipam.device type:
+  codeaffen.phpipam.device_type:
     username: "admin"
     password: "s3cr3t"
     server_url: "https://ipam.example.com"
@@ -54,7 +54,7 @@ EXAMPLES = '''
     state: present
 
 - name: "Remove device type"
-  codeaffen.phpipam.device type:
+  codeaffen.phpipam.device_type:
     username: "admin"
     password: "s3cr3t"
     server_url: "https://ipam.example.com"
