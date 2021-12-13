@@ -232,7 +232,7 @@ Examples
 
     
     - name: "Create device type"
-      codeaffen.phpipam.device type:
+      codeaffen.phpipam.device_type:
         username: "admin"
         password: "s3cr3t"
         server_url: "https://ipam.example.com"
@@ -242,7 +242,7 @@ Examples
         state: present
 
     - name: "Remove device type"
-      codeaffen.phpipam.device type:
+      codeaffen.phpipam.device_type:
         username: "admin"
         password: "s3cr3t"
         server_url: "https://ipam.example.com"
