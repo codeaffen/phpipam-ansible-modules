@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/tag.yml
+  tasks:
+    - name: create tag
+      include: tasks/tag.yml
+      vars:
+        name: create tag
+        tag: "{{ base_tag_data }}"
+
+    - name: create tag again, no change
+      include: tasks/tag.yml
+      vars:
+        name: create tag again, no change
+        tag: "{{ base_tag_data }}"
+
+    - name: update tag
+      include: tasks/tag.yml
+      vars:
+        name: update tag
+        override:
+          bg_color: yellow
+        tag: "{{ base_tag_data | combine(override) }}"
+
+    - name: delete tag
+      include: tasks/tag.yml
+      vars:
+        type: delete tag
+        override:
+          state: absent
+        tag: "{{ base_tag_data | combine(override) }}"

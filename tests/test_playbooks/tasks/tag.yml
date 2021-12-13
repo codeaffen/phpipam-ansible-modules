@@ -1,0 +1,15 @@
+---
+- name: "Ensure state of tag: {{ name }}"
+  tag:
+    server_url: "{{ phpipam_server_url }}"
+    app_id: "{{ phpipam_app_id }}"
+    username: "{{ phpipam_username }}"
+    password: "{{ phpipam_password }}"
+    name: "{{ tag.name }}"
+    show_tag: "{{ tag.show_tag | default(omit) }}"
+    bg_color: "{{ tag.bg_color | default('white') }}"
+    fg_color: "{{ tag.fg_color | default('black') }}"
+    compress_range: "{{ tag.compress_range | default(omit) }}"
+    update_tags: "{{ tag.update_tags | default(omit) }}"
+    locked: "{{ tag.locked | default(omit) }}"
+    state: "{{ tag.state | default('present') }}"

@@ -1,0 +1,2 @@
+minor_changes:
+  - add `tag_module` to `create`, `update` and `delete` tags

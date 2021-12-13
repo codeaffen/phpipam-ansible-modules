@@ -30,7 +30,7 @@ info:
 	@echo " $(foreach PLUGIN_TYPE,$(PLUGIN_TYPES), $(PLUGIN_TYPE):\n $(foreach PLUGIN,$(basename $(notdir $(_$(PLUGIN_TYPE)))),   - $(PLUGIN)\n)\n)"
 
 lint: $(MANIFEST)
-	flake8 --ignore=E402,W503 --max-line-length=160 plugins/ tests/
+	flake8 plugins/ tests/
 
 $(MANIFEST): $(NAMESPACE)-$(NAME)-$(VERSION).tar.gz
 	ansible-galaxy collection install -p build/collections $< --force
