@@ -1,0 +1,38 @@
+---
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/location.yml
+  tasks:
+    - name: create location
+      include: tasks/location.yml
+      vars:
+        name: create location
+        location: "{{ base_location_data }}"
+
+    - name: create location again, no change
+      include: tasks/location.yml
+      vars:
+        name: create location again, no change
+        location: "{{ base_location_data }}"
+
+    - name: update location
+      include: tasks/location.yml
+      vars:
+        name: update location
+        override:
+          address: "Alexander Platz, Berlin, Germany"
+          latitude: "{{ omit }}"
+          longitude: "{{ omit }}"
+        location: "{{ base_location_data | combine(override) }}"
+
+    - name: delete location
+      include: tasks/location.yml
+      vars:
+        type: delete location
+        override:
+          state: absent
+        location: "{{ base_location_data | combine(override) }}"

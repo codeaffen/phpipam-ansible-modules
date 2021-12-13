@@ -1,0 +1,14 @@
+---
+- name: "Ensure state of location: {{ name }}"
+  location:
+    server_url: "{{ phpipam_server_url }}"
+    app_id: "{{ phpipam_app_id }}"
+    username: "{{ phpipam_username }}"
+    password: "{{ phpipam_password }}"
+    name: "{{ location.name }}"
+    description: "{{ location.description | default(omit) }}"
+    address: "{{ location.address | default(omit) }}"
+    latitude: "{{ location.latitude | default(omit) }}"
+    longitude: "{{ location.longitude | default(omit) }}"
+    resolv_location: "{{ location.resolv_location | default(omit) }}"
+    state: "{{ location.state | default('present') }}"
