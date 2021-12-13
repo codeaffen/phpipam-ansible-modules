@@ -28,6 +28,8 @@
 
 * Point out that you want to start to work on the new feature
 
+* If you want to start to work on a new module we suggest to read [How to write new phpipam modules@codeaffen.org](https://codeaffen.org/2021-01-07-writing-phpipam-ansible-modules/).
+
 ## Do you wnat to contribute to documentation?
 
 * Fork me.
