@@ -23,6 +23,7 @@ Modules
 * :ref:`device <ansible_collections.codeaffen.phpipam.device_module>` -- Manage devices
 * :ref:`device_type <ansible_collections.codeaffen.phpipam.device_type_module>` -- Manage device types
 * :ref:`domain <ansible_collections.codeaffen.phpipam.domain_module>` -- Manage L2 routing domains
+* :ref:`location <ansible_collections.codeaffen.phpipam.location_module>` -- Manage locations
 * :ref:`nameserver <ansible_collections.codeaffen.phpipam.nameserver_module>` -- Manage nameservers
 * :ref:`section <ansible_collections.codeaffen.phpipam.section_module>` -- Manage sections
 * :ref:`subnet <ansible_collections.codeaffen.phpipam.subnet_module>` -- Manage subnets
@@ -44,6 +45,7 @@ Modules
     device_module
     device_type_module
     domain_module
+    location_module
     nameserver_module
     section_module
     subnet_module

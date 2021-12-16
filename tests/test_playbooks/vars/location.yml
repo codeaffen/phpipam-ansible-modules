@@ -1,0 +1,7 @@
+---
+base_location_data:
+  name: ansible_test_location
+  description: test location
+  latitude: 52.5319638
+  longitude: 13.3925654
+  resolv_location: Yes

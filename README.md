@@ -46,6 +46,7 @@ A last option to read the docs is the docs folder in this repository.
 The following dependencies have to be fulfiled by the Ansible controller.
 
 * colour
+* geopy
 * inflection
 * ipaddress
 * phpypam>=1.0.0
