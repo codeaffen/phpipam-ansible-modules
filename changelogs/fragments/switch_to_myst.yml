@@ -1,2 +1,0 @@
-minor_changes:
-  - Switch sphinx from recommonmark to myst_parser.

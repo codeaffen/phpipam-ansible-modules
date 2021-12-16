@@ -2,18 +2,27 @@ namespace: "codeaffen"
 name: "phpipam"
 description: Ansible Modules to manage phpIPAM installations
 authors:
-  - "Christian Meißner <cme@codeaffen.org>"
   - "Andreas Klamke <andy@klamke.net>"
   - "Billy Longman <bill.longman@summit-broadband.com>"
+  - "Christian Meißner <cme@codeaffen.org>"
+  - "Gerald-Markus Zabos <gmzabos@users.noreply.github.com>"
   - "Mario Fritschen <github@fritschen.net>"
+  - "Scott Arthur <scott@scottatron.com>"
   - "lush <porous@web.de>"
-version: "1.3.1"
+version: "1.4.0"
 license:
   - "GPL-3.0-or-later"
 tags:
   - api
+  - assetmanagement
+  - devicemanagement
+  - ipam
+  - ipmanagement
+  - nameserver
   - networking
+  - networkmanagement
   - phpipam
+  - subnetmanagement
   - system
 readme: "README.md"
 homepage: "https://codeaffen.org/projects/phpipam-ansible-modules"

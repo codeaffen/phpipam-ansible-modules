@@ -4,7 +4,7 @@
 Codeaffen.Phpipam
 =================
 
-Collection version 1.3.1
+Collection version 1.4.0
 
 .. toctree::
     :maxdepth: 1

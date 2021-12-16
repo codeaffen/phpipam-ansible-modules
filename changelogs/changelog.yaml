@@ -80,3 +80,30 @@ releases:
     fragments:
     - missing_section_for_addresses.yml
     release_date: '2020-11-26'
+  1.4.0:
+    changes:
+      bugfixes:
+      - fix \#57 - tag lookups failed when specified in an `address` task
+      - fix \#61 - Device type examples
+      minor_changes:
+      - Minor formatting and spelling fixes.
+      - Switch sphinx from recommonmark to myst_parser.
+      - add `location_module` to `create`, `update` and `delete` locations this module
+        also implement a facility to resolve the location from a address or a lat/lon
+        pair
+      - add `tag_module` to `create`, `update` and `delete` tags
+    fragments:
+    - docs-update.yml
+    - fix-device_type-examples.yml
+    - fix-tag-lookups.yml
+    - location_module.yml
+    - switch_to_myst.yml
+    - tag_module.yml
+    modules:
+    - description: Manage locations
+      name: location
+      namespace: ''
+    - description: Manage tags
+      name: tag
+      namespace: ''
+    release_date: '2021-12-16'

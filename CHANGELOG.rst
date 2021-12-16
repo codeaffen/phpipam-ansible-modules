@@ -5,6 +5,29 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v1.4.0
+======
+
+Minor Changes
+-------------
+
+- Minor formatting and spelling fixes.
+- Switch sphinx from recommonmark to myst_parser.
+- add `location_module` to `create`, `update` and `delete` locations this module also implement a facility to resolve the location from a address or a lat/lon pair
+- add `tag_module` to `create`, `update` and `delete` tags
+
+Bugfixes
+--------
+
+- fix \#57 - tag lookups failed when specified in an `address` task
+- fix \#61 - Device type examples
+
+New Modules
+-----------
+
+- codeaffen.phpipam.location - Manage locations
+- codeaffen.phpipam.tag - Manage tags
+
 v1.3.1
 ======
 

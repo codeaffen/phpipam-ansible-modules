@@ -1,2 +1,0 @@
-bug_fixes:
-  - Fix #57 - tag lookups failed when specified in an `address` task
