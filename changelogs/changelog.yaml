@@ -83,7 +83,8 @@ releases:
   1.4.0:
     changes:
       bugfixes:
-      - Fix
+      - fix \#57 - tag lookups failed when specified in an `address` task
+      - fix \#61 - Device type examples
       minor_changes:
       - Minor formatting and spelling fixes.
       - Switch sphinx from recommonmark to myst_parser.
@@ -91,7 +92,6 @@ releases:
         also implement a facility to resolve the location from a address or a lat/lon
         pair
       - add `tag_module` to `create`, `update` and `delete` tags
-      - fix
     fragments:
     - docs-update.yml
     - fix-device_type-examples.yml
