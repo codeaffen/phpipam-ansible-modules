@@ -1,3 +1,0 @@
-minor_changes:
-  - add `location_module` to `create`, `update` and `delete` locations
-    this module also implement a facility to resolve the location from a address or a lat/lon pair
