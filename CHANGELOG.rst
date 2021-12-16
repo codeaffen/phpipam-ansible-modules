@@ -13,8 +13,6 @@ Minor Changes
 
 - Minor formatting and spelling fixes.
 - Switch sphinx from recommonmark to myst_parser.
-- add `location_module` to `create`, `update` and `delete` locations this module also implement a facility to resolve the location from a address or a lat/lon pair
-- add `tag_module` to `create`, `update` and `delete` tags
 
 Bugfixes
 --------
