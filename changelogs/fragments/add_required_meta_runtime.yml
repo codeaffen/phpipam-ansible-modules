@@ -1,3 +1,0 @@
-bugfixes:
-  - with [AHH538](https://issues.redhat.com/browse/AAH-538) `requires_ansible` is mandatory in `meta/runtime.yml`. 
-    So we add the minimum version for our collection here.

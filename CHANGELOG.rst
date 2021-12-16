@@ -19,6 +19,7 @@ Bugfixes
 
 - fix \#57 - tag lookups failed when specified in an `address` task
 - fix \#61 - Device type examples
+- with [AHH538](https://issues.redhat.com/browse/AAH-538) `requires_ansible` is mandatory in `meta/runtime.yml`. So we add the minimum version for our collection here.
 
 New Modules
 -----------

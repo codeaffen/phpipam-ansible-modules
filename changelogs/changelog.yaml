@@ -85,10 +85,12 @@ releases:
       bugfixes:
       - fix \#57 - tag lookups failed when specified in an `address` task
       - fix \#61 - Device type examples
+      - with [AHH538](https://issues.redhat.com/browse/AAH-538) `requires_ansible` is mandatory in `meta/runtime.yml`. So we add the minimum version for our collection here.
       minor_changes:
       - Minor formatting and spelling fixes.
       - Switch sphinx from recommonmark to myst_parser.
     fragments:
+    - add_required_meta_runtime.yml
     - docs-update.yml
     - fix-device_type-examples.yml
     - fix-tag-lookups.yml
