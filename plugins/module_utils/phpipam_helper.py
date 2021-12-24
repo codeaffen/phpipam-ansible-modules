@@ -25,9 +25,6 @@ from collections import defaultdict
 
 from ansible.module_utils.basic import AnsibleModule, missing_required_lib
 
-from ansible.utils.display import Display
-display = Display()
-
 
 class PhpipamAnsibleException(Exception):
     pass
