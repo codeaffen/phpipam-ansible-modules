@@ -30,6 +30,38 @@
 
 * If you want to start to work on a new module we suggest to read [How to write new phpipam modules@codeaffen.org](https://codeaffen.org/2021-01-07-writing-phpipam-ansible-modules/).
 
+### Create your feature in a branch of your fork
+
+Fork our repository and create a new branch for your feature. Then start to work on your feature.
+
+### Add tests for your new feature
+
+To make sure that your feature is working as expected and to make sure that it is not breaking any existing functionality, you should add tests for your new feature. To do so, you
+
+1. need to have a working phpipam installation.
+2. export the following environment variables:
+   * PHPIPAM_URL - the URL of your phpipam installation (e.g. `https://localhost`)
+   * PHPIPAM_USERNAME - the username to login to phpipam
+   * PHPIPAM_PASSWORD - the password to login to phpipam
+   * PHPIPAM_APPID - the appid to login to phpipam
+3. add a new task definition for your new feature in tests/test_playbooks/tasks/
+4. add a vars definition for your new feature in tests/test_playbooks/vars/
+5. add a crud playbook for your new feature in tests/test_playbooks/
+   The playbook should contain the following steps:
+   * import vars files `vars/server.yml` and `vars/<yourtest>.yml`
+   * tasks for
+     * create a new entity
+     * create a new entity again to make sure that it will not changed
+     * update the entity
+     * delete the entity
+6. run your test with `ansible-playbook --inventory=tests/inventory/hosts tests/test_playbooks/<yourtest>.yml -vvv` to make sure that your feature is working as expected
+7. run your test again with `make test-<yourtest>`
+8. run all tests with `make test-all` to make sure that your feature does not break any existing functionality
+
+### Create pull request for your new feature
+
+When you are done, push your changes to your fork and create a pull request. Please make sure that you have squashed your changes before you create the pull request. Provide a clear description of your feature and the changes you made.
+
 ## Do you wnat to contribute to documentation?
 
 * Fork me.
