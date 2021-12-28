@@ -1,3 +1,4 @@
+YAML_INSTALLED:=$(shell pip install pyyaml)
 NAMESPACE := $(shell python -c 'import yaml; print(yaml.safe_load(open("galaxy.yml"))["namespace"])')
 NAME := $(shell python -c 'import yaml; print(yaml.safe_load(open("galaxy.yml"))["name"])')
 VERSION := $(shell python -c 'import yaml; print(yaml.safe_load(open("galaxy.yml"))["version"])')
@@ -14,6 +15,9 @@ COLLECTION_COMMAND ?= ansible-galaxy
 SANITY_OPTS = --venv
 TEST =
 PYTEST = pytest -n 4 --boxed -v
+
+SHELL = bash
+.ONESHELL:
 
 default: help
 
@@ -43,6 +47,9 @@ $(NAMESPACE)-$(NAME)-$(VERSION).tar.gz: $(addprefix build/src/,$(DEPENDENCIES))
 
 dist: $(NAMESPACE)-$(NAME)-$(VERSION).tar.gz
 
+install: $(NAMESPACE)-$(NAME)-$(VERSION).tar.gz
+	ansible-galaxy collection install $< --force
+
 release-%:
 	bumpversion $*
 	antsibull-changelog release
@@ -67,6 +74,21 @@ doc: $(MANIFEST)
 	antsibull-docs collection --use-current --squash-hierarchy --dest-dir ./docs/plugins codeaffen.phpipam
 	make -C docs html
 
+test-setup: | tests/test_playbooks/vars/server.yml install-deps install
+	test -f tests/test_playbooks/vars/server.yml
+
+test-all:
+	coverage run -m pytest -n 4 --forked -vv 'tests/test_crud.py::test_crud'
+
+test-%:
+	coverage run -m pytest --forked -vv 'tests/test_crud.py::test_case_crud' --testcase $*
+
+tests/test_playbooks/vars/server.yml:
+	sed -e "s#~~url~~#$(PHPIPAM_URL)#" -e "s#~~app_id~~#$(PHPIPAM_APPID)#" -e "s#~~username~~#$(PHPIPAM_USERNAME)#" -e "s#~~password~~#$(PHPIPAM_PASSWORD)#" $@.example > $@
+
+install-deps:
+	pip install -r requirements-dev.txt
+
 FORCE:
 
-.PHONY: help dist lint doc-setup doc publish FORCE
+.PHONY: help dist lint doc-setup doc publish test-setup test-all test-% install-deps FORCE

@@ -1,6 +1,6 @@
 ---
 # Parameter for all tests
-phpipam_server_url: "https://ipam.example.com"
-phpipam_app_id: ansible
-phpipam_username: test
-phpipam_password: "test123"
+phpipam_server_url: '~~url~~'
+phpipam_app_id: ~~app_id~~
+phpipam_username: ~~username~~
+phpipam_password: ~~password~~

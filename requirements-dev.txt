@@ -1,6 +1,7 @@
 ansible
-colour
-geopy
+ansible_runner<2.0; python_version < '3.6'
+ansible_runner; python_version >= '3.6'
+coverage
 wheel
 jinja2 # pyup: ignore
 PyYAML~=5.3
@@ -9,6 +10,7 @@ packaging
 requests
 phpypam
 pytest
+pytest-forked
 pytest-xdist
 flake8
 docker
