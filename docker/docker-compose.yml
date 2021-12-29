@@ -1,8 +1,22 @@
 version: '3'
 services:
-  phpIPAM-www:
-    image: phpipam/phpipam-www
+  phpipam:
+    image: phpipam/phpipam-www:v1.4.4
     ports:
-      - "8080:80"
-  phpIPAM-DB:
-    image: "mysql"
+      - "443:443"
+    environment:
+      IPAM_DATABASE_HOST: "database"
+      IPAM_DATABASE_USER: "phpipam"
+      IPAM_DATABASE_PASS: "phpipamadmin"
+      IPAM_DATABASE_NAME: "phpipam"
+    depends_on:
+      - database
+  database:
+    image: mariadb:10.3.18
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "rootpw"
+      MYSQL_USER: "phpipam"
+      MYSQL_PASSWORD: "phpipamadmin"
+      MYSQL_DATABASE: "phpipam"

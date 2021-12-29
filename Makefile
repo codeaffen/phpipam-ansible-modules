@@ -65,6 +65,8 @@ clean:
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -rf {} +
 	find . -name '*.tar.gz' -delete
+	docker-compose -f docker/docker-compose.yml stop
+	docker-compose -f docker/docker-compose.yml rm --force
 
 doc-setup:
 	pip install -r docs/requirements.txt
@@ -88,6 +90,11 @@ tests/test_playbooks/vars/server.yml:
 
 install-deps:
 	pip install -r requirements-dev.txt
+
+setup-phpipam: test-setup
+	docker-compose -f docker/docker-compose.yml up -d
+	sleep 30
+	docker/setup_database.sh
 
 FORCE:
 
