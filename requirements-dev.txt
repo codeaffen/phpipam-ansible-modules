@@ -1,7 +1,9 @@
 ansible
 ansible_runner<2.0; python_version < '3.6'
 ansible_runner; python_version >= '3.6'
+colour
 coverage
+geopy
 wheel
 jinja2 # pyup: ignore
 PyYAML~=5.3

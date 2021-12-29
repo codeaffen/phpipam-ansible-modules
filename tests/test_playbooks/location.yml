@@ -24,7 +24,7 @@
       vars:
         name: update location
         override:
-          address: "Alexander Platz, Berlin, Germany"
+          address: "Alexanderstraße. 1, 10115 Berlin, Deutschland"
           latitude: "{{ omit }}"
           longitude: "{{ omit }}"
         location: "{{ base_location_data | combine(override) }}"

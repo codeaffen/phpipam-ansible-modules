@@ -1,6 +1,6 @@
 ---
 base_address_data:
-  ipaddress: 172.16.0.1
-  subnet: 172.16.0.0/24
+  ipaddress: 10.65.22.1
+  subnet: 10.65.22.0/24
   section: Customers
   is_gateway: yes

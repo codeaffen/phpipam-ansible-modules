@@ -23,7 +23,7 @@ except ImportError:
 
 from collections import defaultdict
 
-from ansible.module_utils.basic import AnsibleModule, missing_required_lib
+from ansible.module_utils.basic import AnsibleModule, missing_required_lib, env_fallback
 
 
 class PhpipamAnsibleException(Exception):
@@ -57,11 +57,11 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         self.phpipam_spec, gen_args = self._phpipam_spec_helper(kwargs.pop('phpipam_spec', {}))
         argument_spec = dict(
-            server_url=dict(required=True),
-            app_id=dict(required=True),
-            username=dict(required=True),
-            password=dict(required=True, no_log=True),
-            validate_certs=dict(type='bool', required=False, default=True),
+            server_url=dict(required=True, fallback=(env_fallback, ['PHPIPAM_SERVER_URL'])),
+            app_id=dict(required=True, fallback=(env_fallback, ['PHPIPAM_APP_ID'])),
+            username=dict(required=True, fallback=(env_fallback, ['PHPIPAM_USERNAME'])),
+            password=dict(required=True, fallback=(env_fallback, ['PHPIPAM_PASSWORD']), no_log=True),
+            validate_certs=dict(type='bool', fallback=(env_fallback, ['PHPIPAM_VALIDATE_CERTS']), required=False, default=True),
         )
         argument_spec.update(gen_args)
         argument_spec.update(kwargs.pop('argument_spec', {}))

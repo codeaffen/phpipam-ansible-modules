@@ -1,0 +1,2 @@
+minor_changes:
+  - fix \#70 - provide environment variable support for connection data
