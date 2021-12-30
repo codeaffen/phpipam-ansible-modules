@@ -3,7 +3,7 @@ on: push
 
 jobs:
   test:
-    name: run tests
+    name: end to end tests
     runs-on: ubuntu-latest
     services:
       database:
@@ -44,15 +44,15 @@ jobs:
           PHPIPAM_APPID: "ansible"
           PHPIPAM_USERNAME: "admin"
           PHPIPAM_PASSWORD: "ipamadmin"
-      # - name: "waiting for database to come online"
-      #   run: |
-      #     for i in `seq 1 10`;
-      #     do
-      #       nc -z 127.0.0.1 3306 && echo Success && exit 0
-      #       echo -n .
-      #       sleep 1
-      #     done
-      #     echo Failed waiting for MySQL && exit 1
+      - name: "waiting for database to come online"
+        run: |
+          for i in `seq 1 10`;
+          do
+            nc -z 127.0.0.1 3306 && echo Success && exit 0
+            echo -n .
+            sleep 1
+          done
+          echo Failed waiting for MySQL && exit 1
       - name: load data into database
         run: |
           mysql -h 127.0.0.1 -u phpipam -pphpipamadmin phpipam < phpipam/db/SCHEMA.sql
@@ -62,12 +62,12 @@ jobs:
       - name: add api key for tests
         run: |
           mysql -h 127.0.0.1 -u phpipam -pphpipamadmin phpipam --execute="INSERT INTO api (app_id, app_code, app_permissions, app_security, app_lock_wait) VALUES ('ansible','aAbBcCdDeEfF00112233445566778899',2,'ssl_token',0);"
-      - name: run single test
+      - name: run example setup
         run: |
           make test-example_setup
         env:
           PHPIPAM_VALIDATE_CERTS: false
-      - name: run tests
+      - name: run playbook tests
         run: |
           make test-all
         env:
