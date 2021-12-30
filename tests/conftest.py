@@ -12,7 +12,7 @@ TEST_PLAYBOOKS_PATH = py.path.local(__file__).realpath() / '..' / 'test_playbook
 def find_all_test_playbooks():
     for playbook in TEST_PLAYBOOKS_PATH.listdir(sort=True):
         playbook = playbook.basename
-        if playbook.endswith('.yml'):
+        if playbook.endswith('.yml') and not playbook.startswith('example_'):
             yield playbook.replace('.yml', '')
 
 
