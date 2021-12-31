@@ -5,10 +5,6 @@ import pytest
 
 from .conftest import TEST_PLAYBOOKS, run_playbook
 
-IGNORED_WARNINGS = [
-    "Activation Key 'Test Activation Key Copy' already exists.",
-]
-
 if sys.version_info[0] == 2:
     for envvar in os.environ.keys():
         try:
