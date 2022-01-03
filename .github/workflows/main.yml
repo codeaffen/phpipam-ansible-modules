@@ -1,5 +1,7 @@
-name: "Test Collection"
-on: push
+name: CI
+
+on:
+- push
 
 jobs:
   test:
