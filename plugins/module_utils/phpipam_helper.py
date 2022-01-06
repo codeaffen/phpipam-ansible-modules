@@ -117,6 +117,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             user_agent="phpipam-ansible-modules",
         )
 
+    # wird nicht mehr benötigt, da in _phpypam.Api._find_entity() aufgegangen
     def find_entity(self, controller, path, params=None):
         try:
             result = self.phpipamapi.get_entity(controller=controller, controller_path=path, params=params)
@@ -131,6 +132,7 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         return result
 
+    # wird nicht mehr benötigt, da in _phpypam.Api._find_subnet() aufgegangen
     def find_subnet(self, subnet, mask, section):
         # lookups for subnets need a separate find method
         # We only support cidr format to simplify the task.
@@ -144,22 +146,27 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         return self.find_entity('subnets', path, params=lookup_params)
 
+    # wird nicht mehr benötigt, da in _phpypam.Api._find_address() aufgegangen
     def find_address(self, address):
         path = 'search/{0}'.format(address)
         return self.find_entity('addresses', path)
 
+    # wird nicht mehr benötigt, da in _phpypam.Api._find_device() aufgegangen
     def find_device(self, hostname):
         return self.find_by_key('devices', hostname, key='hostname')
 
+    # wird nicht mehr benötigt, da in _phpypam.Api._find_device_type() aufgegangen
     def find_device_type(self, device_type):
         result = self.find_by_key('tools/device_types', device_type, key='tname')
         if result and 'tid' in result:
             result['id'] = result['tid']
         return result
 
+    # wird nicht mehr benötigt, da in _phpypam.Api._find_vlan() aufgegangen
     def find_vlan(self, vlan):
         return self.find_by_key(self.controller_uri, vlan)
 
+    # wird nicht mehr benötigt, da in _phpypam.Api._find_by_key() aufgegangen
     def find_by_key(self, controller, value, key='name'):
         """
         Some controllers don't provide the ability to search for entities by uri
@@ -178,6 +185,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         }
         return self.find_entity(controller, '/', params=lookup_params)
 
+    # wird durch _phpypam.Api.get_entity() ersetzt
     def find_current_entity(self):
         if self.controller_name == 'subnet':
             entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'], self.phpipam_params['section'])
@@ -199,6 +207,10 @@ class PhpipamAnsibleModule(AnsibleModule):
     def set_entity(self, key):
         self.phpipam_spec[key]['resolved'] = True
 
+    # Diese Methode muss nach _phpypam.Api.resolve_entity() migriert werden.
+    #
+    # Problem: `self.set_result()` wird nicht mehr aufgerufen, daher muss
+    #          `self.phpipam_spec` an anderer Stelle aktualisiert werden.
     def _resolve_entity(self, key):
         if key not in self.phpipam_params:
             return None
@@ -248,6 +260,8 @@ class PhpipamAnsibleModule(AnsibleModule):
             On that way we also convert boolean into int as the api needed this type.
             """
 
+            # In dieser Schleife muss in Zukunft `self.set_entity()` aufgerufen werden
+            # Es is zu Prüfen ob diese Methode nur gerufen wird, wenn _phpypam.Api.resolve_entity() nicht `None` ist.
             if key in self.phpipam_params and not spec.get('api_invisible', False):
 
                 updated_key = spec.get('phpipam_name', key)
@@ -329,6 +343,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             entity.update(sanitized_entries)
             return entity
 
+    # wird durch _phpypam.Api.create_entity() ersetzt
     def _create_entity(self, desired_entity):
 
         try:
@@ -340,6 +355,7 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         return entity
 
+    # wird durch _phpypam.Api.update_entity() ersetzt
     def _update_entity(self, desired_entity, current_entity):
 
         """
@@ -378,6 +394,7 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         return entity
 
+    # wird durch _phpypam.Api.delete_entity() ersetzt
     def _delete_entity(self, current_entity):
 
         entity_id = 'id' in self.phpipam_spec and self.phpipam_spec['id']['phpipam_name'] or 'id'
