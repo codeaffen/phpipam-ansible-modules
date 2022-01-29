@@ -13,7 +13,7 @@
     linked_subnet: "{{ subnet.linked_subnet | default(omit) }}"
     vlan_id: "{{ subnet.vlan_id | default(omit) }}"
     vrf_id: "{{ subnet.vrf_id | default(omit) }}"
-    master_subnet.cidr: "{{ subnet.master_subnet.cidr | default(omit) }}"
+    parent: "{{ subnet.parent | default(omit) }}"
     nameserver: "{{ subnet.nameserver | default(omit) }}"
     show_as_name: "{{ subnet.show_as_name | default(omit) }}"
     permissions: "{{ subnet.permissions | default(omit) }}"
