@@ -5,6 +5,21 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v1.5.0
+======
+
+Bugfixes
+--------
+
+- fix `ModuleNotFoundError` while using the collection with ansible >= version 5
+
+Minor Changes
+-------------
+
+- fix \#68 - add automatic testing facility for all modules
+- fix \#69 - add facility to setup local phpipam environment
+- fix \#70 - provide environment variable support for connection data
+
 v1.4.0
 ======
 
