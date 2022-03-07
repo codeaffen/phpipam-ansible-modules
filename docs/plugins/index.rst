@@ -4,7 +4,7 @@
 Codeaffen.Phpipam
 =================
 
-Collection version 1.4.0
+Collection version 1.5.0
 
 .. toctree::
     :maxdepth: 1
@@ -15,6 +15,11 @@ Plugin Index
 
 These are the plugins in the codeaffen.phpipam collection
 
+
+Lookup Plugins
+~~~~~~~~~~~~~~
+
+* :ref:`subnet <ansible_collections.codeaffen.phpipam.subnet_lookup>` -- lookup for subnet information
 
 Modules
 ~~~~~~~
@@ -41,6 +46,7 @@ Modules
     :maxdepth: 1
     :hidden:
 
+    subnet_lookup
     address_module
     device_module
     device_type_module

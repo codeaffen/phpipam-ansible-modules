@@ -30,7 +30,7 @@ codeaffen.phpipam.address -- Manage addresses
 .. Collection note
 
 .. note::
-    This plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_ (version 1.4.0).
+    This plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_ (version 1.5.0).
 
     You might already have this collection installed if you are using the ``ansible`` package.
     It is not included in ``ansible-core``.
