@@ -85,7 +85,9 @@ releases:
       bugfixes:
       - fix \#57 - tag lookups failed when specified in an `address` task
       - fix \#61 - Device type examples
-      - with [AHH538](https://issues.redhat.com/browse/AAH-538) `requires_ansible` is mandatory in `meta/runtime.yml`. So we add the minimum version for our collection here.
+      - with [AHH538](https://issues.redhat.com/browse/AAH-538) `requires_ansible`
+        is mandatory in `meta/runtime.yml`. So we add the minimum version for our
+        collection here.
       minor_changes:
       - Minor formatting and spelling fixes.
       - Switch sphinx from recommonmark to myst_parser.
@@ -105,3 +107,16 @@ releases:
       name: tag
       namespace: ''
     release_date: '2021-12-16'
+  1.5.0:
+    changes:
+      bugfixes:
+      - fix `ModuleNotFoundError` while using the collection with ansible >= version 5
+      minor_changes:
+      - fix \#68 - add automatic testing facility for all modules
+      - fix \#69 - add facility to setup local phpipam environment
+      - fix \#70 - provide environment variable support for connection data
+    fragments:
+    - add_automatic_testing_facility.yml
+    - provide_local_phpiapm_environment.yml
+    - support_command_line_parameters.yml
+    release_date: '2022-03-07'
