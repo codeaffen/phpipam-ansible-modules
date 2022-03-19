@@ -41,23 +41,9 @@ class Api(object):
 
     def __init__(self, **kwargs):
         """ Initialize the Phpypam API """
+        self.phpipamapi = phpypam.api(**kwargs)
 
-        self.url = kwargs.get('url')
-        self.app_id = kwargs.get('app_id')
-        self.username = kwargs.get('username')
-        self.password = kwargs.get('password')
-        self.ssl_verify = kwargs.get('ssl_verify', True)
-
-        self.phpipamapi = phpypam.api(
-            url=self._phpipamapi_server_url,
-            app_id=self._phpipamapi_app_id,
-            username=self._phpipamapi_username,
-            password=self._phpipamapi_password,
-            ssl_verify=self._phpipamapi_validate_certs,
-            user_agent="phpipam-ansible-modules",
-        )
-
-    def get_entity(self, controller, **kwargs):
+    def get_entity(self, **kwargs):
         """ Method to find an entity.
 
         :param controller: The controller
@@ -67,20 +53,23 @@ class Api(object):
 
         :return: The entity or `None` if no entity was found.
         """
-        if kwargs['controller'] == 'subnet':
+        if 'path' in kwargs:
+            entity = self._find_entity(kwargs['controller'], kwargs['path'], kwargs.get('params', None))
+        elif 'subnet' in kwargs['controller']:
             entity = self._find_subnet(kwargs['subnet'], kwargs['mask'], kwargs['section'])
-        elif kwargs['controller'] == 'address':
-            entity = self._find_address(kwargs['ipaddress'])
-        elif kwargs['controller'] == 'device':
+        elif 'address' in kwargs['controller']:
+            # entity = self._find_address(kwargs['ipaddress'])
+            entity = self._find_address(kwargs['ip'])
+        elif 'device' in kwargs['controller']:
             entity = self._find_device(kwargs['hostname'])
         elif kwargs['controller'] == 'tools/device_type':
             entity = self._find_device_type(kwargs['name'])
         elif kwargs['controller'] == 'tools/tags':
-            entity = self._find_by_key(kwargs['uri'], kwargs['name'], key='type')
-        elif 'tools' in kwargs['uri'] or kwargs['controller'] in ['vlan', 'l2domain', 'vrf']:
-            entity = self._find_by_key(kwargs['uri'], kwargs['name'])
+            entity = self._find_by_key(kwargs['controller'], kwargs['value'], key='type')
+        elif 'tools' in kwargs['controller'] or kwargs['controller'] in ['vlan', 'l2domain', 'vrf']:
+            entity = self._find_by_key(kwargs['controller'], kwargs['name'])
         else:
-            entity = self._find_entity(kwargs['uri'], '/' + kwargs['name'])
+            entity = self._find_entity(kwargs['controller'], '/' + kwargs['name'])
 
         return entity
 
@@ -100,7 +89,7 @@ class Api(object):
         :type return: dict
         """
         try:
-            entity = self.phpipamapi._find_entity(controller=controller, controller_path=path, params=params)
+            entity = self.phpipamapi.get_entity(controller=controller, controller_path=path, params=params)
         except PHPyPAMEntityNotFoundException:
             return None
 
@@ -184,7 +173,7 @@ class Api(object):
         """
         try:
             self.phpipamapi.create_entity(controller=controller, data=data)
-            entity = self.find_current_entity()
+            entity = self.get_entity(controller=controller, **data)
         except PHPyPAMEntityNotFoundException:
             entity = None
 
@@ -231,7 +220,7 @@ class Api(object):
         self.phpipamapi.update_entity(controller, update_path, updated_entity)
 
         try:
-            entity = self.get_entity(controller, updated_entity)
+            entity = self.get_entity(controller=controller, **updated_entity)
         except PHPyPAMEntityNotFoundException:
             entity = None
 

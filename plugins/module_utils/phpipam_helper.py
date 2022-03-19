@@ -14,8 +14,9 @@ import inflection
 from contextlib import contextmanager
 
 try:
-    import phpypam
-    from phpypam import PHPyPAMEntityNotFoundException
+    # import phpypam
+    # from phpypam import PHPyPAMEntityNotFoundException
+    from ansible_collections.codeaffen.phpipam.plugins.module_utils import _phpypam as phpypam
     HAS_PHPIPAM = True
 except ImportError:
     HAS_PHPIPAM = False
@@ -108,7 +109,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         self._changed = True
 
     def connect(self):
-        self.phpipamapi = phpypam.api(
+        self.phpipamapi = phpypam.Api(
             url=self._phpipamapi_server_url,
             app_id=self._phpipamapi_app_id,
             username=self._phpipamapi_username,
@@ -117,75 +118,75 @@ class PhpipamAnsibleModule(AnsibleModule):
             user_agent="phpipam-ansible-modules",
         )
 
-    # wird nicht mehr benötigt, da in _phpypam.Api._find_entity() aufgegangen
-    def find_entity(self, controller, path, params=None):
-        try:
-            result = self.phpipamapi.get_entity(controller=controller, controller_path=path, params=params)
-        except PHPyPAMEntityNotFoundException:
-            return None
+    # wird nicht mehr benötigt, da in self.phpipam._find_entity() aufgegangen
+    # def find_entity(self, controller, path, params=None):
+    #     try:
+    #         result = self.phpipamapi.get_entity(controller=controller, controller_path=path, params=params)
+    #     except PHPyPAMEntityNotFoundException:
+    #         return None
 
-        if isinstance(result, list):
-            if len(result) == 1:
-                result = result[0]
-            else:
-                self.fail_json(msg="Found no results while searching for {0} at {1}".format(controller, path))
+    #     if isinstance(result, list):
+    #         if len(result) == 1:
+    #             result = result[0]
+    #         else:
+    #             self.fail_json(msg="Found no results while searching for {0} at {1}".format(controller, path))
 
-        return result
+    #     return result
 
-    # wird nicht mehr benötigt, da in _phpypam.Api._find_subnet() aufgegangen
-    def find_subnet(self, subnet, mask, section):
-        # lookups for subnets need a separate find method
-        # We only support cidr format to simplify the task.
-        # CIDR is valid for ipv4 and ipv6 too.
-        path = 'cidr/{0}/{1}'.format(subnet, mask)
+    # wird nicht mehr benötigt, da in self.phpipam._find_subnet() aufgegangen
+    # def find_subnet(self, subnet, mask, section):
+    #     # lookups for subnets need a separate find method
+    #     # We only support cidr format to simplify the task.
+    #     # CIDR is valid for ipv4 and ipv6 too.
+    #     path = 'cidr/{0}/{1}'.format(subnet, mask)
 
-        lookup_params = {
-            'filter_by': 'sectionId',
-            'filter_value': self.find_entity('sections', section)['id'],
-        }
+    #     lookup_params = {
+    #         'filter_by': 'sectionId',
+    #         'filter_value': self.find_entity('sections', section)['id'],
+    #     }
 
-        return self.find_entity('subnets', path, params=lookup_params)
+    #     return self.find_entity('subnets', path, params=lookup_params)
 
-    # wird nicht mehr benötigt, da in _phpypam.Api._find_address() aufgegangen
-    def find_address(self, address):
-        path = 'search/{0}'.format(address)
-        return self.find_entity('addresses', path)
+    # wird nicht mehr benötigt, da in self.phpipam._find_address() aufgegangen
+    # def find_address(self, address):
+    #     path = 'search/{0}'.format(address)
+    #     return self.find_entity('addresses', path)
 
-    # wird nicht mehr benötigt, da in _phpypam.Api._find_device() aufgegangen
-    def find_device(self, hostname):
-        return self.find_by_key('devices', hostname, key='hostname')
+    # wird nicht mehr benötigt, da in self.phpipam._find_device() aufgegangen
+    # def find_device(self, hostname):
+    #     return self.find_by_key('devices', hostname, key='hostname')
 
-    # wird nicht mehr benötigt, da in _phpypam.Api._find_device_type() aufgegangen
-    def find_device_type(self, device_type):
-        result = self.find_by_key('tools/device_types', device_type, key='tname')
-        if result and 'tid' in result:
-            result['id'] = result['tid']
-        return result
+    # wird nicht mehr benötigt, da in self.phpipam._find_device_type() aufgegangen
+    # def find_device_type(self, device_type):
+    #     result = self.find_by_key('tools/device_types', device_type, key='tname')
+    #     if result and 'tid' in result:
+    #         result['id'] = result['tid']
+    #     return result
 
-    # wird nicht mehr benötigt, da in _phpypam.Api._find_vlan() aufgegangen
-    def find_vlan(self, vlan):
-        return self.find_by_key(self.controller_uri, vlan)
+    # wird nicht mehr benötigt, da in self.phpipam._find_vlan() aufgegangen
+    # def find_vlan(self, vlan):
+    #     return self.find_by_key(self.controller_uri, vlan)
 
-    # wird nicht mehr benötigt, da in _phpypam.Api._find_by_key() aufgegangen
-    def find_by_key(self, controller, value, key='name'):
-        """
-        Some controllers don't provide the ability to search for entities by uri
-        so we need the possibility to search via url parameters.
-        this is done by parameters `filter_by` and `filter_value` in phpIPAM API
+    # wird nicht mehr benötigt, da in self.phpipam._find_by_key() aufgegangen
+    # def find_by_key(self, controller, value, key='name'):
+    #     """
+    #     Some controllers don't provide the ability to search for entities by uri
+    #     so we need the possibility to search via url parameters.
+    #     this is done by parameters `filter_by` and `filter_value` in phpIPAM API
 
-        :param controller: which controller to use
-        :param value: the value for which we are looking for
-        :param key: the key which we use for `filter_by`. Default is `name`.
+    #     :param controller: which controller to use
+    #     :param value: the value for which we are looking for
+    #     :param key: the key which we use for `filter_by`. Default is `name`.
 
-        :return: An entity or `None` if no entity was found.
-        """
-        lookup_params = {
-            'filter_by': key,
-            'filter_value': value,
-        }
-        return self.find_entity(controller, '/', params=lookup_params)
+    #     :return: An entity or `None` if no entity was found.
+    #     """
+    #     lookup_params = {
+    #         'filter_by': key,
+    #         'filter_value': value,
+    #     }
+    #     return self.find_entity(controller, '/', params=lookup_params)
 
-    # wird durch _phpypam.Api.get_entity() ersetzt
+    # wird durch self.phpipam.get_entity() ersetzt
     def find_current_entity(self):
         if self.controller_name == 'subnet':
             entity = self.find_subnet(self.phpipam_params['subnet'], self.phpipam_params['mask'], self.phpipam_params['section'])
@@ -207,7 +208,7 @@ class PhpipamAnsibleModule(AnsibleModule):
     def set_entity(self, key):
         self.phpipam_spec[key]['resolved'] = True
 
-    # Diese Methode muss nach _phpypam.Api.resolve_entity() migriert werden.
+    # Diese Methode muss nach self.phpipam.resolve_entity() migriert werden.
     #
     # Problem: `self.set_result()` wird nicht mehr aufgerufen, daher muss
     #          `self.phpipam_spec` an anderer Stelle aktualisiert werden.
@@ -222,23 +223,23 @@ class PhpipamAnsibleModule(AnsibleModule):
         result = None
         if controller == 'subnets':
             subnet, mask = self.phpipam_params[key].split('/')
-            result = self.find_subnet(subnet, mask, self.phpipam_params['section'])
+            result = self.phpipamapi.get_entity(controller=controller, subnet=subnet, mask=mask, section=self.phpipam_params['section'])
         elif controller == 'tools/device_types':
-            result = self.find_device_type(self.phpipam_params[key])
+            result = self.phpipamapi.get_entity(controller=controller, name=self.phpipam_params[key])
         elif controller == 'tools/tags':
-            result = self.find_by_key(controller=controller, value=self.phpipam_params[key], key='type')
+            result = self.phpipamapi.get_entity(controller=controller, value=self.phpipam_params[key], key='type')
         elif 'tools' in controller or controller in ['vlan', 'l2domains', 'vrf']:
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key])
         else:
             if entity_spec.get('type') == 'entity':
-                result = self.find_entity(controller=controller, path='/' + self.phpipam_params[key])
+                result = self.phpipamapi.get_entity(controller=controller, path='/' + self.phpipam_params[key])
             elif entity_spec.get('type') == 'entity_list':
                 flatten = entity_spec.get('flatten', False)
                 if flatten:
-                    flatten_result = [self.find_entity(controller=controller, path='/' + e)['id'] for e in self.phpipam_params[key]]
+                    flatten_result = [self.phpipamapi.get_entity(controller=controller, path='/' + e)['id'] for e in self.phpipam_params[key]]
                     result = entity_spec.get('separator', ';').join(flatten_result)
             else:
-                result = [self.find_entity(controller=controller, path='/' + value) for value in self.phpipam_params[key]]
+                result = [self.phpipamapi.get_entity(controller=controller, path='/' + value) for value in self.phpipam_params[key]]
 
         self.set_entity(key)
 
@@ -261,7 +262,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             """
 
             # In dieser Schleife muss in Zukunft `self.set_entity()` aufgerufen werden
-            # Es is zu Prüfen ob diese Methode nur gerufen wird, wenn _phpypam.Api.resolve_entity() nicht `None` ist.
+            # Es is zu Prüfen ob diese Methode nur gerufen wird, wenn self.phpipam.resolve_entity() nicht `None` ist.
             if key in self.phpipam_params and not spec.get('api_invisible', False):
 
                 updated_key = spec.get('phpipam_name', key)
@@ -343,69 +344,69 @@ class PhpipamAnsibleModule(AnsibleModule):
             entity.update(sanitized_entries)
             return entity
 
-    # wird durch _phpypam.Api.create_entity() ersetzt
-    def _create_entity(self, desired_entity):
+    # wird durch self.phpipam.create_entity() ersetzt
+    # def _create_entity(self, desired_entity):
 
-        try:
-            self.phpipamapi.create_entity(self.controller_uri, data=desired_entity)
-            self.set_changed()
-            entity = self.find_current_entity()
-        except PHPyPAMEntityNotFoundException:
-            entity = None
-
-        return entity
-
-    # wird durch _phpypam.Api.update_entity() ersetzt
-    def _update_entity(self, desired_entity, current_entity):
-
-        """
-        There is a bug in l2domains controller. If we query a domain we get `sections`
-        but if we want to set sections the controller expects `permissions`.
-        This is not the best place to do it but we didn't expect a quick fix from phpIPAM developers.
-        https://github.com/phpipam/phpipam/issues/3190
-        """
-        if self.controller_name == 'l2domain' and 'permissions' in desired_entity:
-            current_entity['permissions'] = current_entity['sections']
-
-        updated_entity = {k: v for k, v in desired_entity.items() if v != current_entity[k] and k != 'parent'}
-
-        entity_id = 'id' in self.phpipam_spec and self.phpipam_spec['id']['phpipam_name'] or 'id'
-
-        if updated_entity:
-            if 'tools' not in self.controller_uri:
-                updated_entity[entity_id] = current_entity[entity_id]
-            if self.controller_uri == 'vlan':
-                updated_entity['name'] = current_entity['name']
-        else:
-            return current_entity
-
-        if 'tools' in self.controller_uri or self.controller_uri in ['vlan', 'vrf']:
-            update_path = current_entity[entity_id]
-        else:
-            update_path = '/'
-
-        self.phpipamapi.update_entity(self.controller_uri, update_path, updated_entity)
-
-        try:
-            entity = self.find_current_entity()
-            self.set_changed()
-        except PHPyPAMEntityNotFoundException:
-            entity = None
+    #     try:
+    #         self.phpipamapi.create_entity(self.controller_uri, data=desired_entity)
+    #         self.set_changed()
+    #         entity = self.find_current_entity()
+    #     except PHPyPAMEntityNotFoundException:
+    #         entity = None
 
         return entity
 
-    # wird durch _phpypam.Api.delete_entity() ersetzt
-    def _delete_entity(self, current_entity):
+    # wird durch self.phpipam.update_entity() ersetzt
+    # def _update_entity(self, desired_entity, current_entity):
 
-        entity_id = 'id' in self.phpipam_spec and self.phpipam_spec['id']['phpipam_name'] or 'id'
+    #     """
+    #     There is a bug in l2domains controller. If we query a domain we get `sections`
+    #     but if we want to set sections the controller expects `permissions`.
+    #     This is not the best place to do it but we didn't expect a quick fix from phpIPAM developers.
+    #     https://github.com/phpipam/phpipam/issues/3190
+    #     """
+    #     if self.controller_name == 'l2domain' and 'permissions' in desired_entity:
+    #         current_entity['permissions'] = current_entity['sections']
 
-        try:
-            self.phpipamapi.delete_entity(self.controller_uri, current_entity[entity_id])
-            self.set_changed()
-        except PHPyPAMEntityNotFoundException:
-            raise PhpipamAnsibleException("Entity '{0}' of type '{1}' can't be ensured absentd:\n{2}".format(current_entity['name'], self.controller_uri, traceback.format_exc()))
+    #     updated_entity = {k: v for k, v in desired_entity.items() if v != current_entity[k] and k != 'parent'}
 
-        return None
+    #     entity_id = 'id' in self.phpipam_spec and self.phpipam_spec['id']['phpipam_name'] or 'id'
+
+    #     if updated_entity:
+    #         if 'tools' not in self.controller_uri:
+    #             updated_entity[entity_id] = current_entity[entity_id]
+    #         if self.controller_uri == 'vlan':
+    #             updated_entity['name'] = current_entity['name']
+    #     else:
+    #         return current_entity
+
+    #     if 'tools' in self.controller_uri or self.controller_uri in ['vlan', 'vrf']:
+    #         update_path = current_entity[entity_id]
+    #     else:
+    #         update_path = '/'
+
+    #     self.phpipamapi.update_entity(self.controller_uri, update_path, updated_entity)
+
+    #     try:
+    #         entity = self.find_current_entity()
+    #         self.set_changed()
+    #     except PHPyPAMEntityNotFoundException:
+    #         entity = None
+
+    #     return entity
+
+    # wird durch self.phpipam.delete_entity() ersetzt
+    # def _delete_entity(self, current_entity):
+
+    #     entity_id = 'id' in self.phpipam_spec and self.phpipam_spec['id']['phpipam_name'] or 'id'
+
+    #     try:
+    #         self.phpipamapi.delete_entity(self.controller_uri, current_entity[entity_id])
+    #         self.set_changed()
+    #     except PHPyPAMEntityNotFoundException:
+    #         raise PhpipamAnsibleException("Entity '{0}' of type '{1}' can't be ensured absentd:\n{2}".format(current_entity['name'], self.controller_uri, traceback.format_exc()))
+
+    #     return None
 
     def _controller(self, controller):
         if controller not in self.phpipamapi.controllers():
@@ -495,19 +496,26 @@ class PhpipamEntityAnsibleModule(PhpipamAnsibleModule):
 
     def ensure_entity(self, desired_entity):
         state = self.state
-        current_entity = self.find_current_entity()
+        # current_entity = self.find_current_entity()
+        current_entity = self.phpipamapi.get_entity(controller=self.controller_uri, **desired_entity)
         updated_entity = None
 
         self.record_before(self.controller_uri, self._sanitize_entity(current_entity))
 
+        entity_id = 'id' in self.phpipam_spec and self.phpipam_spec['id']['phpipam_name'] or 'id'
+
         if state == 'present':
             if current_entity is None:
-                updated_entity = self._create_entity(desired_entity)
+                # updated_entity = self._create_entity(desired_entity)
+                updated_entity = self.phpipamapi.create_entity(self.controller_uri, desired_entity)
             else:
-                updated_entity = self._update_entity(desired_entity, current_entity)
+                # updated_entity = self._update_entity(desired_entity, current_entity)
+                # ## debug ## # self.exit_json(msg='current_entity: {0}, desired_entity: {1}'.format(current_entity, desired_entity))
+                updated_entity = self.phpipamapi.update_entity(self.controller_uri, entity_id, desired_entity, current_entity)
         elif state == 'absent':
             if current_entity is not None:
-                updated_entity = self._delete_entity(current_entity)
+                # updated_entity = self._delete_entity(current_entity)
+                updated_entity = self.phpipamapi.delete_entity(self.controller_uri, entity_id, current_entity)
         else:
             self.fail_json(msg="'{0}' is not a valid state.".format(state))
 
