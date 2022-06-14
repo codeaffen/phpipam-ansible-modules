@@ -1,9 +1,9 @@
 version: '3'
 services:
   phpipam:
-    image: phpipam/phpipam-www:v1.4.4
+    image: "phpipam/phpipam-www:v${PHPIPAM_VERSION:-1.4.4}"
     ports:
-      - "443:443"
+      - "${PHPIPAM_PORT:-443}:443"
     environment:
       IPAM_DATABASE_HOST: "database"
       IPAM_DATABASE_USER: "phpipam"
