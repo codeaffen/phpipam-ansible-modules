@@ -2,6 +2,7 @@
 base_subnet_data:
   cidr: 10.0.0.0/24
   section: "Customers"
+  vlan: 2001
 
 subnets:
   - cidr: 192.0.2.0/24

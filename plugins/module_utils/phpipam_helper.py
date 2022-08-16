@@ -215,7 +215,9 @@ class PhpipamAnsibleModule(AnsibleModule):
             result = self.find_device_type(self.phpipam_params[key])
         elif controller == 'tools/tags':
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key], key='type')
-        elif 'tools' in controller or controller in ['vlan', 'l2domains', 'vrf']:
+        elif controller == 'vlan':
+            result = self.find_by_key(controller=controller, value=self.phpipam_params[key], key='number')
+        elif 'tools' in controller or controller in ['l2domains', 'vrf']:
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key])
         else:
             if entity_spec.get('type') == 'entity':
@@ -251,9 +253,10 @@ class PhpipamAnsibleModule(AnsibleModule):
             if key in self.phpipam_params and not spec.get('api_invisible', False):
 
                 updated_key = spec.get('phpipam_name', key)
+                updated_id = spec.get('phpipam_id', 'id')
 
                 if spec['type'] == 'entity' and 'resolved' not in spec:
-                    desired_entity[updated_key] = self._resolve_entity(key)['id']
+                    desired_entity[updated_key] = self._resolve_entity(key)[updated_id]
                 elif spec['type'] == 'entity_list' and 'resolved' not in spec:
                     desired_entity[updated_key] = self._resolve_entity(key)
                 else:
@@ -281,6 +284,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             'controller',
             'flatten',
             'phpipam_name',
+            'phpipam_id',
             'phpipam_spec',
             'resolved',
             'separator',
@@ -290,6 +294,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             'controller',
             'flatten',
             'phpipam_name',
+            'phpipam_id',
             'separator',
             'type',
         }
