@@ -1,0 +1,2 @@
+bugfixes:
+- fix \#80 - Can't add VLAN to subnet through to phpipam implementation differences in different entities
