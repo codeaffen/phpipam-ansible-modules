@@ -200,7 +200,7 @@ def main():
             description=dict(type='str'),
             section=dict(type='entity', required=True, controller='sections', phpipam_name='sectionId'),
             linked_subnet=dict(type='entity', phpipam_name='linked_subnet'),
-            vlan=dict(type='entity', controller='vlan', phpipam_name='vlanId', phpipam_id='vlanId'),
+            vlan=dict(type='entity', controller='vlan', phpipam_name='vlanId'),
             vrf=dict(type='entity', controller='vrf', phpipam_name='vrfId'),
             parent=dict(type='entity', phpipam_name='masterSubnetId'),
             nameserver=dict(type='entity', controller='tools/nameservers', phpipam_name='nameserverId'),
