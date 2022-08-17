@@ -181,3 +181,4 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
+intersphinx_mapping = {'python': ('https://docs.python.org/2', None), 'ansible': ('https://docs.ansible.com/ansible/latest/', None)}
