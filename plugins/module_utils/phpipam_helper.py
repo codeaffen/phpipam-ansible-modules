@@ -194,6 +194,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'], key='type')
         elif self.controller_name == 'vlan':
             entity = self.find_vlan(self.phpipam_params['vlan_id'])
+        # l2domains needs to be singular because it is derived from class name
         elif 'tools' in self.controller_uri or self.controller_name in ['l2domain', 'vrf']:
             entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
         else:
@@ -222,7 +223,8 @@ class PhpipamAnsibleModule(AnsibleModule):
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key], key='type')
         elif controller == 'vlan':
             result = self.find_vlan(self.phpipam_params['vlan'])
-        elif 'tools' in controller or controller in ['vlan', 'l2domains', 'vrf']:
+        # l2domains needs to be plural because it is derived from either controller parameter in entity_spec or controller_uri (which is pluralized)
+        elif 'tools' in controller or controller in ['l2domains', 'vrf']:
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key])
         else:
             if entity_spec.get('type') == 'entity':
