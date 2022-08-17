@@ -3,3 +3,13 @@ base_vlan_data:
   name: ansible_test
   description: test vlan
   vlan_id: 1337
+
+vlan_mapping_base_vlan_data:
+  - name: vlan 1
+    description: domain vlan mappinng test 1
+    vlan_id: 1001
+    routing_domain: routing domain 1
+  - name: vlan 2
+    description: domain vlan mappinng test 2
+    vlan_id: 1002
+    routing_domain: routing domain 2

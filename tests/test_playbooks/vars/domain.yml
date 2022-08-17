@@ -1,5 +1,13 @@
 ---
 base_domain_data:
-  name: my routing domain
+  name: routing domain
   sections:
     - Customers
+
+vlan_mapping_base_domain_data:
+  - name: routing domain 1
+    sections:
+      - Customers
+  - name: routing domain 2
+    sections:
+      - Customers
