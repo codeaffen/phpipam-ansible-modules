@@ -10,6 +10,7 @@
     ipaddress: "{{ address.ipaddress }}"
     is_gateway: "{{ address.is_gateway | default(omit) }}"
     description: "{{ address.description | default(omit) }}"
+    hostname: "{{ address.hostname | default(omit) }}"
     mac_address: "{{ address.mac_address | default(omit) }}"
     owner: "{{ address.owner | default(omit) }}"
     tag: "{{ address.tag | default(omit) }}"
