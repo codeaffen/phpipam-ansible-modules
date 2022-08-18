@@ -1,0 +1,48 @@
+- hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/domain.yml
+    - vars/vlan.yml
+  tasks:
+    - name: create domains for mapping test
+      include: tasks/domain.yml
+      vars:
+        name: create {{ loop_domain_data['name'] }}
+        domain: "{{ loop_domain_data }}"
+      loop: "{{ vlan_mapping_base_domain_data }}"
+      loop_control:
+        loop_var: loop_domain_data
+
+    - name: create vlans for mapping test
+      include: tasks/vlan.yml
+      vars:
+        name: create vlan {{ loop_vlan_data['name'] }}
+        vlan: "{{ loop_vlan_data }}"
+      loop: "{{ vlan_mapping_base_vlan_data }}"
+      loop_control:
+        loop_var: loop_vlan_data
+
+    - name: delete vlans
+      include: tasks/vlan.yml
+      vars:
+        name: delete vlan {{ vlan['name'] }}
+        override:
+          state: absent
+        vlan: "{{ loop_vlan_data | combine(override) }}"
+      loop: "{{ vlan_mapping_base_vlan_data }}"
+      loop_control:
+        loop_var: loop_vlan_data
+
+    - name: delete domains
+      include: tasks/domain.yml
+      vars:
+        name: delete {{ loop_domain_data['name'] }}
+        override:
+          state: absent
+        domain: "{{ loop_domain_data | combine(override) }}"
+      loop: "{{ vlan_mapping_base_domain_data }}"
+      loop_control:
+        loop_var: loop_domain_data
