@@ -1,0 +1,2 @@
+minor_changes:
+- Fix \#84 - Allow vlans with same vlan id in different l2 routing domains

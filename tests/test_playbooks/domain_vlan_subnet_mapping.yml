@@ -1,0 +1,36 @@
+- name: Setup domain, vlan and subnet mapping
+  hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/domain_vlan_subnet_mapping.yml
+  tasks:
+    - name: IPAM create sections
+      include_tasks: tasks/section.yml
+      loop: "{{ docker_compose_ipam_sections }}"
+      loop_control:
+        loop_var: section
+      tags: admin_tasks_phpipam
+
+    - name: IPAM create L2 domains
+      include_tasks: tasks/domain.yml
+      loop: "{{ docker_compose_ipam_l2_domains }}"
+      loop_control:
+        loop_var: domain
+      tags: admin_tasks_phpipam
+
+    - name: Create VLANS.
+      include_tasks: tasks/vlan.yml
+      loop: "{{ docker_compose_ipam_vlans }}"
+      loop_control:
+        loop_var: vlan
+      tags: admin_tasks_phpipam
+
+    - name: Create IP subnets.
+      include_tasks: tasks/subnet.yml
+      loop: "{{ docker_compose_ipam_subnets }}"
+      loop_control:
+        loop_var: subnet
+      tags: admin_tasks_phpipam

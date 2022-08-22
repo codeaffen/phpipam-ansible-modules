@@ -117,14 +117,20 @@ class PhpipamAnsibleModule(AnsibleModule):
             user_agent="phpipam-ansible-modules",
         )
 
-    def find_entity(self, controller, path, params=None):
+    def find_entity(self, controller, path, params=None, result_filter=None):
         try:
             result = self.phpipamapi.get_entity(controller=controller, controller_path=path, params=params)
         except PHPyPAMEntityNotFoundException:
             return None
 
         if isinstance(result, list):
-            if len(result) == 1:
+            if len(result) >= 1:
+                if result_filter:
+                    result = list(filter(lambda d: d[result_filter['filter_by']] == result_filter['filter_value'], result))
+                    if len(result) == 0:
+                        return None
+
+            if len(result) > 0:
                 result = result[0]
             else:
                 self.fail_json(msg="Found no results while searching for {0} at {1}".format(controller, path))
@@ -157,13 +163,32 @@ class PhpipamAnsibleModule(AnsibleModule):
             result['id'] = result['tid']
         return result
 
-    def find_vlan(self, vlan):
-        result = self.find_by_key('vlan', vlan, key='number')
-        if result and 'vlanId' in result:
+    def find_vlan(self, number, domain='default'):
+        # As one vlan id (number) can belong to more than one domain
+        # we need to filter for domain name here.
+        _domain_id = self.find_by_key('l2domains', domain)
+
+        if _domain_id is None:
+            self.fail_json(msg="Found no results while searching for routing domain '{0}' ".format(domain))
+
+        lookup_params = {
+            'filter_by': 'domainId',
+            'filter_value': _domain_id['id'],
+        }
+
+        vlan_filter = {
+            'filter_by': 'number',
+            'filter_value': str(number)
+        }
+
+        result = self.find_entity('vlan', '/', params=lookup_params, result_filter=vlan_filter)
+
+        if result is not None and 'vlanId' in result:
             result['id'] = result['vlanId']
+
         return result
 
-    def find_by_key(self, controller, value, key='name'):
+    def find_by_key(self, controller, value, key='name', controller_path='/'):
         """
         Some controllers don't provide the ability to search for entities by uri
         so we need the possibility to search via url parameters.
@@ -179,7 +204,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             'filter_by': key,
             'filter_value': value,
         }
-        return self.find_entity(controller, '/', params=lookup_params)
+        return self.find_entity(controller, controller_path, params=lookup_params)
 
     def find_current_entity(self):
         if self.controller_name == 'subnet':
@@ -193,7 +218,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         elif self.controller_name == 'tools/tags':
             entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'], key='type')
         elif self.controller_name == 'vlan':
-            entity = self.find_vlan(self.phpipam_params['vlan_id'])
+            entity = self.find_vlan(self.phpipam_params['vlan_id'], self.phpipam_params['routing_domain'])
         # l2domains needs to be singular because it is derived from class name
         elif 'tools' in self.controller_uri or self.controller_name in ['l2domain', 'vrf']:
             entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
@@ -222,7 +247,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         elif controller == 'tools/tags':
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key], key='type')
         elif controller == 'vlan':
-            result = self.find_vlan(self.phpipam_params['vlan'])
+            result = self.find_vlan(self.phpipam_params[key], self.phpipam_params['routing_domain'])
         # l2domains needs to be plural because it is derived from either controller parameter in entity_spec or controller_uri (which is pluralized)
         elif 'tools' in controller or controller in ['l2domains', 'vrf']:
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key])

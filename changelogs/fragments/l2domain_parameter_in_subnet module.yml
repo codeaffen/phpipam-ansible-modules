@@ -1,0 +1,2 @@
+minor_changes:
+- fix \#85 - Add `routing_domain` parameter to subnet module to allow subnet with same vlan id in different l2domains

@@ -1,0 +1,47 @@
+docker_compose_ipam_sections:
+  - name: "test_section_1"
+    description: "test_section_1"
+
+docker_compose_ipam_l2_domains:
+  - name: "test_domain_1"
+    description: "test_domain_1"
+    sections:
+      - "test_section_1"
+  - name: "test_domain_2"
+    description: "test_domain_2"
+    sections:
+      - "test_section_1"
+
+docker_compose_ipam_vlans:
+  - vlan_id: "3"
+    name: "test1"
+    description: "test1"
+    routing_domain: "test_domain_1"
+  - vlan_id: "3"
+    name: "test2"
+    description: "test2"
+    routing_domain: "test_domain_2"
+  - vlan_id: "4"
+    name: "test3"
+    description: "test3"
+    routing_domain: "test_domain_2"
+
+docker_compose_ipam_subnets:
+  - cidr: 192.0.2.0/26
+    section: "test_section_1"
+    description: "net 1"
+    dns_records: false
+    vlan: 3
+    routing_domain: "test_domain_1"
+  - cidr: 192.0.2.64/26
+    section: "test_section_1"
+    description: "net 2"
+    dns_records: false
+    vlan: 3
+    routing_domain: "test_domain_2"
+  - cidr: 192.0.2.128/26
+    section: "test_section_1"
+    description: "net 3"
+    dns_records: false
+    vlan: 4
+    routing_domain: "test_domain_2"

@@ -12,6 +12,7 @@
     section: "{{ subnet.section | default(omit) }}"
     linked_subnet: "{{ subnet.linked_subnet | default(omit) }}"
     vlan: "{{ subnet.vlan | default(omit) }}"
+    routing_domain: "{{ subnet.routing_domain | default(omit) }}"
     vrf: "{{ subnet.vrf | default(omit) }}"
     master_subnet.cidr: "{{ subnet.master_subnet.cidr | default(omit) }}"
     nameserver: "{{ subnet.nameserver | default(omit) }}"
