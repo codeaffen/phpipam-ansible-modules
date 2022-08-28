@@ -227,7 +227,7 @@ def main():
             location=dict(type='entity', controller='tools/locations'),
         ),
         mutually_exclusive=['cidr', 'subnet'],
-        required_together=[['subnet', 'mask'], ['vlan', 'routing_domain']],
+        required_together=[['subnet', 'mask']],
     )
 
     if not HAS_IPADDRESS:
