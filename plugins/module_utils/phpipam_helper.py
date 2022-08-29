@@ -183,7 +183,7 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         result = self.find_entity('vlan', '/', params=lookup_params, result_filter=vlan_filter)
 
-        if result is not None and 'vlanId' in result:
+        if result and 'vlanId' in result:
             result['id'] = result['vlanId']
 
         return result
@@ -287,7 +287,12 @@ class PhpipamAnsibleModule(AnsibleModule):
                 updated_key = spec.get('phpipam_name', key)
 
                 if spec['type'] == 'entity' and 'resolved' not in spec:
-                    desired_entity[updated_key] = self._resolve_entity(key)['id']
+                    _updated_key_id = self._resolve_entity(key)
+
+                    if _updated_key_id and 'id' in _updated_key_id:
+                        desired_entity[updated_key] = _updated_key_id['id']
+                    else:
+                        self.fail_json(msg="Can not resolve '{0}' to an existing ID".format(key))
                 elif spec['type'] == 'entity_list' and 'resolved' not in spec:
                     desired_entity[updated_key] = self._resolve_entity(key)
                 else:
