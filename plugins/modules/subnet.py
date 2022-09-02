@@ -62,6 +62,13 @@ options:
         description: VLAN which the subnet should belongs to
         type: str
         required: false
+    routing_domain:
+        description:
+            - Layer-2 routing domain the vlan belongs to
+            - If you have I(vlan) with same number in different routing domains it need to be set on desired value
+        type: str
+        required: false
+        default: default
     vrf:
         description: VRF which the sunet should belongs to
         type: str
@@ -201,6 +208,7 @@ def main():
             section=dict(type='entity', required=True, controller='sections', phpipam_name='sectionId'),
             linked_subnet=dict(type='entity', phpipam_name='linked_subnet'),
             vlan=dict(type='entity', controller='vlan', phpipam_name='vlanId'),
+            routing_domain=dict(type='str', api_invisible=True, default='default'),
             vrf=dict(type='entity', controller='vrf', phpipam_name='vrfId'),
             parent=dict(type='entity', phpipam_name='masterSubnetId'),
             nameserver=dict(type='entity', controller='tools/nameservers', phpipam_name='nameserverId'),
@@ -219,7 +227,7 @@ def main():
             location=dict(type='entity', controller='tools/locations'),
         ),
         mutually_exclusive=['cidr', 'subnet'],
-        required_together=['subnet', 'mask'],
+        required_together=[['subnet', 'mask']],
     )
 
     if not HAS_IPADDRESS:

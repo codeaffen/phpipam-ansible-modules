@@ -1,6 +1,5 @@
 
 
-
 .. _plugins_in_codeaffen.phpipam:
 
 Codeaffen.Phpipam
@@ -57,7 +56,7 @@ Modules
 * :ref:`location module <ansible_collections.codeaffen.phpipam.location_module>` -- Manage locations
 * :ref:`nameserver module <ansible_collections.codeaffen.phpipam.nameserver_module>` -- Manage nameservers
 * :ref:`section module <ansible_collections.codeaffen.phpipam.section_module>` -- Manage sections
-* :ref:`subnet module <ansible_collections.codeaffen.phpipam.subnet_module>` -- Manage subnets
+* :ref:`subnet module <ansible_collections.codeaffen.phpipam.subnet_module>` -- 
 * :ref:`tag module <ansible_collections.codeaffen.phpipam.tag_module>` -- Manage tags
 * :ref:`vlan module <ansible_collections.codeaffen.phpipam.vlan_module>` -- Manage vlans
 * :ref:`vrf module <ansible_collections.codeaffen.phpipam.vrf_module>` -- Manage virtual routers and forwarders
