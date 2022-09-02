@@ -1,4 +1,3 @@
-
 .. Document meta
 
 :orphan:
@@ -45,9 +44,11 @@ codeaffen.phpipam.domain module -- Manage L2 routing domains
 .. note::
     This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_ (version 1.5.0).
 
+    You might already have this collection installed if you are using the ``ansible`` package.
+    It is not included in ``ansible-core``.
+    To check whether it is installed, run :code:`ansible-galaxy collection list`.
+
     To install it, use: :code:`ansible-galaxy collection install codeaffen.phpipam`.
-    You need further requirements to be able to use this module,
-    see :ref:`Requirements <ansible_collections.codeaffen.phpipam.domain_module_requirements>` for details.
 
     To use it in a playbook, specify: :code:`codeaffen.phpipam.domain`.
 
@@ -75,15 +76,13 @@ Synopsis
 
 .. Requirements
 
-.. _ansible_collections.codeaffen.phpipam.domain_module_requirements:
-
 Requirements
 ------------
 The below requirements are needed on the host that executes this module.
 
 - inflection
 - ipaddress
-- phpypam\>=1.0.0
+- phpypam>=1.0.0
 
 
 
@@ -423,8 +422,8 @@ Parameters
 
       :ansible-option-choices:`Choices:`
 
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-default-bold:`true` :ansible-option-default:`← (default)`
+      - :ansible-option-choices-entry:`no`
+      - :ansible-option-default-bold:`yes` :ansible-option-default:`← (default)`
 
       .. raw:: html
 

@@ -63,7 +63,7 @@ options:
         type: str
         required: false
     routing_domain:
-        decription:
+        description:
             - Layer-2 routing domain the vlan belongs to
             - If set, I(vlan) is required
         type: str
