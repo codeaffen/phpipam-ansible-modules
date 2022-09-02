@@ -65,7 +65,7 @@ options:
     routing_domain:
         description:
             - Layer-2 routing domain the vlan belongs to
-            - If set, I(vlan) is required
+            - If you have I(vlan) with same number in different routing domains it need to be set on desired value
         type: str
         required: false
         default: default
