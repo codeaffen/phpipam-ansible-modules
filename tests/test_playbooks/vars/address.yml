@@ -2,5 +2,6 @@
 base_address_data:
   ipaddress: 10.65.22.1
   subnet: 10.65.22.0/24
+  hostname: foo.example.com
   section: Customers
   is_gateway: yes
