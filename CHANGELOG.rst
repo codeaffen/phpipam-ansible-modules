@@ -5,13 +5,24 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
-v1.5.0
+v1.6.0
 ======
+
+Minor Changes
+-------------
+
+- Fix \#84 - Allow vlans with same vlan id in different l2 routing domains
+- fix \#85 - Add `routing_domain` parameter to subnet module to allow subnet with same vlan id in different l2domains
 
 Bugfixes
 --------
 
-- fix `ModuleNotFoundError` while using the collection with ansible >= version 5
+- Fix \#77 - hostname parameter missing in task for address test case
+- Fix documentation toolchain to link to external content automatically
+- fix \#80 - Can't add VLAN to subnet through to phpipam implementation differences in different entities
+
+v1.5.0
+======
 
 Minor Changes
 -------------
@@ -19,6 +30,11 @@ Minor Changes
 - fix \#68 - add automatic testing facility for all modules
 - fix \#69 - add facility to setup local phpipam environment
 - fix \#70 - provide environment variable support for connection data
+
+Bugfixes
+--------
+
+- fix `ModuleNotFoundError` while using the collection with ansible >= version 5
 
 v1.4.0
 ======

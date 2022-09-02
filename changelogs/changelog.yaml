@@ -110,7 +110,8 @@ releases:
   1.5.0:
     changes:
       bugfixes:
-      - fix `ModuleNotFoundError` while using the collection with ansible >= version 5
+      - fix `ModuleNotFoundError` while using the collection with ansible >= version
+        5
       minor_changes:
       - fix \#68 - add automatic testing facility for all modules
       - fix \#69 - add facility to setup local phpipam environment
@@ -120,3 +121,21 @@ releases:
     - provide_local_phpiapm_environment.yml
     - support_command_line_parameters.yml
     release_date: '2022-03-07'
+  1.6.0:
+    changes:
+      bugfixes:
+      - Fix \#77 - hostname parameter missing in task for address test case
+      - Fix documentation toolchain to link to external content automatically
+      - fix \#80 - Can't add VLAN to subnet through to phpipam implementation differences
+        in different entities
+      minor_changes:
+      - Fix \#84 - Allow vlans with same vlan id in different l2 routing domains
+      - fix \#85 - Add `routing_domain` parameter to subnet module to allow subnet
+        with same vlan id in different l2domains
+    fragments:
+    - cant_add_vlan_to_subnet.yml
+    - extend_address_test.yml
+    - fix-documentation-toolchain.yml
+    - l2domain_parameter_in_subnet module.yml
+    - same_vlan_in_different_l2domains.yml
+    release_date: '2022-09-02'
