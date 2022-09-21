@@ -773,6 +773,9 @@ Parameters
 
       :ansible-option-type:`string`
 
+      :ansible-option-versionadded:`added in 1.6.0 of codeaffen.phpipam`
+
+
       .. raw:: html
 
         </div>
