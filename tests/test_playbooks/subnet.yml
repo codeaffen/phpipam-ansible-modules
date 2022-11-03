@@ -19,6 +19,21 @@
         name: create subnet again, no change
         subnet: "{{ base_subnet_data }}"
 
+    - name: set booleans
+      include: tasks/subnet.yml
+      vars:
+        name: set booleans
+        override:
+          show_as_name: Yes
+          dns_recursive: Yes
+          dns_records: Yes
+          allow_requests: Yes
+          ping_subnet: Yes
+          discover_subnet: Yes
+          is_folder: Yes
+          is_full: Yes
+        subnet: "{{ base_subnet_data | combine(override) }}"
+
     - name: delete subnet
       include: tasks/subnet.yml
       vars:
