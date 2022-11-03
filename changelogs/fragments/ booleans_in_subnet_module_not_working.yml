@@ -1,0 +1,2 @@
+bugfixes:
+  - fix \#90 - booleans in subnet module aren't working
