@@ -30,8 +30,8 @@
           allow_requests: Yes
           ping_subnet: Yes
           discover_subnet: Yes
-          is_folder: Yes
-          is_full: Yes
+          is_folder: No
+          is_full: No
         subnet: "{{ base_subnet_data | combine(override) }}"
 
     - name: delete subnet
