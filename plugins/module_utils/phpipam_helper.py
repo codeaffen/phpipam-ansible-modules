@@ -341,7 +341,7 @@ class PhpipamAnsibleModule(AnsibleModule):
             ansible_invisible = value.get('invisible', False)
 
             if 'phpipam_name' not in phpipam_value and '_' in key:
-                phpipam_value['phpipam_name'] = inflection.camelize(key)
+                phpipam_value['phpipam_name'] = inflection.camelize(key, uppercase_first_letter=False)
 
             if phpipam_type == 'entity':
                 argument_value['type'] = 'str'
