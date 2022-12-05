@@ -62,7 +62,7 @@ To make sure that your feature is working as expected and to make sure that it i
 
 When you are done, push your changes to your fork and create a pull request. Please make sure that you have squashed your changes before you create the pull request. Provide a clear description of your feature and the changes you made.
 
-## Do you wnat to contribute to documentation?
+## Do you want to contribute to documentation?
 
 * Fork me.
 
