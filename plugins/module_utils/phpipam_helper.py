@@ -188,6 +188,28 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         return result
 
+    def find_vrf(self, vrf, section=None):
+        # As vrfs should link to subnets in a clean way the vrf module only allow a single vrf with a given name
+        # We also need to guarantee that a vrf belongs to the same section as the related subnet
+        # This method implements the logic to guarantee all that suff in a clean way.
+        result = self.find_by_key('vrfs', vrf)
+
+        if result:
+            # If we resolve a vrf for a subnet we need to check if the vrf belongs to the same section
+            if section:
+                _section_id = self.find_entity('sections', '/' + section)
+
+                if _section_id is None:
+                    self.fail_json(msg="Found no results while searching for section '{0}' ".format(section))
+
+                if _section_id['id'] not in result['sections']:
+                    self.fail_json(msg="Found no vrf '{0}' that belongs to section '{1}' ".format(vrf, section))
+
+            if 'vrfId' in result:
+                result['id'] = result['vrfId']
+
+        return result
+
     def find_by_key(self, controller, value, key='name', controller_path='/'):
         """
         Some controllers don't provide the ability to search for entities by uri
@@ -219,8 +241,10 @@ class PhpipamAnsibleModule(AnsibleModule):
             entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'], key='type')
         elif self.controller_name == 'vlan':
             entity = self.find_vlan(self.phpipam_params['vlan_id'], self.phpipam_params['routing_domain'])
+        elif self.controller_name == 'vrf':
+            entity = self.find_vrf(self.phpipam_params['name'])
         # l2domains needs to be singular because it is derived from class name
-        elif 'tools' in self.controller_uri or self.controller_name in ['l2domain', 'vrf']:
+        elif 'tools' in self.controller_uri or self.controller_name == 'l2domain':
             entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
         else:
             entity = self.find_entity(self.controller_uri, '/' + self.phpipam_params['name'])
@@ -248,8 +272,10 @@ class PhpipamAnsibleModule(AnsibleModule):
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key], key='type')
         elif controller == 'vlan':
             result = self.find_vlan(self.phpipam_params[key], self.phpipam_params['routing_domain'])
+        elif controller == 'vrf':
+            result = self.find_vrf(self.phpipam_params['vrf'], self.phpipam_params['section'])
         # l2domains needs to be plural because it is derived from either controller parameter in entity_spec or controller_uri (which is pluralized)
-        elif 'tools' in controller or controller in ['l2domains', 'vrf']:
+        elif 'tools' in controller or controller == 'l2domains':
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key])
         else:
             if entity_spec.get('type') == 'entity':
