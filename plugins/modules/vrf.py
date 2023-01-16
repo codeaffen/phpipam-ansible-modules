@@ -81,7 +81,7 @@ class PhpipamVrfModule(PhpipamEntityAnsibleModule):
 def main():
     module = PhpipamVrfModule(
         phpipam_spec=dict(
-            id=dict(type='int', invisible=True, phpipam_name='vrfId'),
+            id=dict(type='int', invisible=True, phpipam_name='id'),
             name=dict(type='str', required=True),
             description=dict(type='str'),
             distinguisher=dict(type='str', phpipam_name='rd'),

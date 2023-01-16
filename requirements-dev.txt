@@ -1,6 +1,7 @@
 ansible
 # ansible_runner<2.0; python_version < '3.6' # pyup: ignore , disabled due to a flaw in versions < 2.1.0 , please reenable locally if absolutely needed
 ansible_runner; python_version >= '3.6' # pyup: ignore
+ansible-lint
 colour
 coverage
 geopy

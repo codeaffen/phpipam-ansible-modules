@@ -1,0 +1,22 @@
+- name: Subnet VRF mapping test
+  hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/vrf.yml
+    - vars/subnet.yml
+  tasks:
+    - name: Create vrf
+      ansible.builtin.include_tasks: tasks/vrf.yml
+      vars:
+        name: create vrf
+        vrf: "{{ base_vrf_data }}"
+    - name: Create vars/subnet.yml
+      ansible.builtin.include_tasks: tasks/subnet.yml
+      vars:
+        name: create subnet with vrf
+        override:
+          vrf: "{{ base_vrf_data.name }}"
+        subnet: "{{ base_subnet_data | combine(override) }}"
