@@ -1,4 +1,5 @@
-- hosts: localhost
+- name: Domain vlan mapping tests
+  hosts: localhost
   collections:
     - codeaffen.phpipam
   gather_facts: false
@@ -7,8 +8,8 @@
     - vars/domain.yml
     - vars/vlan.yml
   tasks:
-    - name: create domains for mapping test
-      include: tasks/domain.yml
+    - name: Create domains for mapping test
+      ansible.builtin.include_tasks: tasks/domain.yml
       vars:
         name: create {{ loop_domain_data['name'] }}
         domain: "{{ loop_domain_data }}"
@@ -16,8 +17,8 @@
       loop_control:
         loop_var: loop_domain_data
 
-    - name: create vlans for mapping test
-      include: tasks/vlan.yml
+    - name: Create vlans for mapping test
+      ansible.builtin.include_tasks: tasks/vlan.yml
       vars:
         name: create vlan {{ loop_vlan_data['name'] }}
         vlan: "{{ loop_vlan_data }}"
@@ -25,10 +26,10 @@
       loop_control:
         loop_var: loop_vlan_data
 
-    - name: delete vlans
-      include: tasks/vlan.yml
+    - name: Delete vlans
+      ansible.builtin.include_tasks: tasks/vlan.yml
       vars:
-        name: delete vlan {{ vlan['name'] }}
+        name: Delete vlan {{ vlan['name'] }}
         override:
           state: absent
         vlan: "{{ loop_vlan_data | combine(override) }}"
@@ -36,8 +37,8 @@
       loop_control:
         loop_var: loop_vlan_data
 
-    - name: delete domains
-      include: tasks/domain.yml
+    - name: Delete domains
+      ansible.builtin.include_tasks: tasks/domain.yml
       vars:
         name: delete {{ loop_domain_data['name'] }}
         override:

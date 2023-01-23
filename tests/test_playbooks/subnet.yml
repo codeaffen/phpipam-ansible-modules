@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Subnet module tests
+  hosts: localhost
   collections:
     - codeaffen.phpipam
   gather_facts: false
@@ -7,20 +8,20 @@
     - vars/server.yml
     - vars/subnet.yml
   tasks:
-    - name: create subnet
-      include: tasks/subnet.yml
+    - name: Create subnet
+      ansible.builtin.include_tasks: tasks/subnet.yml
       vars:
         name: create subnet
         subnet: "{{ base_subnet_data }}"
 
-    - name: create subnet again, no change
-      include: tasks/subnet.yml
+    - name: Create subnet again, no change
+      ansible.builtin.include_tasks: tasks/subnet.yml
       vars:
         name: create subnet again, no change
         subnet: "{{ base_subnet_data }}"
 
-    - name: set booleans
-      include: tasks/subnet.yml
+    - name: Set booleans
+      ansible.builtin.include_tasks: tasks/subnet.yml
       vars:
         name: set booleans
         override:
@@ -34,8 +35,8 @@
           is_full: No
         subnet: "{{ base_subnet_data | combine(override) }}"
 
-    - name: delete subnet
-      include: tasks/subnet.yml
+    - name: Delete subnet
+      ansible.builtin.include_tasks: tasks/subnet.yml
       vars:
         name: delete subnet
         override:

@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Vlan module tests
+  hosts: localhost
   collections:
     - codeaffen.phpipam
   gather_facts: false
@@ -7,28 +8,28 @@
     - vars/server.yml
     - vars/vlan.yml
   tasks:
-    - name: create vlan
-      include: tasks/vlan.yml
+    - name: Create vlan
+      ansible.builtin.include_tasks: tasks/vlan.yml
       vars:
         name: create vlan
         vlan: "{{ base_vlan_data }}"
 
-    - name: create vlan again, no change
-      include: tasks/vlan.yml
+    - name: Create vlan again, no change
+      ansible.builtin.include_tasks: tasks/vlan.yml
       vars:
         name: create vlan again, no change
         vlan: "{{ base_vlan_data }}"
 
-    - name: update vlan
-      include: tasks/vlan.yml
+    - name: Update vlan
+      ansible.builtin.include_tasks: tasks/vlan.yml
       vars:
         name: update vlan
         override:
           description: vlan updated
         vlan: "{{ base_vlan_data | combine(override) }}"
 
-    - name: delete vlan
-      include: tasks/vlan.yml
+    - name: Delete vlan
+      ansible.builtin.include_tasks: tasks/vlan.yml
       vars:
         name: delete vlan
         override:

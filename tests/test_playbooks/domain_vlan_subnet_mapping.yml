@@ -1,4 +1,4 @@
-- name: Setup domain, vlan and subnet mapping
+- name: Domain, vlan and subnet mapping
   hosts: localhost
   collections:
     - codeaffen.phpipam
@@ -8,7 +8,7 @@
     - vars/domain_vlan_subnet_mapping.yml
   tasks:
     - name: IPAM create sections
-      include_tasks: tasks/section.yml
+      ansible.builtin.include_tasks: tasks/section.yml
       vars:
         name: "create section '{{ section.name }}'"
       loop: "{{ docker_compose_ipam_sections }}"
@@ -17,7 +17,7 @@
       tags: admin_tasks_phpipam
 
     - name: IPAM create L2 domains
-      include_tasks: tasks/domain.yml
+      ansible.builtin.include_tasks: tasks/domain.yml
       vars:
         name: "create l2 domain '{{ domain.name }}'"
       loop: "{{ docker_compose_ipam_l2_domains }}"
@@ -26,7 +26,7 @@
       tags: admin_tasks_phpipam
 
     - name: Create VLANS
-      include_tasks: tasks/vlan.yml
+      ansible.builtin.include_tasks: tasks/vlan.yml
       vars:
         name: "create vlans '{{ vlan.name }}'"
       loop: "{{ docker_compose_ipam_vlans }}"
@@ -35,7 +35,7 @@
       tags: admin_tasks_phpipam
 
     - name: Create IP subnets
-      include_tasks: tasks/subnet.yml
+      ansible.builtin.include_tasks: tasks/subnet.yml
       vars:
         name: "create subnet '{{ subnet.name }}'"
       loop: "{{ docker_compose_ipam_subnets }}"

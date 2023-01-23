@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Section module tests
+  hosts: localhost
   collections:
     - codeaffen.phpipam
   gather_facts: false
@@ -7,28 +8,28 @@
     - vars/server.yml
     - vars/section.yml
   tasks:
-    - name: create section
-      include: tasks/section.yml
+    - name: Create section
+      ansible.builtin.include_tasks: tasks/section.yml
       vars:
         name: create section
         section: "{{ base_section_data }}"
 
-    - name: create section again, no change
-      include: tasks/section.yml
+    - name: Create section again, no change
+      ansible.builtin.include_tasks: tasks/section.yml
       vars:
         name: create section again, no change
         section: "{{ base_section_data }}"
 
-    - name: update section
-      include: tasks/section.yml
+    - name: Update section
+      ansible.builtin.include_tasks: tasks/section.yml
       vars:
         name: update section
         override:
           description: section updated
         section: "{{ base_section_data | combine(override) }}"
 
-    - name: delete section
-      include: tasks/section.yml
+    - name: Delete section
+      ansible.builtin.include_tasks: tasks/section.yml
       vars:
         name: delete section
         override:

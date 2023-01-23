@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Domain module tests
+  hosts: localhost
   collections:
     - codeaffen.phpipam
   gather_facts: false
@@ -7,28 +8,28 @@
     - vars/server.yml
     - vars/domain.yml
   tasks:
-    - name: create domain
-      include: tasks/domain.yml
+    - name: Create domain
+      ansible.builtin.include_tasks: tasks/domain.yml
       vars:
         name: create domain
         domain: "{{ base_domain_data }}"
 
-    - name: create domain again, no change
-      include: tasks/domain.yml
+    - name: Create domain again, no change
+      ansible.builtin.include_tasks: tasks/domain.yml
       vars:
         name: create domain again, no change
         domain: "{{ base_domain_data }}"
 
-    - name: update domain
-      include: tasks/domain.yml
+    - name: Update domain
+      ansible.builtin.include_tasks: tasks/domain.yml
       vars:
         name: update domain
         override:
           description: domain updated
         domain: "{{ base_domain_data | combine(override) }}"
 
-    - name: delete domain
-      include: tasks/domain.yml
+    - name: Delete domain
+      ansible.builtin.include_tasks: tasks/domain.yml
       vars:
         name: delete domain
         override:
