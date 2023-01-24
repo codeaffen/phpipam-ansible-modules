@@ -5,7 +5,7 @@
 Codeaffen.Phpipam
 =================
 
-Collection version 1.6.0
+Collection version 1.6.1
 
 .. contents::
    :local:
