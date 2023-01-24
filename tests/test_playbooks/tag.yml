@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Tag module tests
+  hosts: localhost
   collections:
     - codeaffen.phpipam
   gather_facts: false
@@ -7,28 +8,28 @@
     - vars/server.yml
     - vars/tag.yml
   tasks:
-    - name: create tag
-      include: tasks/tag.yml
+    - name: Create tag
+      ansible.builtin.include_tasks: tasks/tag.yml
       vars:
         name: create tag
         tag: "{{ base_tag_data }}"
 
-    - name: create tag again, no change
-      include: tasks/tag.yml
+    - name: Create tag again, no change
+      ansible.builtin.include_tasks: tasks/tag.yml
       vars:
         name: create tag again, no change
         tag: "{{ base_tag_data }}"
 
-    - name: update tag
-      include: tasks/tag.yml
+    - name: Update tag
+      ansible.builtin.include_tasks: tasks/tag.yml
       vars:
         name: update tag
         override:
           bg_color: yellow
         tag: "{{ base_tag_data | combine(override) }}"
 
-    - name: delete tag
-      include: tasks/tag.yml
+    - name: Delete tag
+      ansible.builtin.include_tasks: tasks/tag.yml
       vars:
         type: delete tag
         override:

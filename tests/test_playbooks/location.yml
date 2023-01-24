@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Location module tests
+  hosts: localhost
   collections:
     - codeaffen.phpipam
   gather_facts: false
@@ -7,20 +8,20 @@
     - vars/server.yml
     - vars/location.yml
   tasks:
-    - name: create location
-      include: tasks/location.yml
+    - name: Create location
+      ansible.builtin.include_tasks: tasks/location.yml
       vars:
         name: create location
         location: "{{ base_location_data }}"
 
-    - name: create location again, no change
-      include: tasks/location.yml
+    - name: Create location again, no change
+      ansible.builtin.include_tasks: tasks/location.yml
       vars:
         name: create location again, no change
         location: "{{ base_location_data }}"
 
-    - name: update location
-      include: tasks/location.yml
+    - name: Update location
+      ansible.builtin.include_tasks: tasks/location.yml
       vars:
         name: update location
         override:
@@ -29,8 +30,8 @@
           longitude: "{{ omit }}"
         location: "{{ base_location_data | combine(override) }}"
 
-    - name: delete location
-      include: tasks/location.yml
+    - name: Delete location
+      ansible.builtin.include_tasks: tasks/location.yml
       vars:
         type: delete location
         override:

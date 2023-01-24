@@ -1,0 +1,8 @@
+bugfixes:
+  - Enhance test suite by running test agains main phpipam versions as matrix build
+  - Update test playbooks to meet best practices for ansible 2.10.x
+    - use FQCNs
+    - migrate from `include` to `include_tasks`
+    - Add missing names
+    - Start names with upper case letters
+  - move to nodejs 16 for `checkout` and `setup-python` action

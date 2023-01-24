@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Simple example setup
+  hosts: localhost
   collections:
     - codeaffen.phpipam
   gather_facts: false
@@ -8,29 +9,30 @@
     - vars/section.yml
     - vars/subnet.yml
   tasks:
-    - name: setup data
-      block:
-      - name: create sections
-        include: tasks/section.yml
-        vars:
-          name: "{{ section.name }}"
-        loop: "{{ sections }}"
-        loop_control:
-          loop_var: section
-
-      - name: create subnets
-        include: tasks/subnet.yml
-        vars:
-          name: "{{ subnet.cidr }}"
-        loop: "{{ subnets }}"
-        loop_control:
-          loop_var: subnet
+    - name: Setup data
       when: cleanup is not defined
-
-    - name: cleanup data
       block:
-        - name: remove subnets
-          include: tasks/subnet.yml
+        - name: Create sections
+          ansible.builtin.include_tasks: tasks/section.yml
+          vars:
+            name: "{{ section.name }}"
+          loop: "{{ sections }}"
+          loop_control:
+            loop_var: section
+
+        - name: Create subnets
+          ansible.builtin.include_tasks: tasks/subnet.yml
+          vars:
+            name: "{{ subnet.cidr }}"
+          loop: "{{ subnets }}"
+          loop_control:
+            loop_var: subnet
+
+    - name: Cleanup data
+      when: cleanup is defined
+      block:
+        - name: Remove subnets
+          ansible.builtin.include_tasks: tasks/subnet.yml
           vars:
             name: "{{ subnet_loop.cidr }}"
             override:
@@ -40,8 +42,8 @@
           loop_control:
             loop_var: subnet_loop
 
-        - name: remove sections
-          include: tasks/section.yml
+        - name: Remove sections
+          ansible.builtin.include_tasks: tasks/section.yml
           vars:
             name: "{{ section_loop.name }}"
             override:
@@ -50,4 +52,3 @@
           loop: "{{ sections | reverse | list }}"
           loop_control:
             loop_var: section_loop
-      when: cleanup is defined
