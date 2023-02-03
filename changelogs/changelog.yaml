@@ -139,3 +139,18 @@ releases:
     - l2domain_parameter_in_subnet module.yml
     - same_vlan_in_different_l2domains.yml
     release_date: '2022-09-02'
+  1.6.1:
+    changes:
+      bugfixes:
+      - fix \#90 - booleans in subnet module aren't working
+      - fix \#93 - trouble creating subnet with a vrf
+      enhancements:
+      - Enhance test suite by running test agains main phpipam versions as matrix
+        build
+      - Update test playbooks to meet best practices for ansible 2.10.x
+      - move to nodejs 16 for `checkout` and `setup-python` action
+    fragments:
+    - ' booleans_in_subnet_module_not_working.yml'
+    - level_up_tests.yml
+    - trouble_creating_subnet_with_a_vrf.yml
+    release_date: '2023-01-24'

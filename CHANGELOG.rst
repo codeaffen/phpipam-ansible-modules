@@ -5,6 +5,22 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v1.6.1
+======
+
+Bugfixes
+--------
+
+- fix \#90 - booleans in subnet module aren't working
+- fix \#93 - trouble creating subnet with a vrf
+
+Enhancements
+------------
+
+- Enhance test suite by running test agains main phpipam versions as matrix build
+- Update test playbooks to meet best practices for ansible 2.10.x
+- move to nodejs 16 for `checkout` and `setup-python` action
+
 v1.6.0
 ======
 

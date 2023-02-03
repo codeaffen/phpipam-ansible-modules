@@ -27,6 +27,8 @@ sections:
   - Bugfixes
 - - known_issues
   - Known Issues
+- - enhancements
+  - Enhancements
 title: codeaffen.phpipam
 trivial_section_name: trivial
 use_fqcn: true
