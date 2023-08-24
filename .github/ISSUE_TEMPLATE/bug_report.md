@@ -22,6 +22,7 @@ A clear and concise description of what you expected to happen.
 - Ansible:
 - phpipam-ansible-modules:
 - phpypam:
+- phpIPAM:
 
 **Additional context**
 Add any other context about the problem here.
