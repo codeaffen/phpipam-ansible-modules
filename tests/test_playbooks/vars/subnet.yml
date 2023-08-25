@@ -11,3 +11,13 @@ subnets:
     section: "DevOps Department"
   - cidr: 192.0.2.0/25
     section: "Infrastructure Department"
+
+subnet_parents:
+  - cidr: 172.16.0.0/20
+    section: "Customers"
+  - cidr: 172.16.0.0/24
+    section: "Customers"
+    parent: 172.16.0.0/20
+  - cidr: 172.16.1.0/24
+    section: "Customers"
+    parent: 172.16.0.0/20

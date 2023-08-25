@@ -1,0 +1,36 @@
+---
+- name: Subnet module tests for subnets with parents/children
+  hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/subnet.yml
+  tasks:
+    - name: Create parent/children subnets
+      ansible.builtin.include_tasks: tasks/subnet.yml
+      vars:
+        name: "create subnet '{{ subnet.cidr }}'"
+      loop: "{{ subnet_parents }}"
+      loop_control:
+        loop_var: subnet
+
+    - name: Create parent/children subnets again, no change
+      ansible.builtin.include_tasks: tasks/subnet.yml
+      vars:
+        name: "create subnet '{{ subnet.cidr }}' again, no change"
+      loop: "{{ subnet_parents }}"
+      loop_control:
+        loop_var: subnet
+
+    - name: Delete parent/childre subnets
+      ansible.builtin.include_tasks: tasks/subnet.yml
+      vars:
+        name: delete subnet '{{ subent_loop.cidr }}' again, no change
+        override:
+          state: absent
+        subnet: "{{ subnet_loop | combine(override) }}"
+      loop: "{{ subnet_parents }}"
+      loop_control:
+        loop_var: subnet_loop

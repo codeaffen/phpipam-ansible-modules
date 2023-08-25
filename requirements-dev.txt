@@ -7,7 +7,7 @@ coverage
 geopy
 wheel
 jinja2 # pyup: ignore
-PyYAML~=5.3
+PyYAML~=6.0
 cryptography
 packaging
 requests
