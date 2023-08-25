@@ -53,6 +53,7 @@ Modules
 * :ref:`device module <ansible_collections.codeaffen.phpipam.device_module>` -- Manage devices
 * :ref:`device_type module <ansible_collections.codeaffen.phpipam.device_type_module>` -- Manage device types
 * :ref:`domain module <ansible_collections.codeaffen.phpipam.domain_module>` -- Manage L2 routing domains
+* :ref:`folder module <ansible_collections.codeaffen.phpipam.folder_module>` -- Manage folders
 * :ref:`location module <ansible_collections.codeaffen.phpipam.location_module>` -- Manage locations
 * :ref:`nameserver module <ansible_collections.codeaffen.phpipam.nameserver_module>` -- Manage nameservers
 * :ref:`section module <ansible_collections.codeaffen.phpipam.section_module>` -- Manage sections
@@ -75,6 +76,7 @@ Modules
     device_module
     device_type_module
     domain_module
+    folder_module
     location_module
     nameserver_module
     section_module

@@ -1,0 +1,36 @@
+---
+- name: Folder module tests for folders with parents/children
+  hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/folder.yml
+  tasks:
+    - name: Create parent/children folders
+      ansible.builtin.include_tasks: tasks/folder.yml
+      vars:
+        name: "create folder '{{ folder.name }}'"
+      loop: "{{ folder_parents }}"
+      loop_control:
+        loop_var: folder
+
+    - name: Create parent/children folders again, no change
+      ansible.builtin.include_tasks: tasks/folder.yml
+      vars:
+        name: "create folder '{{ folder.name }}' again, no change"
+      loop: "{{ folder_parents }}"
+      loop_control:
+        loop_var: folder
+
+    - name: Delete parent/childre folders
+      ansible.builtin.include_tasks: tasks/folder.yml
+      vars:
+        name: delete folder '{{ subent_loop.cidr }}' again, no change
+        override:
+          state: absent
+        folder: "{{ folder_loop | combine(override) }}"
+      loop: "{{ folder_parents }}"
+      loop_control:
+        loop_var: folder_loop

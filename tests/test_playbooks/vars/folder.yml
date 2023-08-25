@@ -1,0 +1,14 @@
+---
+base_folder_data:
+  name: Example folder
+  section: "Customers"
+
+folder_parents:
+  - name: Parent folder
+    section: "Customers"
+  - name: Sub folder 1
+    parent: Parent folder
+    section: "Customers"
+  - name: Sub folder 2
+    section: "Customers"
+    parent: Parent folder
