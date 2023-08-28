@@ -210,6 +210,27 @@ class PhpipamAnsibleModule(AnsibleModule):
 
         return result
 
+    def find_folder(self, folder, section):
+        # As folders controller does not guarantee safe searches for folders
+        # we decided to use `sections/<id>/subnets` and use our `result_filter` feature
+        # to select the desired entity from a list of results of search.
+
+        path = "/{0}/subnets/".format(self.find_entity('sections', section)['id'])
+
+        lookup_params = {
+            'filter_by': 'isFolder',
+            'filter_value': "1",
+        }
+
+        result_filter = {
+            'filter_by': 'description',
+            'filter_value': folder,
+        }
+
+        result = self.find_entity('sections', path, params=lookup_params, result_filter=result_filter)
+
+        return result
+
     def find_by_key(self, controller, value, key='name', controller_path='/'):
         """
         Some controllers don't provide the ability to search for entities by uri
@@ -243,6 +264,8 @@ class PhpipamAnsibleModule(AnsibleModule):
             entity = self.find_vlan(self.phpipam_params['vlan_id'], self.phpipam_params['routing_domain'])
         elif self.controller_name == 'vrf':
             entity = self.find_vrf(self.phpipam_params['name'])
+        elif self.controller_name == 'folder':
+            entity = self.find_folder(self.phpipam_params['name'], self.phpipam_params['section'])
         # l2domains needs to be singular because it is derived from class name
         elif 'tools' in self.controller_uri or self.controller_name == 'l2domain':
             entity = self.find_by_key(self.controller_uri, self.phpipam_params['name'])
@@ -254,7 +277,8 @@ class PhpipamAnsibleModule(AnsibleModule):
     def set_entity(self, key):
         self.phpipam_spec[key]['resolved'] = True
 
-    def _resolve_entity(self, key):
+    def _resolve_entity(self, key):  # noqa: C901
+
         if key not in self.phpipam_params:
             return None
 
@@ -274,6 +298,8 @@ class PhpipamAnsibleModule(AnsibleModule):
             result = self.find_vlan(self.phpipam_params[key], self.phpipam_params['routing_domain'])
         elif controller == 'vrf':
             result = self.find_vrf(self.phpipam_params['vrf'], self.phpipam_params['section'])
+        elif controller == 'folders':
+            result = self.find_folder(self.phpipam_params[key], self.phpipam_params['section'])
         # l2domains needs to be plural because it is derived from either controller parameter in entity_spec or controller_uri (which is pluralized)
         elif 'tools' in controller or controller == 'l2domains':
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key])
