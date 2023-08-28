@@ -1,0 +1,67 @@
+---
+- name: Subnet and folder module tests
+  hosts: localhost
+  collections:
+    - codeaffen.phpipam
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/subnet.yml
+  tasks:
+    - name: Create entities
+      block:
+        - name: Create folder
+          ansible.builtin.include_tasks: tasks/folder.yml
+          vars:
+            name: "create folder '{{ subnet_folder_data.folder }}'"
+            folder:
+              name: "{{ subnet_folder_data.folder }}"
+              section: "{{ subnet_folder_data.section }}"
+        - name: Create subnet within folder
+          ansible.builtin.include_tasks: tasks/subnet.yml
+          vars:
+            name: "create subnet '{{ subnet_folder_data.cidr }}' within folder '{{ subnet_folder_data.folder }}'"
+            subnet: "{{ subnet_folder_data }}"
+
+    - name: Create entities again, no change
+      block:
+        - name: Create folder again, no change
+          ansible.builtin.include_tasks: tasks/folder.yml
+          vars:
+            name: "create folder '{{ subnet_folder_data.folder }}'"
+            folder:
+              name: "{{ subnet_folder_data.folder }}"
+              section: "{{ subnet_folder_data.section }}"
+        - name: Create subnet within folder again, no change
+          ansible.builtin.include_tasks: tasks/subnet.yml
+          vars:
+            name: "create subnet '{{ subnet_folder_data.cidr }}' within folder '{{ subnet_folder_data.folder }}'"
+            subnet: "{{ subnet_folder_data }}"
+
+    - name: Create subnet with folder and parent section
+      ansible.builtin.import_tasks: tasks/subnet.yml
+      vars:
+        name: "Try to setup subent '{{ subnet_folder_data.cidr }}' with parent and folder set"
+        fragment:
+          parent: 10.65.22.0/24
+        subnet: "{{ subnet_folder_data | combine(fragment) }}"
+      register: result
+      ignore_errors: True
+
+    - name: Delete entities
+      block:
+        - name: Delete subnet
+          ansible.builtin.include_tasks: tasks/subnet.yml
+          vars:
+            name: delete subnet '{{ subnet_folder_data.cidr }}' from folder '{{ subnet_folder_data.folder }}'
+            override:
+              state: absent
+            subnet: "{{ subnet_folder_data | combine(override) }}"
+        - name: Delete folder
+          ansible.builtin.include_tasks: tasks/folder.yml
+          vars:
+            name: delete folder '{{ subnet_folder_data.folder }}'
+            folder:
+              name: "{{ subnet_folder_data.folder }}"
+              section: "{{ subnet_folder_data.section }}"
+              state: absent

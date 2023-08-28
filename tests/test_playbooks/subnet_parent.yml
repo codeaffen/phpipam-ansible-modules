@@ -27,7 +27,7 @@
     - name: Delete parent/childre subnets
       ansible.builtin.include_tasks: tasks/subnet.yml
       vars:
-        name: delete subnet '{{ subent_loop.cidr }}' again, no change
+        name: delete subnet '{{ subent_loop.cidr }}'
         override:
           state: absent
         subnet: "{{ subnet_loop | combine(override) }}"

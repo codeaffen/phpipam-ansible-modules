@@ -1,0 +1,2 @@
+enhancements:
+  - Refactore `subnet` module to handle subnets in folders
