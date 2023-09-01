@@ -21,3 +21,8 @@ subnet_parents:
   - cidr: 172.16.1.0/24
     section: "Customers"
     parent: 172.16.0.0/20
+
+subnet_folder_data:
+  cidr: 10.65.22.0/25
+  section: "Customers"
+  folder: "Example folder"

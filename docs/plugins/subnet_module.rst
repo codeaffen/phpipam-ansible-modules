@@ -380,21 +380,21 @@ Parameters
   * - .. raw:: html
 
         <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-is_folder"></div>
+        <div class="ansibleOptionAnchor" id="parameter-folder"></div>
 
-      .. _ansible_collections.codeaffen.phpipam.subnet_module__parameter-is_folder:
+      .. _ansible_collections.codeaffen.phpipam.subnet_module__parameter-folder:
 
       .. rst-class:: ansible-option-title
 
-      **is_folder**
+      **folder**
 
       .. raw:: html
 
-        <a class="ansibleOptionLink" href="#parameter-is_folder" title="Permalink to this option"></a>
+        <a class="ansibleOptionLink" href="#parameter-folder" title="Permalink to this option"></a>
 
       .. rst-class:: ansible-option-type-line
 
-      :ansible-option-type:`boolean`
+      :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -404,17 +404,8 @@ Parameters
 
         <div class="ansible-option-cell">
 
-      Controls if we are adding subnet or folder
+      folder name which subnet belongs to
 
-      can't be changed after subnet was created
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-default-bold:`no` :ansible-option-default:`← (default)`
-      - :ansible-option-choices-entry:`yes`
 
       .. raw:: html
 

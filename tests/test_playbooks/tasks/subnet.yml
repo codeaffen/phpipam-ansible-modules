@@ -15,6 +15,7 @@
     routing_domain: "{{ subnet.routing_domain | default(omit) }}"
     vrf: "{{ subnet.vrf | default(omit) }}"
     parent: "{{ subnet.parent | default(omit) }}"
+    folder: "{{ subnet.folder | default(omit) }}"
     nameserver: "{{ subnet.nameserver | default(omit) }}"
     show_as_name: "{{ subnet.show_as_name | default(omit) }}"
     permissions: "{{ subnet.permissions | default(omit) }}"

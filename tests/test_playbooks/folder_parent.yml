@@ -27,7 +27,7 @@
     - name: Delete parent/childre folders
       ansible.builtin.include_tasks: tasks/folder.yml
       vars:
-        name: delete folder '{{ subent_loop.cidr }}' again, no change
+        name: delete folder '{{ subent_loop.cidr }}'
         override:
           state: absent
         folder: "{{ folder_loop | combine(override) }}"

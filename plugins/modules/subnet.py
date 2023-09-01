@@ -80,6 +80,10 @@ options:
         required: false
         aliases:
             - master_subnet_cidr
+    folder:
+        description: folder name which subnet belongs to
+        type: str
+        required: false
     nameserver:
         description: Name of the DNS server which should attach to subnet
         type: str
@@ -120,13 +124,6 @@ options:
         default: no
     discover_subnet:
         description: Controls if new hosts should be discovered for new host scans
-        type: bool
-        required: false
-        default: no
-    is_folder:
-        description:
-            - Controls if we are adding subnet or folder
-            - can't be changed after subnet was created
         type: bool
         required: false
         default: no
@@ -212,6 +209,7 @@ def main():
             routing_domain=dict(type='str', api_invisible=True, default='default'),
             vrf=dict(type='entity', controller='vrf', phpipam_name='vrfId'),
             parent=dict(type='entity', phpipam_name='masterSubnetId'),
+            folder=dict(type='entity', controller='folders', phpipam_name='masterSubnetId'),
             nameserver=dict(type='entity', controller='tools/nameservers', phpipam_name='nameserverId'),
             show_as_name=dict(type='bool', phpipam_name='showName'),
             permissions=dict(type='json'),
@@ -227,7 +225,7 @@ def main():
             threshold=dict(type='int'),
             location=dict(type='entity', controller='tools/locations'),
         ),
-        mutually_exclusive=['cidr', 'subnet'],
+        mutually_exclusive=[['cidr', 'subnet'], ['parent', 'folder']],
         required_together=[['subnet', 'mask']],
     )
 
