@@ -154,3 +154,19 @@ releases:
     - level_up_tests.yml
     - trouble_creating_subnet_with_a_vrf.yml
     release_date: '2023-01-24'
+  1.7.0:
+    changes:
+      bugfixes:
+      - Fix \#98 - fix show_supernets_only parameter
+      enhancements:
+      - Add `folder` module to manage folders and nested folders
+      - Refactore `subnet` module to handle subnets in folders
+    fragments:
+    - feature_folder_module.yml
+    - feature_subnet_folder_parent.yml
+    - fix_show_supernets_only_param.yml
+    modules:
+    - description: Manage folders
+      name: folder
+      namespace: ''
+    release_date: '2023-09-01'
