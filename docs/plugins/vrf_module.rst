@@ -42,7 +42,7 @@ codeaffen.phpipam.vrf module -- Manage virtual routers and forwarders
 .. Collection note
 
 .. note::
-    This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_ (version 1.6.1).
+    This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/codeaffen/phpipam>`_ (version 1.7.0).
 
     You might already have this collection installed if you are using the ``ansible`` package.
     It is not included in ``ansible-core``.

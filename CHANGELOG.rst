@@ -5,6 +5,25 @@ codeaffen.phpipam Release Notes
 .. contents:: Topics
 
 
+v1.7.0
+======
+
+Bugfixes
+--------
+
+- Fix \#98 - fix show_supernets_only parameter
+
+Enhancements
+------------
+
+- Add `folder` module to manage folders and nested folders
+- Refactor `subnet` module to handle subnets in folders
+
+New Modules
+-----------
+
+- codeaffen.phpipam.folder - Manage folders
+
 v1.6.1
 ======
 
