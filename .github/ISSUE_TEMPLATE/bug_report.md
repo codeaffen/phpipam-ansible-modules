@@ -25,9 +25,30 @@ A clear and concise description of what you expected to happen.
 **Versions:**
 
 - Ansible:
+  ```shell
+  $ ansible --version
+  ```
 - phpipam-ansible-modules:
+  ```shell
+  $ ansible-galaxy collection list codeaffen.phpipam
+  ```
 - phpypam:
+  ```shell
+  $ pip freeze | grep phpypam
+  ```
 - phpIPAM:
+  ```shell
+  $ Version from webUI
+  ```
+
+- python version
+  ```shell
+  $ python -V
+  ```
+- list of python libraries:
+  ```shell
+  $ pip freeze
+  ```
 
 **Additional context**
 Add any other context about the problem here.
