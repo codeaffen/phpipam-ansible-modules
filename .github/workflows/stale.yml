@@ -21,3 +21,4 @@ jobs:
           days-before-stale: 30
           days-before-close: 5
           days-before-pr-close: -1
+          exempt-pr-labels: 'accepted,enhancement,help wanted'
