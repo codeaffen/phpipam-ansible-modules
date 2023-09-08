@@ -8,5 +8,5 @@
     name: "{{ folder.name | default(omit) }}"
     section: "{{ folder.section | default(omit) }}"
     parent: "{{ folder.parent | default(omit) }}"
-    permissions: "{{ section.permissions | default(omit) }}"
+    permissions: "{{ folder.permissions | default(omit) }}"
     state: "{{ folder.state | default('present') }}"
