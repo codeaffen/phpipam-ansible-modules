@@ -1,7 +1,5 @@
 - name: Domain vlan mapping tests
   hosts: localhost
-  collections:
-    - codeaffen.phpipam
   gather_facts: false
   vars_files:
     - vars/server.yml
@@ -11,39 +9,36 @@
     - name: Create domains for mapping test
       ansible.builtin.include_tasks: tasks/domain.yml
       vars:
-        name: create {{ loop_domain_data['name'] }}
-        domain: "{{ loop_domain_data }}"
-      loop: "{{ vlan_mapping_base_domain_data }}"
+        step: create {{ loop_domain_data['name'] }}
+        domain: '{{ loop_domain_data }}'
+      loop: '{{ vlan_mapping_base_domain_data }}'
       loop_control:
         loop_var: loop_domain_data
-
     - name: Create vlans for mapping test
       ansible.builtin.include_tasks: tasks/vlan.yml
       vars:
-        name: create vlan {{ loop_vlan_data['name'] }}
-        vlan: "{{ loop_vlan_data }}"
-      loop: "{{ vlan_mapping_base_vlan_data }}"
+        step: create vlan {{ loop_vlan_data['name'] }}
+        vlan: '{{ loop_vlan_data }}'
+      loop: '{{ vlan_mapping_base_vlan_data }}'
       loop_control:
         loop_var: loop_vlan_data
-
     - name: Delete vlans
       ansible.builtin.include_tasks: tasks/vlan.yml
       vars:
-        name: Delete vlan {{ vlan['name'] }}
+        step: Delete vlan {{ vlan['name'] }}
         override:
           state: absent
-        vlan: "{{ loop_vlan_data | combine(override) }}"
-      loop: "{{ vlan_mapping_base_vlan_data }}"
+        vlan: '{{ loop_vlan_data | combine(override) }}'
+      loop: '{{ vlan_mapping_base_vlan_data }}'
       loop_control:
         loop_var: loop_vlan_data
-
     - name: Delete domains
       ansible.builtin.include_tasks: tasks/domain.yml
       vars:
-        name: delete {{ loop_domain_data['name'] }}
+        step: delete {{ loop_domain_data['name'] }}
         override:
           state: absent
-        domain: "{{ loop_domain_data | combine(override) }}"
-      loop: "{{ vlan_mapping_base_domain_data }}"
+        domain: '{{ loop_domain_data | combine(override) }}'
+      loop: '{{ vlan_mapping_base_domain_data }}'
       loop_control:
         loop_var: loop_domain_data

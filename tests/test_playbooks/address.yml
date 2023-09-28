@@ -1,8 +1,5 @@
----
 - name: Address module tests
   hosts: localhost
-  collections:
-    - codeaffen.phpipam
   gather_facts: false
   vars_files:
     - vars/server.yml
@@ -11,27 +8,24 @@
     - name: Create address
       ansible.builtin.include_tasks: tasks/address.yml
       vars:
-        name: create address
-        address: "{{ base_address_data }}"
-
+        step: create address
+        address: '{{ base_address_data }}'
     - name: Create address again, no change
       ansible.builtin.include_tasks: tasks/address.yml
       vars:
-        name: create address again, no change
-        address: "{{ base_address_data }}"
-
+        step: create address again, no change
+        address: '{{ base_address_data }}'
     - name: Update address
       ansible.builtin.include_tasks: tasks/address.yml
       vars:
-        name: update address
+        step: update address
         override:
           description: address updated
-        address: "{{ base_address_data | combine(override) }}"
-
+        address: '{{ base_address_data | combine(override) }}'
     - name: Delete address
       ansible.builtin.include_tasks: tasks/address.yml
       vars:
-        name: delete address
+        step: delete address
         override:
           state: absent
-        address: "{{ base_address_data | combine(override) }}"
+        address: '{{ base_address_data | combine(override) }}'

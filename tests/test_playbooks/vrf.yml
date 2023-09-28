@@ -1,8 +1,5 @@
----
 - name: Vrf module tests
   hosts: localhost
-  collections:
-    - codeaffen.phpipam
   gather_facts: false
   vars_files:
     - vars/server.yml
@@ -11,27 +8,24 @@
     - name: Create vrf
       ansible.builtin.include_tasks: tasks/vrf.yml
       vars:
-        name: create vrf
-        vrf: "{{ base_vrf_data }}"
-
+        step: create vrf
+        vrf: '{{ base_vrf_data }}'
     - name: Create vrf again, no change
       ansible.builtin.include_tasks: tasks/vrf.yml
       vars:
-        name: create vrf again, no change
-        vrf: "{{ base_vrf_data }}"
-
+        step: create vrf again, no change
+        vrf: '{{ base_vrf_data }}'
     - name: Update vrf
       ansible.builtin.include_tasks: tasks/vrf.yml
       vars:
-        name: update vrf
+        step: update vrf
         override:
           description: vrf updated
-        vrf: "{{ base_vrf_data | combine(override) }}"
-
+        vrf: '{{ base_vrf_data | combine(override) }}'
     - name: Delete vrf
       ansible.builtin.include_tasks: tasks/vrf.yml
       vars:
-        name: delete vrf
+        step: delete vrf
         override:
           state: absent
-        vrf: "{{ base_vrf_data | combine(override) }}"
+        vrf: '{{ base_vrf_data | combine(override) }}'

@@ -1,6 +1,6 @@
 ---
-- name: "Ensure state of domain: {{ name }}"
-  domain:
+- name: "Ensure state of domain: {{ step }}"
+  codeaffen.phpipam.domain:
     server_url: "{{ phpipam_server_url }}"
     app_id: "{{ phpipam_app_id }}"
     username: "{{ phpipam_username }}"

@@ -1,8 +1,5 @@
----
 - name: Folder module tests
   hosts: localhost
-  collections:
-    - codeaffen.phpipam
   gather_facts: false
   vars_files:
     - vars/server.yml
@@ -11,19 +8,17 @@
     - name: Create folder
       ansible.builtin.include_tasks: tasks/folder.yml
       vars:
-        name: create folder
-        folder: "{{ base_folder_data }}"
-
+        step: create folder
+        folder: '{{ base_folder_data }}'
     - name: Create folder again, no change
       ansible.builtin.include_tasks: tasks/folder.yml
       vars:
-        name: create folder again, no change
-        folder: "{{ base_folder_data }}"
-
+        step: create folder again, no change
+        folder: '{{ base_folder_data }}'
     - name: Delete folder
       ansible.builtin.include_tasks: tasks/folder.yml
       vars:
-        name: delete folder
+        step: delete folder
         override:
           state: absent
-        folder: "{{ base_folder_data | combine(override) }}"
+        folder: '{{ base_folder_data | combine(override) }}'
