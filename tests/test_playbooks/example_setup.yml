@@ -1,8 +1,5 @@
----
 - name: Simple example setup
   hosts: localhost
-  collections:
-    - codeaffen.phpipam
   gather_facts: false
   vars_files:
     - vars/server.yml
@@ -15,40 +12,37 @@
         - name: Create sections
           ansible.builtin.include_tasks: tasks/section.yml
           vars:
-            name: "{{ section.name }}"
-          loop: "{{ sections }}"
+            step: '{{ section.name }}'
+          loop: '{{ sections }}'
           loop_control:
             loop_var: section
-
         - name: Create subnets
           ansible.builtin.include_tasks: tasks/subnet.yml
           vars:
-            name: "{{ subnet.cidr }}"
-          loop: "{{ subnets }}"
+            step: '{{ subnet.cidr }}'
+          loop: '{{ subnets }}'
           loop_control:
             loop_var: subnet
-
     - name: Cleanup data
       when: cleanup is defined
       block:
         - name: Remove subnets
           ansible.builtin.include_tasks: tasks/subnet.yml
           vars:
-            name: "{{ subnet_loop.cidr }}"
+            step: '{{ subnet_loop.cidr }}'
             override:
               state: absent
-            subnet: "{{ subnet_loop | combine(override) }}"
-          loop: "{{ subnets | reverse | list }}"
+            subnet: '{{ subnet_loop | combine(override) }}'
+          loop: '{{ subnets | reverse | list }}'
           loop_control:
             loop_var: subnet_loop
-
         - name: Remove sections
           ansible.builtin.include_tasks: tasks/section.yml
           vars:
-            name: "{{ section_loop.name }}"
+            step: '{{ section_loop.name }}'
             override:
               state: absent
-            section: "{{ section_loop | combine(override) }}"
-          loop: "{{ sections | reverse | list }}"
+            section: '{{ section_loop | combine(override) }}'
+          loop: '{{ sections | reverse | list }}'
           loop_control:
             loop_var: section_loop

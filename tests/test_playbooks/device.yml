@@ -1,8 +1,5 @@
----
 - name: Device module tests
   hosts: localhost
-  collections:
-    - codeaffen.phpipam
   gather_facts: false
   vars_files:
     - vars/server.yml
@@ -11,28 +8,25 @@
     - name: Create device
       ansible.builtin.include_tasks: tasks/device.yml
       vars:
-        name: create device
-        device: "{{ base_device_data }}"
-
+        step: create device
+        device: '{{ base_device_data }}'
     - name: Create device again, no change
       ansible.builtin.include_tasks: tasks/device.yml
       vars:
-        name: create device again, no change
-        device: "{{ base_device_data }}"
-
+        step: create device again, no change
+        device: '{{ base_device_data }}'
     - name: Update device
       ansible.builtin.include_tasks: tasks/device.yml
       vars:
-        name: update device
+        step: update device
         override:
           description: device updated
-          snmp_community: 'my secret community'
-        device: "{{ base_device_data | combine(override) }}"
-
+          snmp_community: my secret community
+        device: '{{ base_device_data | combine(override) }}'
     - name: Delete device
       ansible.builtin.include_tasks: tasks/device.yml
       vars:
-        name: delete device
+        step: delete device
         override:
           state: absent
-        device: "{{ base_device_data | combine(override) }}"
+        device: '{{ base_device_data | combine(override) }}'

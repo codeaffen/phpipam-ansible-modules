@@ -1,6 +1,6 @@
 ---
-- name: "Ensure state of vlan: {{ name }}"
-  vlan:
+- name: "Ensure state of vlan: {{ step }}"
+  codeaffen.phpipam.vlan:
     server_url: "{{ phpipam_server_url }}"
     app_id: "{{ phpipam_app_id }}"
     username: "{{ phpipam_username }}"

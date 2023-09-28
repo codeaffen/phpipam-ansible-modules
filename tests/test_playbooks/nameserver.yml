@@ -1,8 +1,5 @@
----
 - name: Nameserver module tests
   hosts: localhost
-  collections:
-    - codeaffen.phpipam
   gather_facts: false
   vars_files:
     - vars/server.yml
@@ -11,27 +8,24 @@
     - name: Create nameserver
       ansible.builtin.include_tasks: tasks/nameserver.yml
       vars:
-        name: create nameserver
-        nameserver: "{{ base_nameserver_data }}"
-
+        step: create nameserver
+        nameserver: '{{ base_nameserver_data }}'
     - name: Create nameserver again, no change
       ansible.builtin.include_tasks: tasks/nameserver.yml
       vars:
-        name: create nameserver again, no change
-        nameserver: "{{ base_nameserver_data }}"
-
+        step: create nameserver again, no change
+        nameserver: '{{ base_nameserver_data }}'
     - name: Update nameserver
       ansible.builtin.include_tasks: tasks/nameserver.yml
       vars:
-        name: update nameserver
+        step: update nameserver
         override:
           description: nameserver updated
-        nameserver: "{{ base_nameserver_data | combine(override) }}"
-
+        nameserver: '{{ base_nameserver_data | combine(override) }}'
     - name: Delete nameserver
       ansible.builtin.include_tasks: tasks/nameserver.yml
       vars:
-        name: delete nameserver
+        step: delete nameserver
         override:
           state: absent
-        nameserver: "{{ base_nameserver_data | combine(override) }}"
+        nameserver: '{{ base_nameserver_data | combine(override) }}'

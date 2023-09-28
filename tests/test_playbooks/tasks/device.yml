@@ -1,6 +1,6 @@
 ---
-- name: "Ensure state of device: {{ name }}"
-  device:
+- name: "Ensure state of device: {{ step }}"
+  codeaffen.phpipam.device:
     server_url: "{{ phpipam_server_url }}"
     app_id: "{{ phpipam_app_id }}"
     username: "{{ phpipam_username }}"
