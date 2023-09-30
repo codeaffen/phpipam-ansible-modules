@@ -39,10 +39,10 @@ version = u''
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'myst_parser',
+    'recommonmark',
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
-    'ansible_basic_sphinx_ext',
+    'sphinx_antsibull_ext',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -75,6 +75,7 @@ exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
 
+highlight_language = 'YAML+Jinja'
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -160,24 +161,6 @@ texinfo_documents = [
      author, 'phpipam-ansible-modules', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-# -- Options for Epub output -------------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
