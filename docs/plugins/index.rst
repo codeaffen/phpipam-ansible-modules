@@ -1,5 +1,9 @@
 
 
+.. meta::
+  :antsibull-docs: 2.5.0
+
+
 .. _plugins_in_codeaffen.phpipam:
 
 Codeaffen.Phpipam
@@ -26,13 +30,22 @@ Ansible Modules to manage phpIPAM installations
 * Scott Arthur <scott@scottatron.com>
 * lush <porous@web.de>
 
-.. raw:: html
+**Supported ansible-core versions:**
 
-  <p class="ansible-links">
-    <a href="https://github.com/codeaffen/phpipam-ansible-modules/issues" aria-role="button" target="_blank" rel="noopener external">Issue Tracker</a>
-    <a href="https://codeaffen.org/projects/phpipam-ansible-modules" aria-role="button" target="_blank" rel="noopener external">Homepage</a>
-    <a href="https://github.com/codeaffen/phpipam-ansible-modules" aria-role="button" target="_blank" rel="noopener external">Repository (Sources)</a>
-  </p>
+* 2.9 or newer
+
+.. ansible-links::
+
+  - title: "Issue Tracker"
+    url: "https://github.com/codeaffen/phpipam-ansible-modules/issues"
+    external: true
+  - title: "Homepage"
+    url: "https://codeaffen.org/projects/phpipam-ansible-modules"
+    external: true
+  - title: "Repository (Sources)"
+    url: "https://github.com/codeaffen/phpipam-ansible-modules"
+    external: true
+
 
 
 
@@ -49,24 +62,18 @@ These are the plugins in the codeaffen.phpipam collection:
 Modules
 ~~~~~~~
 
-* :ref:`address module <ansible_collections.codeaffen.phpipam.address_module>` -- Manage addresses
-* :ref:`device module <ansible_collections.codeaffen.phpipam.device_module>` -- Manage devices
-* :ref:`device_type module <ansible_collections.codeaffen.phpipam.device_type_module>` -- Manage device types
-* :ref:`domain module <ansible_collections.codeaffen.phpipam.domain_module>` -- Manage L2 routing domains
-* :ref:`folder module <ansible_collections.codeaffen.phpipam.folder_module>` -- Manage folders
-* :ref:`location module <ansible_collections.codeaffen.phpipam.location_module>` -- Manage locations
-* :ref:`nameserver module <ansible_collections.codeaffen.phpipam.nameserver_module>` -- Manage nameservers
-* :ref:`section module <ansible_collections.codeaffen.phpipam.section_module>` -- Manage sections
-* :ref:`subnet module <ansible_collections.codeaffen.phpipam.subnet_module>` -- Manage subnets
-* :ref:`tag module <ansible_collections.codeaffen.phpipam.tag_module>` -- Manage tags
-* :ref:`vlan module <ansible_collections.codeaffen.phpipam.vlan_module>` -- Manage vlans
-* :ref:`vrf module <ansible_collections.codeaffen.phpipam.vrf_module>` -- Manage virtual routers and forwarders
-
-
-
-.. seealso::
-
-    List of :ref:`collections <list_of_collections>` with docs hosted here.
+* :ansplugin:`address module <codeaffen.phpipam.address#module>` -- Manage addresses
+* :ansplugin:`device module <codeaffen.phpipam.device#module>` -- Manage devices
+* :ansplugin:`device_type module <codeaffen.phpipam.device_type#module>` -- Manage device types
+* :ansplugin:`domain module <codeaffen.phpipam.domain#module>` -- Manage L2 routing domains
+* :ansplugin:`folder module <codeaffen.phpipam.folder#module>` -- Manage folders
+* :ansplugin:`location module <codeaffen.phpipam.location#module>` -- Manage locations
+* :ansplugin:`nameserver module <codeaffen.phpipam.nameserver#module>` -- Manage nameservers
+* :ansplugin:`section module <codeaffen.phpipam.section#module>` -- Manage sections
+* :ansplugin:`subnet module <codeaffen.phpipam.subnet#module>` -- Manage subnets
+* :ansplugin:`tag module <codeaffen.phpipam.tag#module>` -- Manage tags
+* :ansplugin:`vlan module <codeaffen.phpipam.vlan#module>` -- Manage vlans
+* :ansplugin:`vrf module <codeaffen.phpipam.vrf#module>` -- Manage virtual routers and forwarders
 
 .. toctree::
     :maxdepth: 1
@@ -84,3 +91,17 @@ Modules
     tag_module
     vlan_module
     vrf_module
+
+
+Filter Plugins
+~~~~~~~~~~~~~~
+
+* :ansplugin:`is_subnet filter <codeaffen.phpipam.is_subnet#filter>` -- 
+
+.. toctree::
+    :maxdepth: 1
+    :hidden:
+
+    is_subnet_filter
+
+
