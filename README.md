@@ -10,7 +10,7 @@ We get a lot of inspiration from [foreman-ansible-modules](https://galaxy.ansibl
 
 ## Installation
 
-The collection is available via [Ansible Galaxy](https://galaxy.ansible.com/codeaffen/phpipam). So you can run
+The collection is available via [Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/). So you can run
 
 ```bash
 ansible-galaxy collection install codeaffen.phpipam
