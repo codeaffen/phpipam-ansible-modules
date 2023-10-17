@@ -1,14 +1,17 @@
 ---
+folder_section:
+  name: "Folder Test Section"
+
 base_folder_data:
   name: Example folder
-  section: "Customers"
+  section: "{{ folder_section.name }}"
 
 folder_parents:
   - name: Parent folder
-    section: "Customers"
+    section: "{{ folder_section.name }}"
   - name: Sub folder 1
     parent: Parent folder
-    section: "Customers"
+    section: "{{ folder_section.name }}"
   - name: Sub folder 2
-    section: "Customers"
+    section: "{{ folder_section.name }}"
     parent: Parent folder

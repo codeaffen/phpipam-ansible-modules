@@ -461,6 +461,11 @@ Parameters
 
 .. Notes
 
+Notes
+-----
+
+.. note::
+   - This module needs a phpIPAM backend with version 1.4.1 or highter.
 
 .. Seealso
 

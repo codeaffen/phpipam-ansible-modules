@@ -5,6 +5,12 @@
     - vars/server.yml
     - vars/folder.yml
   tasks:
+    - name: Create Section
+      ansible.builtin.include_tasks: tasks/section.yml
+      vars:
+        step: Create empty section for folder tests
+        section: '{{ folder_section }}'
+
     - name: Create parent/children folders
       ansible.builtin.include_tasks: tasks/folder.yml
       vars:
@@ -29,3 +35,11 @@
       loop: '{{ folder_parents }}'
       loop_control:
         loop_var: folder_loop
+
+    - name: Delete Section
+      ansible.builtin.include_tasks: tasks/section.yml
+      vars:
+        step: delete folder tests section
+        override:
+          state: absent
+        section: '{{ folder_section | combine(override) }}'

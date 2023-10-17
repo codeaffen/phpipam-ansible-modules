@@ -27,6 +27,9 @@ description:
     - create, update and delete folders
 author:
     - "Christian Meißner (@cmeissner)"
+notes:
+    - This module needs a phpIPAM backend with version 1.4.1 or highter.
+
 options:
     name:
         description: Name of the folder to manage
