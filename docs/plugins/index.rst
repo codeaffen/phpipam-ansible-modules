@@ -96,7 +96,7 @@ Modules
 Filter Plugins
 ~~~~~~~~~~~~~~
 
-* :ansplugin:`is_subnet filter <codeaffen.phpipam.is_subnet#filter>` -- 
+* :ansplugin:`is_subnet filter <codeaffen.phpipam.is_subnet#filter>` -- Check if a subnet belongs to another
 
 .. toctree::
     :maxdepth: 1
