@@ -71,7 +71,7 @@ options:
         required: false
         default: default
     vrf:
-        description: VRF which the sunet should belongs to
+        description: VRF which the subnet should belongs to
         type: str
         required: false
     parent:
@@ -236,7 +236,7 @@ def main():
 
     if 'cidr' in module_params:
         if '/' not in module_params['cidr']:
-            module.fail_json(msg='missing prefix lenght in "cidr". Need <ipaddr>/<prefix_lenght>.')
+            module.fail_json(msg='missing prefix lenght in "cidr". Need <ipaddr>/<prefix_length>.')
         else:
             IPNetwork = None
             if '.' in module_params['cidr'] and ':' not in module_params['cidr']:
@@ -246,7 +246,7 @@ def main():
                 IPNetwork = ipaddress.IPv6Network
                 module_params['mask'] = str(IPNetwork(u'%s' % (module_params['cidr'])).prefixlen)
             else:
-                module.fail_json(msg='wrong formated "cidr". Need <ipaddr>/<prefix_lenght>.')
+                module.fail_json(msg='wrong formatted "cidr". Need <ipaddr>/<prefix_length>.')
             module_params['subnet'] = str(IPNetwork(u'%s' % (module_params['cidr'])).network_address)
         del module_params['cidr']
 
