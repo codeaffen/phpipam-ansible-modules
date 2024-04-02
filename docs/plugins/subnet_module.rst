@@ -767,7 +767,7 @@ Parameters
 
       Layer-2 routing domain the vlan belongs to
 
-      If you have \ :emphasis:`vlan`\  with same number in different routing domains it need to be set on desired value
+      If you have \ :emphasis:`vlan`\  with same number in different routing domains it needs to be set on desired value
 
 
       .. rst-class:: ansible-option-line
