@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if grep -q podman <<< $(docker --version 2> /dev/null) ; then
+if grep -iq podman <<< $(docker version 2> /dev/null) ; then
   echo "Podman is installed"
   DOCKER_CMD=$(which podman)
 fi
