@@ -10,6 +10,8 @@ jobs:
       matrix:
         phpipam-version: ['v1.4x', 'v1.5x']
     steps:
+      - name: Upgrade docker-compose
+        run: sudo apt-get install --upgrade docker-compose
       - uses: actions/checkout@v3
       - name: setup phpipam
         uses: codeaffen/phpipam-action@v2
@@ -18,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.x'
+          python-version: '3.9'
       - name: setup test environment
         run: |
           make test-setup

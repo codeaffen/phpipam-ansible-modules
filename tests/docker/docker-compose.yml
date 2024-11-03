@@ -11,6 +11,7 @@ services:
       IPAM_DATABASE_NAME: "phpipam"
     depends_on:
       - database
+    container_name: phpipam_test_webserver
   database:
     image: mariadb:10.3.18
     ports:
@@ -20,3 +21,4 @@ services:
       MYSQL_USER: "phpipam"
       MYSQL_PASSWORD: "phpipamadmin"
       MYSQL_DATABASE: "phpipam"
+    container_name: phpipam_test_db

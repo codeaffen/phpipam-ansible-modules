@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if grep -q podman <<< $(docker --version 2> /dev/null) ; then
+if grep -iq podman <<< $(docker version 2> /dev/null) ; then
   echo "Podman is installed"
   DOCKER_CMD=$(which podman)
 fi
@@ -13,7 +13,7 @@ done
 echo "Database is up"
 
 echo "Creating database ${DB_NAME:-phpipam}"
-${DOCKER_CMD} exec -ti docker_phpipam_1 sh -c 'mysql -h database -u phpipam -pphpipamadmin phpipam < /phpipam/db/SCHEMA.sql'
+${DOCKER_CMD} exec -ti phpipam_test_webserver sh -c 'mysql -h database -u phpipam -pphpipamadmin phpipam < /phpipam/db/SCHEMA.sql'
 
 echo "Activating API"
 mysql -u phpipam -pphpipamadmin -h "${DB_HOST:-127.0.0.1}" phpipam --execute="UPDATE settings SET api=1 WHERE id=1;"
