@@ -7,7 +7,7 @@ body:
       value: |
         1. Please fill our form below, this way we can analyse your request as fast as possible and can give feedback wether we would or could implement the freature.
         2. If you are adding screenshots and/or videos, please do add it in English so that a wider group of people can understand and help with resolution.
-  - type: checkbox
+  - type: checkboxes
     attributes:
       label: Preflight checks
       description: Please ensure you've completed all of the following.
