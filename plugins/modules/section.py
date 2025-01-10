@@ -126,7 +126,7 @@ def main():
             permissions=dict(type='json', required=False, default=None),
             strict_mode=dict(type='bool', required=False),
             subnet_ordering=dict(type='bool', required=False, phpipam_name='subnetOrdering'),
-            list_order=dict(type='bool', required=False, phpipam_name='order'),
+            list_order=dict(type='int', required=False, phpipam_name='order'),
             show_vlan=dict(type='bool', required=False, phpipam_name='showVLAN'),
             show_vrf=dict(type='bool', required=False, phpipam_name='showVRF'),
             show_supernets_only=dict(type='bool', required=False, phpipam_name='showSupernetOnly'),
