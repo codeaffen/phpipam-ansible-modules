@@ -1,4 +1,3 @@
-
 .. Document meta
 
 :orphan:
@@ -7,7 +6,7 @@
     :trim:
 
 .. meta::
-  :antsibull-docs: 2.5.0
+  :antsibull-docs: 2.16.3
 
 .. Anchors
 
@@ -23,7 +22,7 @@ codeaffen.phpipam.vlan module -- Manage vlans
 .. Collection note
 
 .. note::
-    This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/>`_ (version 1.7.0).
+    This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/>`_ (version 1.7.1).
 
     It is not included in ``ansible-core``.
     To check whether it is installed, run :code:`ansible-galaxy collection list`.
@@ -446,7 +445,7 @@ Parameters
 
       The VLAN-ID. Must be a number.
 
-      Due to implementation of api the value has to be \ :emphasis:`string`\  here but is \ :emphasis:`int`\  in phpIPAM
+      Due to implementation of api the value has to be :emphasis:`string` here but is :emphasis:`int` in phpIPAM
 
 
       .. raw:: html
@@ -470,7 +469,6 @@ Examples
 
 .. code-block:: yaml+jinja
 
-    
     - name: "Create vlan"
       codeaffen.phpipam.vlan:
         username: "admin"
@@ -487,7 +485,6 @@ Examples
         server_url: "https://ipam.example.com"
         name: "my vlan"
         state: absent
-
 
 
 
@@ -528,4 +525,3 @@ Collection links
 
 
 .. Parsing errors
-

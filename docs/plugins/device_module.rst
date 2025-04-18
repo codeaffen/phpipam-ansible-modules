@@ -1,4 +1,3 @@
-
 .. Document meta
 
 :orphan:
@@ -7,7 +6,7 @@
     :trim:
 
 .. meta::
-  :antsibull-docs: 2.5.0
+  :antsibull-docs: 2.16.3
 
 .. Anchors
 
@@ -23,7 +22,7 @@ codeaffen.phpipam.device module -- Manage devices
 .. Collection note
 
 .. note::
-    This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/>`_ (version 1.7.0).
+    This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/>`_ (version 1.7.1).
 
     It is not included in ``ansible-core``.
     To check whether it is installed, run :code:`ansible-galaxy collection list`.
@@ -294,7 +293,7 @@ Parameters
 
       Rack where the device belongs to.
 
-      If set \ :emphasis:`starting\_rack\_unit`\  and \ :emphasis:`rack\_units`\  are also required.
+      If set :emphasis:`starting\_rack\_unit` and :emphasis:`rack\_units` are also required.
 
 
       .. raw:: html
@@ -328,9 +327,9 @@ Parameters
 
         <div class="ansible-option-cell">
 
-      Size of device in \ :emphasis:`U`\ .
+      Size of device in :emphasis:`U`.
 
-      If set \ :emphasis:`rack`\  and \ :emphasis:`starting\_rack\_unit`\  are also required.
+      If set :emphasis:`rack` and :emphasis:`starting\_rack\_unit` are also required.
 
 
       .. raw:: html
@@ -844,7 +843,7 @@ Parameters
 
       Which is the starting rack unit where the device is mounted.
 
-      If set \ :emphasis:`rack`\  and \ :emphasis:`racK\_units`\  are also required.
+      If set :emphasis:`rack` and :emphasis:`racK\_units` are also required.
 
 
       .. raw:: html
@@ -924,9 +923,9 @@ Parameters
 
       The value has to reflect values from device types configured.
 
-      Default device types are \ :emphasis:`Switch`\ , \ :emphasis:`Router`\ , \ :emphasis:`Firewall`\ , \ :emphasis:`Hub`\ , \ :emphasis:`Wireless`\ , \ :emphasis:`Database`\ , \ :emphasis:`Workstation`\ , \ :emphasis:`Laptop`\  and \ :emphasis:`Other`\ .
+      Default device types are :emphasis:`Switch`\ , :emphasis:`Router`\ , :emphasis:`Firewall`\ , :emphasis:`Hub`\ , :emphasis:`Wireless`\ , :emphasis:`Database`\ , :emphasis:`Workstation`\ , :emphasis:`Laptop` and :emphasis:`Other`.
 
-      User defined types can be created either via UI, API (e.g. \ :emphasis:`device\_type`\  ansible module within this collection).
+      User defined types can be created either via UI, API (e.g. :emphasis:`device\_type` ansible module within this collection).
 
 
       .. raw:: html
@@ -1026,7 +1025,6 @@ Examples
 
 .. code-block:: yaml+jinja
 
-    
     - name: "Create device"
       codeaffen.phpipam.device:
         username: "admin"
@@ -1046,7 +1044,6 @@ Examples
         server_url: "https://ipam.example.com"
         name: "leaf-example-001"
         state: absent
-
 
 
 
@@ -1087,4 +1084,3 @@ Collection links
 
 
 .. Parsing errors
-

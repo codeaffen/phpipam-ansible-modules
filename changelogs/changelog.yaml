@@ -170,3 +170,10 @@ releases:
       name: folder
       namespace: ''
     release_date: '2023-09-01'
+  1.7.1:
+    changes:
+      bugfixes:
+      - Fix \#123 - `app_id` defaults to `ansible` is not defined
+    fragments:
+    - app_id_default.yaml
+    release_date: '2025-04-18'

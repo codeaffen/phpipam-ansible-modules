@@ -1,4 +1,3 @@
-
 .. Document meta
 
 :orphan:
@@ -7,7 +6,7 @@
     :trim:
 
 .. meta::
-  :antsibull-docs: 2.5.0
+  :antsibull-docs: 2.16.3
 
 .. Anchors
 
@@ -23,7 +22,7 @@ codeaffen.phpipam.is_subnet filter -- Check if a subnet belongs to another
 .. Collection note
 
 .. note::
-    This filter plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/>`_ (version 1.7.0).
+    This filter plugin is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/>`_ (version 1.7.1).
 
     It is not included in ``ansible-core``.
     To check whether it is installed, run :code:`ansible-galaxy collection list`.
@@ -50,7 +49,7 @@ Synopsis
 
 .. Description
 
-- First argument is a subnet  second another. If the first subnet belongs to second
+- First argument is a subnet second another. If the first subnet belongs to second
 
 
 .. Aliases
@@ -197,9 +196,7 @@ Examples
 
 .. code-block:: yaml+jinja
 
-    
-      192.0.2.0/25 | codeaffen.phpipam.is_subnet(192.0.2.0/24)
-
+    192.0.2.0/25 | codeaffen.phpipam.is_subnet(192.0.2.0/24)
 
 
 
@@ -296,4 +293,3 @@ Collection links
 
 
 .. Parsing errors
-
