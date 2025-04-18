@@ -122,7 +122,7 @@ def main():
         phpipam_spec=dict(
             name=dict(type='str', required=True),
             description=dict(type='str', required=False),
-            parent=dict(type='entity', controller='sections', required=False, defautl=None, phpipam_name='masterSection'),
+            parent=dict(type='entity', controller='sections', required=False, default=None, phpipam_name='masterSection'),
             permissions=dict(type='json', required=False, default=None),
             strict_mode=dict(type='bool', required=False),
             subnet_ordering=dict(type='bool', required=False, phpipam_name='subnetOrdering'),

@@ -1,0 +1,19 @@
+- name: Check app_id defaults to 'ansible'
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/section.yml
+  tasks:
+    - name: Create section
+      ansible.builtin.include_tasks: tasks/shared_vars_section.yml
+      vars:
+        step: create section
+        section: '{{ base_section_data }}'
+    - name: Delete section
+      ansible.builtin.include_tasks: tasks/shared_vars_section.yml
+      vars:
+        step: delete section
+        override:
+          state: absent
+        section: '{{ base_section_data | combine(override) }}'

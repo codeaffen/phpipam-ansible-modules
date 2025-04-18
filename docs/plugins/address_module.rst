@@ -348,7 +348,7 @@ Parameters
 
         <div class="ansible-option-cell">
 
-      IP address to hanle
+      IP address to handle
 
 
       .. raw:: html

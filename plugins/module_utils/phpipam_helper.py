@@ -58,7 +58,7 @@ class PhpipamAnsibleModule(AnsibleModule):
         self.phpipam_spec, gen_args = self._phpipam_spec_helper(kwargs.pop('phpipam_spec', {}))
         argument_spec = dict(
             server_url=dict(required=True, fallback=(env_fallback, ['PHPIPAM_SERVER_URL'])),
-            app_id=dict(required=True, fallback=(env_fallback, ['PHPIPAM_APP_ID'])),
+            app_id=dict(required=False, fallback=(env_fallback, ['PHPIPAM_APP_ID']), default='ansible'),
             username=dict(required=True, fallback=(env_fallback, ['PHPIPAM_USERNAME'])),
             password=dict(required=True, fallback=(env_fallback, ['PHPIPAM_PASSWORD']), no_log=True),
             validate_certs=dict(type='bool', fallback=(env_fallback, ['PHPIPAM_VALIDATE_CERTS']), required=False, default=True),
