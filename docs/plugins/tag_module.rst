@@ -1,4 +1,3 @@
-
 .. Document meta
 
 :orphan:
@@ -7,7 +6,7 @@
     :trim:
 
 .. meta::
-  :antsibull-docs: 2.5.0
+  :antsibull-docs: 2.16.3
 
 .. Anchors
 
@@ -23,7 +22,7 @@ codeaffen.phpipam.tag module -- Manage tags
 .. Collection note
 
 .. note::
-    This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/>`_ (version 1.7.0).
+    This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/>`_ (version 1.7.1).
 
     It is not included in ``ansible-core``.
     To check whether it is installed, run :code:`ansible-galaxy collection list`.
@@ -611,7 +610,6 @@ Examples
 
 .. code-block:: yaml+jinja
 
-    
     - name: "Create tag"
       codeaffen.phpipam.tag:
         username: "admin"
@@ -629,7 +627,6 @@ Examples
         server_url: "https://ipam.example.com"
         name: "my tag"
         state: absent
-
 
 
 
@@ -670,4 +667,3 @@ Collection links
 
 
 .. Parsing errors
-

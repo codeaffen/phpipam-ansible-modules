@@ -1,4 +1,3 @@
-
 .. Document meta
 
 :orphan:
@@ -7,7 +6,7 @@
     :trim:
 
 .. meta::
-  :antsibull-docs: 2.5.0
+  :antsibull-docs: 2.16.3
 
 .. Anchors
 
@@ -23,7 +22,7 @@ codeaffen.phpipam.subnet module -- Manage subnets
 .. Collection note
 
 .. note::
-    This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/>`_ (version 1.7.0).
+    This module is part of the `codeaffen.phpipam collection <https://galaxy.ansible.com/ui/repo/published/codeaffen/phpipam/>`_ (version 1.7.1).
 
     It is not included in ``ansible-core``.
     To check whether it is installed, run :code:`ansible-galaxy collection list`.
@@ -200,7 +199,7 @@ Parameters
 
       Network in CIDR format.
 
-      Mutually exclusive with \ :emphasis:`subnet`\  and \ :emphasis:`mask`\ .
+      Mutually exclusive with :emphasis:`subnet` and :emphasis:`mask`.
 
 
       .. raw:: html
@@ -540,9 +539,9 @@ Parameters
 
       Prefix length (bits) for ipv4 and ipv6 subnets.
 
-      Mutually exclusive with \ :emphasis:`cidr`\ .
+      Mutually exclusive with :emphasis:`cidr`.
 
-      If set. \ :emphasis:`subnet`\  is required.
+      If set. :emphasis:`subnet` is required.
 
 
       .. raw:: html
@@ -767,7 +766,7 @@ Parameters
 
       Layer-2 routing domain the vlan belongs to
 
-      If you have \ :emphasis:`vlan`\  with same number in different routing domains it needs to be set on desired value
+      If you have :emphasis:`vlan` with same number in different routing domains it need to be set on desired value
 
 
       .. rst-class:: ansible-option-line
@@ -993,9 +992,9 @@ Parameters
 
       Network address
 
-      Mutually exclusive with \ :emphasis:`cidr`\ .
+      Mutually exclusive with :emphasis:`cidr`.
 
-      If set, \ :emphasis:`mask`\  is required.
+      If set, :emphasis:`mask` is required.
 
 
       .. raw:: html
@@ -1207,7 +1206,7 @@ Parameters
 
         <div class="ansible-option-cell">
 
-      VRF which the sunet should belongs to
+      VRF which the subnet should belongs to
 
 
       .. raw:: html
@@ -1231,7 +1230,6 @@ Examples
 
 .. code-block:: yaml+jinja
 
-    
     - name: "Create a subnet"
       codeaffen.phpipam.subnet:
         username: "admin"
@@ -1250,7 +1248,6 @@ Examples
         parent: "192.0.2.128/25"
         section: "DEVOPS department"
         state: present
-
 
 
 
@@ -1313,7 +1310,7 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
 
         </div>
 
-    
+
   * - .. raw:: html
 
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
@@ -1395,4 +1392,3 @@ Collection links
 
 
 .. Parsing errors
-

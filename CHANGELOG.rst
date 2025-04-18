@@ -4,6 +4,13 @@ codeaffen.phpipam Release Notes
 
 .. contents:: Topics
 
+v1.7.1
+======
+
+Bugfixes
+--------
+
+- Fix \#123 - `app_id` defaults to `ansible` if not defined
 
 v1.7.0
 ======
@@ -17,7 +24,7 @@ Enhancements
 ------------
 
 - Add `folder` module to manage folders and nested folders
-- Refactor `subnet` module to handle subnets in folders
+- Refactore `subnet` module to handle subnets in folders
 
 New Modules
 -----------
@@ -181,3 +188,4 @@ New Modules
 
 v0.1.0
 ======
+

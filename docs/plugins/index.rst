@@ -1,7 +1,5 @@
-
-
 .. meta::
-  :antsibull-docs: 2.5.0
+  :antsibull-docs: 2.16.3
 
 
 .. _plugins_in_codeaffen.phpipam:
@@ -9,7 +7,7 @@
 Codeaffen.Phpipam
 =================
 
-Collection version 1.7.0
+Collection version 1.7.1
 
 .. contents::
    :local:
@@ -51,7 +49,6 @@ Ansible Modules to manage phpIPAM installations
 
 .. toctree::
     :maxdepth: 1
-
 
 Plugin Index
 ------------
@@ -103,5 +100,3 @@ Filter Plugins
     :hidden:
 
     is_subnet_filter
-
-
