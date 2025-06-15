@@ -3,6 +3,9 @@
 exec 10>&1
 exec > /dev/null 2>&1
 
+# split version number into semvar parts
+read -r MAJOR MINOR PATCH <<<$(echo ${PHPIPAM_VERSION#v} | tr . " ")
+
 function info() {
     echo "${@}" >&10
 }
@@ -17,6 +20,7 @@ fi
 if "${DOCKER_CMD}" ps | grep -q phpipam_test_webserver && ! eval "${MYSQL_PING}" ; then
 
     if [[ $(echo "${PHPIPAM_VERSION:-v1.4.4}" | sed -E 's/v[0-9]?.([0-9]?).[0-9]?/\1/g') -ge 7 ]] ; then
+    if [[ ${MINOR} -ge 7 ]] ; then
         info "Running version 1.7.0 or above, patching config"
         ${DOCKER_CMD} exec -t phpipam_test_webserver sh -c 'sed -i "s/api_stringify_results = false/api_stringify_results = true/g" /phpipam/config.dist.php'
     fi
