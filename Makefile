@@ -93,7 +93,6 @@ install-deps:
 
 setup-phpipam: test-setup
 	docker-compose -f tests/docker/docker-compose.yml up -d
-	sleep 30
 	sh tests/docker/setup_database.sh
 
 FORCE:
