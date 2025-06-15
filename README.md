@@ -51,6 +51,34 @@ The following dependencies have to be fulfiled by the Ansible controller.
 * ipaddress
 * phpypam>=1.0.0
 
+## Compatibility notice
+
+To ensure `phpipam-ansible-modules` work correctly with phpIPAM versions 1.7 and above, you need to modify the phpIPAM configuration to stringify API results. This is crucial because newer phpIPAM versions might return numerical values directly, which the Ansible modules might expect as strings.
+
+Here's how to implement the workaround:
+
+**1. Modify phpIPAM Configuration**
+
+You need to set the `api_stringify_results` variable to `true` in your phpIPAM configuration. This change should be made in the `config.php` file, which is typically located in the phpIPAM installation directory (e.g., `/var/www/html/phpipam/config.php` or `/var/www/phpipam/config.php`).
+
+Add or modify the following line in your `config.php` file:
+
+```
+<?php
+/*
+ * phpIPAM config.php
+ *
+ * ... existing configuration ...
+ */
+
+// Required for Ansible modules with phpIPAM v1.7 and above
+$api_stringify_results = true;
+
+/*
+ * ... rest of your configuration ...
+ */
+?>
+```
 ## Need help?
 
 If you’ve found any issues in this release please head over to github and open a bug so we can take a look.
