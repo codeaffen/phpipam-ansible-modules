@@ -93,7 +93,7 @@ install-deps:
 
 setup-phpipam: test-setup
 	docker-compose -f tests/docker/docker-compose.yml up -d
-	sh tests/docker/setup_database.sh
+	sh tests/docker/setup_phpipam.sh
 
 FORCE:
 

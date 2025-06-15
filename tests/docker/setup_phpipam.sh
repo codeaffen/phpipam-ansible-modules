@@ -3,6 +3,9 @@
 exec 10>&1
 exec > /dev/null 2>&1
 
+# split version number into semvar parts
+read -r MAJOR MINOR PATCH <<<$(echo ${PHPIPAM_VERSION#v} | tr . " ")
+
 function info() {
     echo "${@}" >&10
 }
@@ -15,6 +18,11 @@ if grep -qi podman <<< $(docker version 2> /dev/null) ; then
 fi
 
 if "${DOCKER_CMD}" ps | grep -q phpipam_test_webserver && ! eval "${MYSQL_PING}" ; then
+
+    if [[ ${MINOR} -ge 7 ]] ; then
+        info "Running version 1.7.0 or above, patching config"
+        ${DOCKER_CMD} exec -t phpipam_test_webserver sh -c 'sed -i "s/api_stringify_results = false/api_stringify_results = true/g" /phpipam/config.dist.php'
+    fi
 
     info -n "Waiting for database connection "
     while ! eval "${MYSQL_PING}" ; do
@@ -44,8 +52,8 @@ if [[ $(mysqlshow -u root -prootpw -h 127.0.0.1 -P 3306 phpipam 2>/dev/null | wc
 
 else
 
-    info "Detabase already initiated" && exit 0
+    info "Database already initiated" && exit 0
 
 fi
 
-info "Database initialisation $result"
+info "Database initialization $result"
