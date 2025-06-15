@@ -1,4 +1,3 @@
-version: '3'
 services:
   phpipam:
     image: "phpipam/phpipam-www:${PHPIPAM_VERSION:-v1.4.4}"
