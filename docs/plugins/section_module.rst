@@ -203,40 +203,6 @@ Parameters
   * - .. raw:: html
 
         <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-list_order"></div>
-
-      .. _ansible_collections.codeaffen.phpipam.section_module__parameter-list_order:
-
-      .. rst-class:: ansible-option-title
-
-      **list_order**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-list_order" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`integer`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Order in sections list view
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-name"></div>
 
       .. _ansible_collections.codeaffen.phpipam.section_module__parameter-name:
@@ -262,6 +228,94 @@ Parameters
         <div class="ansible-option-cell">
 
       Name of the section
+
+
+      .. raw:: html
+
+        </div>
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="parameter-order_by"></div>
+
+      .. _ansible_collections.codeaffen.phpipam.section_module__parameter-order_by:
+
+      .. rst-class:: ansible-option-title
+
+      **order_by**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#parameter-order_by" title="Permalink to this option"></a>
+
+      .. ansible-option-type-line::
+
+        :ansible-option-type:`string`
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      Specifies the field to use for sorting the returned subnets
+
+
+      .. rst-class:: ansible-option-line
+
+      :ansible-option-choices:`Choices:`
+
+      - :ansible-option-choices-entry:`"subnet"`
+      - :ansible-option-choices-entry:`"description"`
+
+
+      .. raw:: html
+
+        </div>
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="parameter-order_direction"></div>
+
+      .. _ansible_collections.codeaffen.phpipam.section_module__parameter-order_direction:
+
+      .. rst-class:: ansible-option-title
+
+      **order_direction**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#parameter-order_direction" title="Permalink to this option"></a>
+
+      .. ansible-option-type-line::
+
+        :ansible-option-type:`string`
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      Determines the sorting direction, either ascending or descending
+
+      'asc' sorts from A to Z or from smallest to largest number
+
+      'desc' sorts from Z to A or from largest to smallest number
+
+
+      .. rst-class:: ansible-option-line
+
+      :ansible-option-choices:`Choices:`
+
+      - :ansible-option-choices-entry:`"asc"`
+      - :ansible-option-choices-entry:`"desc"`
 
 
       .. raw:: html
@@ -623,44 +677,6 @@ Parameters
       - :ansible-option-choices-entry-default:`false` :ansible-option-choices-default-mark:`← (default)`
       - :ansible-option-choices-entry:`true`
 
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-subnet_ordering"></div>
-
-      .. _ansible_collections.codeaffen.phpipam.section_module__parameter-subnet_ordering:
-
-      .. rst-class:: ansible-option-title
-
-      **subnet_ordering**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-subnet_ordering" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      How to order subnets within this section
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-default-bold:`Default:` :ansible-option-default:`"subnet,asc"`
 
       .. raw:: html
 

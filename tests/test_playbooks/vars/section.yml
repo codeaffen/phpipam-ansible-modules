@@ -2,6 +2,8 @@
 base_section_data:
   name: "Example Inc."
   show_supernets_only: yes
+  order_by: subnet
+  order_direction: asc
 
 sections:
   - name: "ACME Inc."
