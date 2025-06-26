@@ -56,14 +56,18 @@ options:
         type: bool
         required: false
         default: no
-    subnet_ordering:
-        description: How to order subnets within this section
+    order_by:
+        description: Specifies the field to use for sorting the returned subnets
         type: str
+        choices: [ subnet, description ]
         required: false
-        default: "subnet,asc"
-    list_order:
-        description: Order in sections list view
-        type: int
+    order_direction:
+        description:
+            - Determines the sorting direction, either ascending or descending
+            - "'asc' sorts from A to Z or from smallest to largest number"
+            - "'desc' sorts from Z to A or from largest to smallest number"
+        type: str
+        choices: [ asc, desc ]
         required: false
     show_vlan:
         description: Show/hide VLANs in subnet list view
@@ -125,17 +129,26 @@ def main():
             parent=dict(type='entity', controller='sections', required=False, default=None, phpipam_name='masterSection'),
             permissions=dict(type='json', required=False, default=None),
             strict_mode=dict(type='bool', required=False),
-            subnet_ordering=dict(type='bool', required=False, phpipam_name='subnetOrdering'),
-            list_order=dict(type='bool', required=False, phpipam_name='order'),
+            order_by=dict(type=str, required=False, choices=['subnet', 'description']),
+            order_direction=dict(type=str, required=False, choices=['asc', 'desc']),
+            subnetOrdering=dict(type=str, required=False),
             show_vlan=dict(type='bool', required=False, phpipam_name='showVLAN'),
             show_vrf=dict(type='bool', required=False, phpipam_name='showVRF'),
             show_supernets_only=dict(type='bool', required=False, phpipam_name='showSupernetOnly'),
             dns_resolver=dict(type='entity', controller='tools/nameservers', required=False, phpipam_name='DNS'),
-        )
+        ),
+        required_together=[['order_by', 'order_direction']],
     )
 
-    if not module.desired_absent:
-        pass
+    module_params = module.phpipam_params
+
+    if 'order_by' in module_params and 'order_direction' in module_params:
+        module_params['subnetOrdering'] = module_params['order_by'] + ',' + module_params['order_direction']
+        del module_params['order_by']
+        del module_params['order_direction']
+
+    # if not module.desired_absent:
+    #     pass
 
     with module.api_connection():
         module.run()

@@ -1,0 +1,6 @@
+enhancements:
+- Add possibility to set subnet ordering for section from Ansible, even though the setting only reflects in GUI
+- Add option `order_by` as choice of `subnet` and 'description'
+- Add option `order_direction` as choice of `asc` and `desc`
+breaking_changes:
+- Remove `list_oder`, as this parameters serves no purpose
