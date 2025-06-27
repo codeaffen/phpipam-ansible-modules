@@ -24,4 +24,5 @@
     snmp_v3_priv_pass: "{{ device.snmp_v3_priv_pass | default(omit) }}"
     snmp_v3_ctx_name: "{{ device.snmp_v3_ctx_name | default(omit) }}"
     snmp_v3_ctx_engine_id: "{{ device.snmp_v3_ctx_engine_id | default(omit) }}"
+    location: "{{ device.location | default(omit) }}"
     state: "{{ device.state | default('present') }}"

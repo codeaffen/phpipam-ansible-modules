@@ -20,4 +20,5 @@
     port: "{{ address.port | default(omit) }}"
     note: "{{ address.note | default(omit) }}"
     exclude_ping: "{{ address.exclude_ping | default(omit) }}"
+    location: "{{ address.location | default(omit) }}"
     state: "{{ address.state | default('present') }}"

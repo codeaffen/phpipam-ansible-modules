@@ -1,6 +1,7 @@
 - name: Location module tests
   hosts: localhost
   gather_facts: false
+  tags: [location]
   vars_files:
     - vars/server.yml
     - vars/location.yml
@@ -10,11 +11,13 @@
       vars:
         step: create location
         location: '{{ base_location_data }}'
+      tags: [create]
     - name: Create location again, no change
       ansible.builtin.include_tasks: tasks/location.yml
       vars:
         step: create location again, no change
         location: '{{ base_location_data }}'
+      tags: [read]
     - name: Update location
       ansible.builtin.include_tasks: tasks/location.yml
       vars:
@@ -24,6 +27,7 @@
           latitude: '{{ omit }}'
           longitude: '{{ omit }}'
         location: '{{ base_location_data | combine(override) }}'
+      tags: [update]
     - name: Delete location
       ansible.builtin.include_tasks: tasks/location.yml
       vars:
@@ -31,3 +35,4 @@
         override:
           state: absent
         location: '{{ base_location_data | combine(override) }}'
+      tags: [delete]

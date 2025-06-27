@@ -1,6 +1,7 @@
 - name: Address module tests
   hosts: localhost
   gather_facts: false
+  tags: [address]
   vars_files:
     - vars/server.yml
     - vars/address.yml
@@ -10,11 +11,13 @@
       vars:
         step: create address
         address: '{{ base_address_data }}'
+      tags: [create]
     - name: Create address again, no change
       ansible.builtin.include_tasks: tasks/address.yml
       vars:
         step: create address again, no change
         address: '{{ base_address_data }}'
+      tags: [read]
     - name: Update address
       ansible.builtin.include_tasks: tasks/address.yml
       vars:
@@ -22,6 +25,7 @@
         override:
           description: address updated
         address: '{{ base_address_data | combine(override) }}'
+      tags: [update]
     - name: Delete address
       ansible.builtin.include_tasks: tasks/address.yml
       vars:
@@ -29,3 +33,4 @@
         override:
           state: absent
         address: '{{ base_address_data | combine(override) }}'
+      tags: [delete]
