@@ -1,6 +1,7 @@
 - name: Device module tests
   hosts: localhost
   gather_facts: false
+  tags: [device]
   vars_files:
     - vars/server.yml
     - vars/device.yml
@@ -10,11 +11,13 @@
       vars:
         step: create device
         device: '{{ base_device_data }}'
+      tags: [create]
     - name: Create device again, no change
       ansible.builtin.include_tasks: tasks/device.yml
       vars:
         step: create device again, no change
         device: '{{ base_device_data }}'
+      tags: [read]
     - name: Update device
       ansible.builtin.include_tasks: tasks/device.yml
       vars:
@@ -23,6 +26,7 @@
           description: device updated
           snmp_community: my secret community
         device: '{{ base_device_data | combine(override) }}'
+      tags: [update]
     - name: Delete device
       ansible.builtin.include_tasks: tasks/device.yml
       vars:
@@ -30,3 +34,4 @@
         override:
           state: absent
         device: '{{ base_device_data | combine(override) }}'
+      tags: [delete]

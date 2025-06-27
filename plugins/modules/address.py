@@ -97,6 +97,11 @@ options:
         description: Exclude this address from status update scans
         type: bool
         required: false
+    location:
+        description: Address location
+        version_added: 1.8.0
+        type: str
+        required: false
 extends_documentation_fragment:
     - codeaffen.phpipam.phpipam
     - codeaffen.phpipam.phpipam.entity_state
@@ -151,6 +156,7 @@ def main():
             port=dict(type='str'),
             note=dict(type='str'),
             exclude_ping=dict(type='bool'),
+            location=dict(type='entity', controller='tools/locations'),
         )
     )
 

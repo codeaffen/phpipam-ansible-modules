@@ -118,6 +118,11 @@ options:
         description: CTX engine id when using SNMPv3
         type: str
         required: false
+    location:
+        description: Device location
+        version_added: 1.8.0
+        type: str
+        required: false
 extends_documentation_fragment:
     - codeaffen.phpipam.phpipam
     - codeaffen.phpipam.phpipam.entity_state
@@ -175,6 +180,7 @@ def main():
             snmp_v3_priv_pass=dict(type='str', no_log=True, phpipam_name='snmp_v3_priv_pass'),
             snmp_v3_ctx_name=dict(type='str', phpipam_name='snmp_v3_ctx_name'),
             snmp_v3_ctx_engine_id=dict(type='str', phpipam_name='snmp_v3_ctx_engine_id'),
+            location=dict(type='entity', controller='tools/locations'),
         ),
         required_together=['rack', 'starting_rack', 'rack_units'],
     )
