@@ -294,6 +294,8 @@ class PhpipamAnsibleModule(AnsibleModule):
             result = self.find_device_type(self.phpipam_params[key])
         elif controller == 'tools/tags':
             result = self.find_by_key(controller=controller, value=self.phpipam_params[key], key='type')
+        elif controller == 'tools/devices':
+            result = self.find_by_key(controller=controller, value=self.phpipam_params[key], key='hostname')
         elif controller == 'vlan':
             result = self.find_vlan(self.phpipam_params[key], self.phpipam_params['routing_domain'])
         elif controller == 'vrf':

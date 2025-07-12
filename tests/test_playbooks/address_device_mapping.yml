@@ -1,0 +1,53 @@
+- name: Address and device module test
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - vars/server.yml
+    - vars/address.yml
+    - vars/device.yml
+  vars:
+    address_device:
+      device: 'Test device'
+    address: '{{ base_address_data | combine(address_device) }}'
+  tasks:
+    - name: Create entities
+      tags: [create]
+      block:
+        - name: Create device
+          ansible.builtin.include_tasks: tasks/device.yml
+          vars:
+            step: create device
+            device: '{{ base_device_data }}'
+        - name: Create address
+          ansible.builtin.include_tasks: tasks/address.yml
+          vars:
+            step: create address
+    - name: Create entities again, no change
+      tags: [read]
+      block:
+        - name: Create device again, no change
+          ansible.builtin.include_tasks: tasks/device.yml
+          vars:
+            step: create device again, no change
+            device: '{{ base_device_data }}'
+        - name: Create address again, no change
+          ansible.builtin.include_tasks: tasks/address.yml
+          vars:
+            step: create address again, no change
+    - name: Delete entities
+      tags: [delete]
+      block:
+        - name: Delete device
+          ansible.builtin.include_tasks: tasks/device.yml
+          vars:
+            step: delete device
+            override:
+              state: absent
+            device: '{{ base_device_data | combine(override) }}'
+        - name: Delete address
+          ansible.builtin.include_tasks: tasks/address.yml
+          vars:
+            step: delete address
+            override:
+              state: absent
+            address: '{{ base_address_data | combine(override) }}'

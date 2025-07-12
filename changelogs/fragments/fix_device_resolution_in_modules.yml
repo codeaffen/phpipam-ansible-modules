@@ -1,0 +1,2 @@
+bugfixes:
+- fix resolution of device in address module - \#135
