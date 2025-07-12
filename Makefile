@@ -80,7 +80,7 @@ test-setup: | tests/test_playbooks/vars/server.yml install-deps install
 	test -f tests/test_playbooks/vars/server.yml
 
 test-all:
-	coverage run -m pytest -n 4 --forked -vv 'tests/test_crud.py::test_crud'
+	coverage run -m pytest -n 8 --forked -vv 'tests/test_crud.py::test_crud'
 
 test-%:
 	coverage run -m pytest --forked -vv 'tests/test_crud.py::test_case_crud' --testcase $*
