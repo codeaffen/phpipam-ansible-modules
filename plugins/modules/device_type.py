@@ -50,7 +50,6 @@ EXAMPLES = '''
     server_url: "https://ipam.example.com"
     name: "USP"
     description: "universal power supply"
-    description:
     state: present
 
 - name: "Remove device type"
