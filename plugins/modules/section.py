@@ -59,6 +59,7 @@ options:
     order_by:
         description: Specifies the field to use for sorting the returned subnets
         type: str
+        version_added: 1.8.0
         choices: [ subnet, description ]
         required: false
     order_direction:
@@ -67,6 +68,7 @@ options:
             - "'asc' sorts from A to Z or from smallest to largest number"
             - "'desc' sorts from Z to A or from largest to smallest number"
         type: str
+        version_added: 1.8.0
         choices: [ asc, desc ]
         required: false
     show_vlan:
