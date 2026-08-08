@@ -41,10 +41,12 @@ options:
         description: List of IP addresses the namerserver can be reached on
         type: list
         required: false
+        elements: str
     sections:
         description: List of sections where the nameserver appears
         type: list
         required: false
+        elements: str
 extends_documentation_fragment:
     - codeaffen.phpipam.phpipam
     - codeaffen.phpipam.phpipam.entity_state
