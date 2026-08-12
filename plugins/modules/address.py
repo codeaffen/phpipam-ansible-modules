@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 # (c) Christian Meißner 2020
 #
