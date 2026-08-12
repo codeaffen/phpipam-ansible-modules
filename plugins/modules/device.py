@@ -53,6 +53,7 @@ options:
         description: List of sections where the device belongs to
         type: list
         required: false
+        elements: str
     rack:
         description:
             - Rack where the device belongs to.
