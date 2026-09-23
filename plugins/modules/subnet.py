@@ -115,7 +115,7 @@ options:
         default: no
     scan_agent:
         description: Name of scanagent which should be used for subnet
-        type: string
+        type: str
         required: false
     ping_subnet:
         description: Controls if subnet should be included in status checks
@@ -134,7 +134,7 @@ options:
         default: no
     subnet_state:
         description: Assigned tag of the subnet.
-        type: string
+        type: str
         required: false
     threshold:
         description: Subnet threshold

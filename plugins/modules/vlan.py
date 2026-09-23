@@ -45,7 +45,7 @@ options:
         required: true
     routing_domain:
         description: Name of the L2 routing domain of that VLAN
-        type: string
+        type: str
         required: false
 extends_documentation_fragment:
     - codeaffen.phpipam.phpipam
